@@ -4,7 +4,7 @@ const CONFIG = {
     // Automatically switch between localhost and your deployed backend URL on Render
     API_URL: isLocalhost
         ? 'http://localhost:5000/api'
-        : 'https://sellout-backend.onrender.com/api', // <-- YOU WILL UPDATE THIS ONCE YOU HAVE YOUR RENDER URL
+        : 'https://sellout-backend.onrender.com/api',
 
     // Default currency
     CURRENCY: '₵',

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your Sellout account - Campus Resale Marketplace">
+    <title>Sign Up | Sellout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css?v=5">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex items-center justify-center py-12">
+    <!-- Background Effects -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-0 right-1/4 w-[600px] h-[400px] bg-green-100/50 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 left-1/4 w-[400px] h-[300px] bg-emerald-100/40 rounded-full blur-[100px]"></div>
+    </div>
+
+    <div class="relative w-full max-w-md mx-4">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <a href="index.html" class="inline-flex items-center gap-2">
+                <img src="assets/logo.png" alt="Sellout Logo" class="h-12 w-12 rounded-xl object-contain bg-green-600 p-2">
+                <span class="text-2xl font-bold text-gray-900">Sellout</span>
+            </a>
+        </div>
+
+        <!-- Register Card -->
+        <div class="bg-white border border-gray-100 rounded-2xl p-8 shadow-xl shadow-black/[0.03]">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold mb-2 text-gray-900">Create Your Account</h1>
+                <p class="text-gray-400">Join the campus marketplace community</p>
+            </div>
+
+            <form id="registerForm" class="space-y-5">
+                <!-- Full Name -->
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-600 mb-2">Full Name</label>
+                    <div class="relative">
+                        <input type="text" id="name" name="name" required placeholder="John Doe"
+                            class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                        <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-600 mb-2">Email Address</label>
+                    <div class="relative">
+                        <input type="email" id="email" name="email" required placeholder="you@university.edu"
+                            class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                        <i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Campus -->
+                <div>
+                    <label for="campus" class="block text-sm font-medium text-gray-600 mb-2">Campus / University</label>
+                    <div class="relative">
+                        <input type="text" id="campus" name="campus" required placeholder="e.g., University of Lagos"
+                            class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                        <i class="fas fa-university absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- WhatsApp Number -->
+                <div>
+                    <label for="whatsapp" class="block text-sm font-medium text-gray-600 mb-2">WhatsApp Number</label>
+                    <div class="relative">
+                        <input type="tel" id="whatsapp" name="whatsapp" required placeholder="+234 xxx xxx xxxx"
+                            class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                        <i class="fab fa-whatsapp absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">Buyers will contact you via WhatsApp</p>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-600 mb-2">Password</label>
+                    <div class="relative">
+                        <input type="password" id="password" name="password" required minlength="6"
+                            placeholder="At least 6 characters"
+                            class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 pl-11 pr-12 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                        <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <button type="button" id="togglePassword"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div>
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-600 mb-2">Confirm
+                        Password</label>
+                    <div class="relative">
+                        <input type="password" id="confirmPassword" name="confirmPassword" required
+                            placeholder="Confirm your password"
+                            class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                        <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="flex items-start gap-3">
+                    <input type="checkbox" id="terms" required
+                        class="w-4 h-4 mt-0.5 rounded border-gray-300 text-green-600 focus:ring-green-500/20">
+                    <label for="terms" class="text-sm text-gray-500">
+                        I agree to the <a href="#" class="text-green-600 hover:text-green-700">Terms of Service</a>
+                        and <a href="#" class="text-green-600 hover:text-green-700">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage"
+                    class="hidden p-4 rounded-xl bg-red-50 border border-red-100 text-red-600 text-sm">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span id="errorText"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn"
+                    class="w-full py-3.5 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 hover:shadow-lg hover:shadow-green-600/20 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span>Create Account</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <!-- Google Login -->
+            <div id="googleSection" class="hidden">
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-400">Or continue with</span>
+                    </div>
+                </div>
+                <div id="googleBtn" class="flex justify-center w-full mb-6"></div>
+            </div>
+
+            <!-- Divider -->
+            <div class="relative my-8">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-4 bg-white text-gray-400">Already have an account?</span>
+                </div>
+            </div>
+
+            <!-- Login Link -->
+            <a href="login.html"
+                class="block w-full py-3 rounded-xl border border-gray-300 text-center text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all">
+                Sign In
+            </a>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="text-center mt-6">
+            <a href="index.html" class="text-sm text-gray-400 hover:text-green-600 transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Home
+            </a>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js?v=5"></script>
+    <script src="js/utils.js?v=5"></script>
+    <script src="js/api.js?v=5"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+
+            togglePassword.addEventListener('click', () => {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                togglePassword.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+
+            const registerForm = document.getElementById('registerForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+
+            registerForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                errorMessage.classList.add('hidden');
+
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const campus = document.getElementById('campus').value.trim();
+                const whatsapp = document.getElementById('whatsapp').value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const terms = document.getElementById('terms').checked;
+
+                if (!name || !email || !campus || !whatsapp || !password) {
+                    showError('Please fill in all fields');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    showError('Password must be at least 6 characters');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    showError('Passwords do not match');
+                    return;
+                }
+
+                if (!terms) {
+                    showError('Please accept the Terms of Service');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Creating Account...';
+
+                try {
+                    const response = await api.post('/auth/register', {
+                        name, email, campus, whatsapp, password
+                    });
+
+                    if (response.success) {
+                        localStorage.setItem('token', response.data.token);
+                        localStorage.setItem('user', JSON.stringify(response.data.user));
+                        showToast('Account created successfully!', 'success');
+                        setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+                    } else {
+                        showError(response.message || 'Registration failed');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<span>Create Account</span><i class="fas fa-arrow-right"></i>';
+                    }
+                } catch (error) {
+                    showError(error.message || 'An error occurred. Please try again.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span>Create Account</span><i class="fas fa-arrow-right"></i>';
+                }
+            });
+
+            function showError(message) {
+                errorText.textContent = message;
+                errorMessage.classList.remove('hidden');
+            }
+
+            if (localStorage.getItem('token')) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const initGoogleAuth = () => {
+                if (!CONFIG.GOOGLE_CLIENT_ID || CONFIG.GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID_HERE') {
+                    console.warn('Google Client ID not configured');
+                    return;
+                }
+
+                document.getElementById('googleSection').classList.remove('hidden');
+
+                try {
+                    google.accounts.id.initialize({
+                        client_id: CONFIG.GOOGLE_CLIENT_ID,
+                        callback: handleGoogleCredentialResponse,
+                        auto_select: false,
+                        cancel_on_tap_outside: true
+                    });
+
+                    google.accounts.id.renderButton(
+                        document.getElementById("googleBtn"),
+                        {
+                            theme: "outline",
+                            size: "large",
+                            width: "350",
+                            logo_alignment: "left",
+                            text: "signup_with"
+                        }
+                    );
+                } catch (e) {
+                    console.error('Google Auth Init Error:', e);
+                }
+            };
+
+            const checkGoogleScript = setInterval(() => {
+                if (typeof google !== 'undefined' && google.accounts) {
+                    clearInterval(checkGoogleScript);
+                    initGoogleAuth();
+                }
+            }, 100);
+
+            async function handleGoogleCredentialResponse(response) {
+                showToast('Verifying Google credentials...', 'info');
+
+                try {
+                    const res = await api.post('/auth/google', { credential: response.credential });
+
+                    if (res.success) {
+                        localStorage.setItem('token', res.data.token);
+                        localStorage.setItem('user', JSON.stringify(res.data.user));
+                        showToast('Account created successfully!', 'success');
+
+                        if (res.data.needsProfileCompletion) {
+                            showToast('Please complete your profile details', 'info');
+                            setTimeout(() => { window.location.href = 'profile.html'; }, 1000);
+                        } else {
+                            setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+                        }
+                    } else {
+                        showError(res.message || 'Google registration failed');
+                    }
+                } catch (error) {
+                    showError(error.message || 'An error occurred during Google registration');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Product Details - Sellout Campus Marketplace">
+    <title>Product Details | Sellout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-white text-gray-800 font-sans min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-b border-gray-100 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-2">
+                    <img src="assets/logo.png" alt="Sellout Logo" class="h-10 w-10 rounded-xl object-contain bg-green-600 p-1.5">
+                    <span class="text-xl font-bold text-gray-900">Sellout</span>
+                </a>
+                <a href="index.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Browse
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Loading State -->
+            <div id="loadingState" class="animate-pulse">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="aspect-square bg-gray-100 rounded-2xl"></div>
+                    <div class="space-y-4">
+                        <div class="h-8 bg-gray-100 rounded w-3/4"></div>
+                        <div class="h-4 bg-gray-100 rounded w-1/2"></div>
+                        <div class="h-10 bg-gray-100 rounded w-1/3 mt-4"></div>
+                        <div class="h-24 bg-gray-100 rounded mt-6"></div>
+                        <div class="h-14 bg-gray-100 rounded mt-6"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Content -->
+            <div id="productContent" class="hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                    <!-- Product Image Gallery -->
+                    <div class="relative image-gallery">
+                        <div class="gallery-main" id="galleryMain">
+                            <img id="productImage" src="" alt="" class="w-full h-full object-cover">
+                            <button class="gallery-nav prev hidden" id="galleryPrev" onclick="changeGalleryImage(-1)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="gallery-nav next hidden" id="galleryNext" onclick="changeGalleryImage(1)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                            <div class="gallery-counter hidden" id="galleryCounter">1 / 1</div>
+                        </div>
+                        <div id="soldBadge"
+                            class="hidden absolute top-4 left-4 px-4 py-2 rounded-lg bg-red-500/90 backdrop-blur-sm text-white text-sm font-semibold z-20">
+                            <i class="fas fa-check-circle mr-1"></i>Sold
+                        </div>
+                        <!-- Thumbnails -->
+                        <div class="gallery-thumbnails hidden" id="galleryThumbnails"></div>
+                    </div>
+
+                    <!-- Product Info -->
+                    <div>
+                        <!-- Title & Badges -->
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-3">
+                                    <span id="productCategory"
+                                        class="px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-medium"></span>
+                                    <span id="productCondition"
+                                        class="px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-medium"></span>
+                                </div>
+                                <!-- Action Buttons: Favorite + Share -->
+                                <div class="flex items-center gap-3">
+                                    <!-- Favorite Button -->
+                                    <button id="favoriteBtn" class="favorite-btn" onclick="toggleFavorite()"
+                                        title="Add to Favorites">
+                                        <i class="far fa-heart text-lg text-gray-400"></i>
+                                    </button>
+                                    <span id="favoriteCount" class="text-xs text-gray-500"></span>
+
+                                    <!-- Share Dropdown -->
+                                    <div class="share-dropdown">
+                                        <button id="shareBtn" class="p-2 rounded-lg hover:bg-gray-100 transition-all"
+                                            title="Share" onclick="toggleShareMenu()">
+                                            <i class="fas fa-share-alt text-gray-400"></i>
+                                        </button>
+                                        <div class="share-menu" id="shareMenu">
+                                            <button class="share-menu-item whatsapp" onclick="shareToWhatsApp()">
+                                                <i class="fab fa-whatsapp"></i>
+                                                <span>Share on WhatsApp</span>
+                                            </button>
+                                            <button class="share-menu-item twitter" onclick="shareToTwitter()">
+                                                <i class="fab fa-twitter"></i>
+                                                <span>Share on Twitter</span>
+                                            </button>
+                                            <button class="share-menu-item facebook" onclick="shareToFacebook()">
+                                                <i class="fab fa-facebook"></i>
+                                                <span>Share on Facebook</span>
+                                            </button>
+                                            <hr class="border-gray-100 my-1">
+                                            <button class="share-menu-item copy-link" onclick="copyProductLink()">
+                                                <i class="fas fa-link"></i>
+                                                <span>Copy Link</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h1 id="productTitle" class="text-2xl lg:text-3xl font-bold mb-2 text-gray-900"></h1>
+                            <div class="flex items-center gap-3 text-sm text-gray-500">
+                                <span><i class="fas fa-map-marker-alt mr-1.5"></i><span
+                                        id="productCampus"></span></span>
+                                <span><i class="fas fa-clock mr-1.5"></i><span id="productDate"></span></span>
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="mb-6">
+                            <p class="text-sm text-gray-400 mb-1">Price</p>
+                            <p id="productPrice" class="text-3xl font-bold text-green-700"></p>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-8 overflow-hidden">
+                            <h3 class="font-semibold mb-3 text-gray-900">Description</h3>
+                            <p id="productDescription"
+                                class="text-gray-500 text-sm leading-relaxed description-text break-words"></p>
+                        </div>
+
+                        <!-- Seller Info -->
+                        <div class="p-5 rounded-2xl bg-gray-50 border border-gray-100 mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-900">Seller</h3>
+                                <!-- Seller Rating -->
+                                <div id="sellerRatingBadge" class="hidden flex items-center gap-1.5">
+                                    <i class="fas fa-star text-amber-400 text-xs"></i>
+                                    <span id="sellerRatingValue" class="text-sm font-semibold text-amber-500"></span>
+                                    <span id="sellerReviewCount" class="text-xs text-gray-400"></span>
+                                </div>
+                            </div>
+                            <a id="sellerProfileLink" href="#" class="flex items-center gap-4 group">
+                                <div id="sellerAvatar"
+                                    class="w-14 h-14 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center overflow-hidden ring-2 ring-transparent group-hover:ring-green-500/30 transition-all">
+                                    <i class="fas fa-user text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <p id="sellerName"
+                                        class="font-medium mb-1 text-gray-800 group-hover:text-green-700 transition-colors">
+                                    </p>
+                                    <p id="sellerCampus" class="text-sm text-gray-400"></p>
+                                    <p
+                                        class="text-xs text-gray-400 group-hover:text-green-600 transition-colors mt-0.5">
+                                        <i class="fas fa-external-link-alt mr-1"></i>View all listings
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Contact Button -->
+                        <a id="whatsappBtn" href="#" target="_blank"
+                            class="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white font-semibold transition-all">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                            Contact Seller on WhatsApp
+                        </a>
+
+                        <!-- Owner Actions -->
+                        <div id="ownerActions" class="hidden mt-4 grid grid-cols-2 gap-4">
+                            <a id="editBtn" href="#"
+                                class="flex items-center justify-center gap-2 py-3 rounded-xl bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium transition-all shadow-sm">
+                                <i class="fas fa-edit"></i>Edit
+                            </a>
+                            <button id="deleteBtn"
+                                class="flex items-center justify-center gap-2 py-3 rounded-xl bg-red-50 border border-red-100 text-red-600 hover:bg-red-100 text-sm font-medium transition-all">
+                                <i class="fas fa-trash"></i>Delete
+                            </button>
+                            <button id="markSoldBtn"
+                                class="col-span-2 flex items-center justify-center gap-2 py-3 rounded-xl bg-green-50 border border-green-100 text-green-700 hover:bg-green-100 text-sm font-medium transition-all">
+                                <i class="fas fa-check-circle"></i>Mark as Sold
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews Section -->
+                <div id="reviewsSection" class="mt-16">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900">Seller Reviews</h2>
+                        <button id="writeReviewBtn"
+                            class="hidden px-4 py-2 rounded-xl bg-green-50 border border-green-100 text-green-700 text-sm font-medium hover:bg-green-100 transition-all"
+                            onclick="toggleReviewForm()">
+                            <i class="fas fa-pen mr-2"></i>Write a Review
+                        </button>
+                    </div>
+
+                    <!-- Review Form -->
+                    <div id="reviewFormContainer" class="hidden mb-8">
+                        <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                            <h3 class="font-semibold mb-4 text-gray-900">Rate this Seller</h3>
+                            <form id="reviewForm" onsubmit="submitReview(event)">
+                                <!-- Star Rating Input -->
+                                <div class="mb-4">
+                                    <label class="block text-sm text-gray-500 mb-2">Your Rating *</label>
+                                    <div class="star-rating-input">
+                                        <input type="radio" id="star5" name="rating" value="5">
+                                        <label for="star5"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="star4" name="rating" value="4">
+                                        <label for="star4"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="star3" name="rating" value="3">
+                                        <label for="star3"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="star2" name="rating" value="2">
+                                        <label for="star2"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="star1" name="rating" value="1">
+                                        <label for="star1"><i class="fas fa-star"></i></label>
+                                    </div>
+                                </div>
+                                <!-- Comment -->
+                                <div class="mb-4">
+                                    <label class="block text-sm text-gray-500 mb-2">Comment (optional)</label>
+                                    <textarea id="reviewComment" rows="3" maxlength="1000"
+                                        placeholder="Share your experience with this seller..."
+                                        class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 px-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all resize-none"></textarea>
+                                </div>
+                                <div class="flex gap-3">
+                                    <button type="submit" id="submitReviewBtn"
+                                        class="px-6 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-all disabled:opacity-50">
+                                        Submit Review
+                                    </button>
+                                    <button type="button" onclick="toggleReviewForm()"
+                                        class="px-6 py-2.5 rounded-xl border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Rating Summary -->
+                    <div id="ratingSummary" class="hidden mb-8">
+                        <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                                <div class="text-center">
+                                    <div class="text-4xl font-bold text-amber-500" id="avgRating">0</div>
+                                    <div class="review-stars mt-1" id="avgRatingStars"></div>
+                                    <div class="text-xs text-gray-400 mt-1"><span id="totalReviewCount">0</span> reviews
+                                    </div>
+                                </div>
+                                <div class="flex-1 w-full space-y-2" id="ratingBars">
+                                    <!-- Rating bars will be populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews List -->
+                    <div id="reviewsList" class="space-y-4">
+                        <!-- Reviews will be populated by JS -->
+                    </div>
+                    <div id="noReviews" class="hidden text-center py-10">
+                        <i class="fas fa-star text-3xl text-gray-300 mb-3"></i>
+                        <p class="text-gray-400 text-sm">No reviews yet for this seller</p>
+                    </div>
+                </div>
+
+                <!-- Related Products -->
+                <div id="relatedSection" class="mt-16 hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-900">Similar Items</h2>
+                    <div id="relatedProducts" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+                </div>
+            </div>
+
+            <!-- Not Found State -->
+            <div id="notFoundState" class="hidden text-center py-20">
+                <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gray-50 flex items-center justify-center">
+                    <i class="fas fa-box-open text-3xl text-gray-300"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-2 text-gray-800">Product Not Found</h2>
+                <p class="text-gray-400 mb-6">This item may have been removed or doesn't exist.</p>
+                <a href="index.html"
+                    class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-medium transition-all">
+                    <i class="fas fa-arrow-left"></i>Back to Browse
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal"
+        class="hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white border border-gray-100 rounded-2xl p-6 max-w-sm w-full shadow-2xl">
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-50 flex items-center justify-center">
+                    <i class="fas fa-trash text-2xl text-red-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-gray-900">Delete Listing?</h3>
+                <p class="text-gray-400 text-sm mb-6">This action cannot be undone. The item will be permanently
+                    removed.</p>
+                <div class="flex gap-3">
+                    <button id="cancelDelete"
+                        class="flex-1 py-3 rounded-xl border border-gray-300 font-medium text-gray-700 hover:bg-gray-50 transition-all">Cancel</button>
+                    <button id="confirmDelete"
+                        class="flex-1 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-medium transition-all">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js?v=5"></script>
+    <script src="js/utils.js?v=5"></script>
+    <script src="js/api.js?v=5"></script>
+    <script>
+        // Global state
+        let currentProduct = null;
+        let galleryImages = [];
+        let currentImageIndex = 0;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+
+            if (!productId) {
+                showNotFound();
+                return;
+            }
+
+            await loadProduct(productId);
+        });
+
+        // Close share menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const shareMenu = document.getElementById('shareMenu');
+            const shareBtn = document.getElementById('shareBtn');
+            if (shareMenu && !shareMenu.contains(e.target) && !shareBtn.contains(e.target)) {
+                shareMenu.classList.remove('open');
+            }
+        });
+
+        async function loadProduct(id) {
+            try {
+                const response = await api.get(`/products/${id}`);
+
+                if (!response.success || !response.data.product) {
+                    showNotFound();
+                    return;
+                }
+
+                const product = response.data.product;
+                currentProduct = product;
+                const relatedProducts = response.data.relatedProducts || [];
+
+                // Update page title
+                document.title = `${product.title} | Sellout`;
+
+                // Build gallery images array
+                galleryImages = [{ url: product.image_url, id: 'main' }];
+                if (product.additional_images && product.additional_images.length > 0) {
+                    product.additional_images.forEach(img => {
+                        galleryImages.push({ url: img.image_url, id: img.id });
+                    });
+                }
+
+                // Setup image gallery
+                setupGallery();
+
+                // Populate product data
+                document.getElementById('productTitle').textContent = product.title;
+                document.getElementById('productCategory').textContent = product.category;
+                document.getElementById('productCondition').textContent = product.product_condition;
+                document.getElementById('productCampus').textContent = product.campus;
+                document.getElementById('productDate').textContent = formatDate(product.created_at);
+                document.getElementById('productPrice').textContent = formatPrice(product.price);
+                document.getElementById('productDescription').textContent = product.description || 'No description provided.';
+
+                // Seller info
+                document.getElementById('sellerName').textContent = product.seller_name;
+                document.getElementById('sellerCampus').textContent = product.seller_campus || product.campus;
+
+                if (product.seller_image) {
+                    document.getElementById('sellerAvatar').innerHTML = `<img src="${product.seller_image}" alt="${product.seller_name}" class="w-full h-full object-cover">`;
+                }
+
+                // Link to seller profile page
+                document.getElementById('sellerProfileLink').href = `seller.html?id=${product.user_id}`;
+
+                // Seller rating badge
+                if (product.seller_total_reviews > 0) {
+                    document.getElementById('sellerRatingBadge').classList.remove('hidden');
+                    document.getElementById('sellerRatingValue').textContent = product.seller_rating;
+                    document.getElementById('sellerReviewCount').textContent = `(${product.seller_total_reviews})`;
+                }
+
+                // Favorite count
+                if (product.favorite_count > 0) {
+                    document.getElementById('favoriteCount').textContent = product.favorite_count;
+                }
+
+                // Check if user has favorited this product
+                const token = localStorage.getItem('token');
+                if (token) {
+                    try {
+                        const favCheck = await api.get(`/favorites/check/${product.id}`);
+                        if (favCheck.success && favCheck.data.isFavorited) {
+                            const favBtn = document.getElementById('favoriteBtn');
+                            favBtn.classList.add('favorited');
+                            favBtn.querySelector('i').className = 'fas fa-heart text-lg text-red-500';
+                        }
+                    } catch (e) {
+                        // Ignore - user might not be logged in
+                    }
+                }
+
+                // WhatsApp link
+                const whatsappMessage = encodeURIComponent(
+                    `Hello, I'm interested in your item "${product.title}" listed on Sellout for ${formatPrice(product.price)}. Is it still available?`
+                );
+                const whatsappNumber = product.seller_whatsapp.replace(/[^0-9]/g, '');
+                document.getElementById('whatsappBtn').href = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+                // Show sold badge if sold
+                if (product.status === 'sold') {
+                    document.getElementById('soldBadge').classList.remove('hidden');
+                    document.getElementById('whatsappBtn').classList.add('opacity-50', 'pointer-events-none');
+                    document.getElementById('whatsappBtn').textContent = 'This item has been sold';
+                }
+
+                // Check if current user is owner
+                const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+                if (currentUser.id && currentUser.id === product.user_id) {
+                    document.getElementById('ownerActions').classList.remove('hidden');
+                    document.getElementById('editBtn').href = `edit-product.html?id=${product.id}`;
+
+                    if (product.status === 'sold') {
+                        document.getElementById('markSoldBtn').classList.add('hidden');
+                    }
+
+                    // Delete functionality
+                    document.getElementById('deleteBtn').addEventListener('click', () => {
+                        document.getElementById('deleteModal').classList.remove('hidden');
+                    });
+
+                    document.getElementById('cancelDelete').addEventListener('click', () => {
+                        document.getElementById('deleteModal').classList.add('hidden');
+                    });
+
+                    document.getElementById('confirmDelete').addEventListener('click', async () => {
+                        const confirmBtn = document.getElementById('confirmDelete');
+                        confirmBtn.disabled = true;
+                        confirmBtn.textContent = 'Deleting...';
+
+                        try {
+                            const response = await api.delete(`/products/${product.id}`);
+                            if (response.success) {
+                                showToast('Item deleted successfully', 'success');
+                                setTimeout(() => window.location.href = 'profile.html', 1500);
+                            } else {
+                                showToast(response.message || 'Failed to delete item', 'error');
+                                confirmBtn.disabled = false;
+                                confirmBtn.textContent = 'Delete';
+                            }
+                        } catch (error) {
+                            console.error('Delete error:', error);
+                            showToast(error.message || 'Failed to delete item', 'error');
+                            confirmBtn.disabled = false;
+                            confirmBtn.textContent = 'Delete';
+                        }
+                        document.getElementById('deleteModal').classList.add('hidden');
+                    });
+
+                    // Mark as sold
+                    document.getElementById('markSoldBtn').addEventListener('click', async () => {
+                        try {
+                            const response = await api.put(`/products/${product.id}/sold`);
+                            if (response.success) {
+                                showToast('Item marked as sold!', 'success');
+                                setTimeout(() => location.reload(), 1500);
+                            }
+                        } catch (error) {
+                            showToast('Failed to update item', 'error');
+                        }
+                    });
+                } else if (token) {
+                    // Show write review button for non-owners who are logged in
+                    document.getElementById('writeReviewBtn').classList.remove('hidden');
+                }
+
+                // Load reviews
+                await loadReviews(product.user_id);
+
+                // Related products
+                if (relatedProducts.length > 0) {
+                    const relatedHtml = relatedProducts.map(p => `
+                        <a href="product-details.html?id=${p.id}" class="group block rounded-xl bg-white border border-gray-100 overflow-hidden hover:border-green-200 hover:shadow-md transition-all shadow-sm">
+                            <div class="aspect-square overflow-hidden">
+                                <img src="${p.image_url}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-3">
+                                <h3 class="text-sm font-medium truncate text-gray-800">${p.title}</h3>
+                                <p class="text-green-700 text-sm font-semibold mt-1">${formatPrice(p.price)}</p>
+                            </div>
+                        </a>
+                    `).join('');
+
+                    document.getElementById('relatedProducts').innerHTML = relatedHtml;
+                    document.getElementById('relatedSection').classList.remove('hidden');
+                }
+
+                // Show content
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('productContent').classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Error loading product:', error);
+                showNotFound();
+            }
+        }
+
+        // ===== IMAGE GALLERY =====
+        function setupGallery() {
+            const mainImg = document.getElementById('productImage');
+            mainImg.src = galleryImages[0].url;
+            mainImg.alt = currentProduct.title;
+
+            if (galleryImages.length > 1) {
+                // Show navigation
+                document.getElementById('galleryPrev').classList.remove('hidden');
+                document.getElementById('galleryNext').classList.remove('hidden');
+                document.getElementById('galleryCounter').classList.remove('hidden');
+                updateGalleryCounter();
+
+                // Build thumbnails
+                const thumbContainer = document.getElementById('galleryThumbnails');
+                thumbContainer.classList.remove('hidden');
+
+                thumbContainer.innerHTML = galleryImages.map((img, idx) => `
+                    <div class="gallery-thumb ${idx === 0 ? 'active' : ''}" onclick="goToGalleryImage(${idx})">
+                        <img src="${img.url}" alt="Image ${idx + 1}" loading="lazy">
+                    </div>
+                `).join('');
+            }
+        }
+
+        function changeGalleryImage(direction) {
+            currentImageIndex = (currentImageIndex + direction + galleryImages.length) % galleryImages.length;
+            updateGalleryDisplay();
+        }
+
+        function goToGalleryImage(index) {
+            currentImageIndex = index;
+            updateGalleryDisplay();
+        }
+
+        function updateGalleryDisplay() {
+            document.getElementById('productImage').src = galleryImages[currentImageIndex].url;
+            updateGalleryCounter();
+
+            // Update thumbnails
+            document.querySelectorAll('.gallery-thumb').forEach((thumb, idx) => {
+                thumb.classList.toggle('active', idx === currentImageIndex);
+            });
+        }
+
+        function updateGalleryCounter() {
+            document.getElementById('galleryCounter').textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+        }
+
+        // ===== FAVORITES =====
+        async function toggleFavorite() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                showToast('Please login to add favorites', 'info');
+                setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+                return;
+            }
+
+            const favBtn = document.getElementById('favoriteBtn');
+            const favCountEl = document.getElementById('favoriteCount');
+
+            try {
+                const response = await api.post(`/favorites/${currentProduct.id}`, {});
+                if (response.success) {
+                    const { isFavorited, favoriteCount } = response.data;
+
+                    if (isFavorited) {
+                        favBtn.classList.add('favorited', 'animate');
+                        favBtn.querySelector('i').className = 'fas fa-heart text-lg text-red-500';
+                        showToast('Added to favorites', 'success');
+                    } else {
+                        favBtn.classList.remove('favorited');
+                        favBtn.querySelector('i').className = 'far fa-heart text-lg text-gray-400';
+                        showToast('Removed from favorites', 'info');
+                    }
+
+                    favCountEl.textContent = favoriteCount > 0 ? favoriteCount : '';
+
+                    // Remove animation class after it ends
+                    setTimeout(() => favBtn.classList.remove('animate'), 400);
+                }
+            } catch (error) {
+                showToast('Failed to update favorite', 'error');
+            }
+        }
+
+        // ===== SHARE PRODUCT =====
+        function toggleShareMenu() {
+            const menu = document.getElementById('shareMenu');
+            menu.classList.toggle('open');
+        }
+
+        function getShareUrl() {
+            return window.location.href;
+        }
+
+        function getShareText() {
+            return `Check out "${currentProduct.title}" on Sellout for ${formatPrice(currentProduct.price)}!`;
+        }
+
+        function shareToWhatsApp() {
+            const url = `https://wa.me/?text=${encodeURIComponent(getShareText() + '\n' + getShareUrl())}`;
+            window.open(url, '_blank');
+            document.getElementById('shareMenu').classList.remove('open');
+        }
+
+        function shareToTwitter() {
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText())}&url=${encodeURIComponent(getShareUrl())}`;
+            window.open(url, '_blank');
+            document.getElementById('shareMenu').classList.remove('open');
+        }
+
+        function shareToFacebook() {
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}`;
+            window.open(url, '_blank');
+            document.getElementById('shareMenu').classList.remove('open');
+        }
+
+        function copyProductLink() {
+            navigator.clipboard.writeText(getShareUrl()).then(() => {
+                showToast('Link copied to clipboard!', 'success');
+            }).catch(() => {
+                // Fallback
+                const textArea = document.createElement('textarea');
+                textArea.value = getShareUrl();
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('Link copied to clipboard!', 'success');
+            });
+            document.getElementById('shareMenu').classList.remove('open');
+        }
+
+        // ===== REVIEWS =====
+        async function loadReviews(sellerId) {
+            try {
+                const response = await api.get(`/reviews/seller/${sellerId}`);
+                if (!response.success) return;
+
+                const { reviews, stats } = response.data;
+
+                if (stats.total_reviews > 0) {
+                    // Show rating summary
+                    document.getElementById('ratingSummary').classList.remove('hidden');
+                    document.getElementById('avgRating').textContent = stats.average_rating || '0';
+                    document.getElementById('totalReviewCount').textContent = stats.total_reviews;
+
+                    // Render average stars
+                    const avgStars = document.getElementById('avgRatingStars');
+                    avgStars.innerHTML = renderStars(stats.average_rating || 0);
+
+                    // Render rating bars
+                    const barsContainer = document.getElementById('ratingBars');
+                    barsContainer.innerHTML = '';
+                    for (let i = 5; i >= 1; i--) {
+                        const count = stats[`${['', 'one', 'two', 'three', 'four', 'five'][i]}_star`] || 0;
+                        const percentage = stats.total_reviews > 0 ? (count / stats.total_reviews * 100) : 0;
+                        barsContainer.innerHTML += `
+                            <div class="rating-summary">
+                                <span class="text-xs text-gray-400 w-4">${i}</span>
+                                <i class="fas fa-star text-xs text-amber-400"></i>
+                                <div class="rating-bar-container">
+                                    <div class="rating-bar" style="width: ${percentage}%"></div>
+                                </div>
+                                <span class="text-xs text-gray-500 w-8 text-right">${count}</span>
+                            </div>
+                        `;
+                    }
+
+                    // Render review list
+                    const reviewsList = document.getElementById('reviewsList');
+                    reviewsList.innerHTML = reviews.map(review => renderReviewCard(review)).join('');
+                } else {
+                    document.getElementById('noReviews').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error loading reviews:', error);
+            }
+        }
+
+        function renderStars(rating) {
+            let html = '';
+            for (let i = 1; i <= 5; i++) {
+                html += `<i class="fas fa-star ${i <= Math.round(rating) ? 'filled' : 'empty'}"></i>`;
+            }
+            return html;
+        }
+
+        function renderReviewCard(review) {
+            const avatar = review.reviewer_image
+                ? `<img src="${review.reviewer_image}" alt="${review.reviewer_name}" class="w-full h-full object-cover">`
+                : `<i class="fas fa-user text-white text-sm"></i>`;
+
+            const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+            const isOwner = currentUser.id === review.reviewer_id;
+
+            return `
+                <div class="review-card">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center overflow-hidden flex-shrink-0">
+                            ${avatar}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-medium text-sm text-gray-800">${escapeHtml(review.reviewer_name)}</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400">${formatDate(review.created_at)}</span>
+                                    ${isOwner ? `<button onclick="deleteReview(${review.id})" class="text-xs text-red-500 hover:text-red-600 transition-colors"><i class="fas fa-trash"></i></button>` : ''}
+                                </div>
+                            </div>
+                            <div class="review-stars mb-2">${renderStars(review.rating)}</div>
+                            ${review.comment ? `<p class="text-sm text-gray-500 break-words">${escapeHtml(review.comment)}</p>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleReviewForm() {
+            const container = document.getElementById('reviewFormContainer');
+            container.classList.toggle('hidden');
+            if (!container.classList.contains('hidden')) {
+                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        async function submitReview(e) {
+            e.preventDefault();
+
+            const rating = document.querySelector('input[name="rating"]:checked');
+            if (!rating) {
+                showToast('Please select a rating', 'warning');
+                return;
+            }
+
+            const comment = document.getElementById('reviewComment').value.trim();
+            const submitBtn = document.getElementById('submitReviewBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            try {
+                const response = await api.post('/reviews', {
+                    product_id: currentProduct.id,
+                    rating: parseInt(rating.value),
+                    comment: comment || null
+                });
+
+                if (response.success) {
+                    showToast('Review submitted successfully!', 'success');
+                    document.getElementById('reviewFormContainer').classList.add('hidden');
+                    document.getElementById('reviewForm').reset();
+                    document.getElementById('writeReviewBtn').classList.add('hidden');
+                    // Reload reviews
+                    await loadReviews(currentProduct.user_id);
+                    document.getElementById('noReviews').classList.add('hidden');
+                }
+            } catch (error) {
+                showToast(error.message || 'Failed to submit review', 'error');
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Review';
+        }
+
+        async function deleteReview(reviewId) {
+            if (!confirm('Delete your review?')) return;
+
+            try {
+                const response = await api.delete(`/reviews/${reviewId}`);
+                if (response.success) {
+                    showToast('Review deleted', 'success');
+                    await loadReviews(currentProduct.user_id);
+                }
+            } catch (error) {
+                showToast('Failed to delete review', 'error');
+            }
+        }
+
+        function showNotFound() {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('notFoundState').classList.remove('hidden');
+        }
+    </script>
+</body>
+
+</html>

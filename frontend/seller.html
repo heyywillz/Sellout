@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View seller listings on Sellout Campus Marketplace">
+    <title>Seller Profile | Sellout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css?v=5">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-b border-gray-100 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-2">
+                    <img src="assets/logo.png" alt="Sellout Logo" class="h-10 w-10 rounded-xl object-contain bg-green-600 p-1.5">
+                    <span class="text-xl font-bold text-gray-900">Sellout</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+                        <i class="fas fa-home mr-2"></i>Browse
+                    </a>
+                    <a id="authLink" href="login.html"
+                        class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+                        <i class="fas fa-user mr-2"></i>Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="pt-24 pb-16">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative mb-10">
+                <div class="h-36 bg-gray-100 rounded-2xl animate-pulse"></div>
+                <div class="relative -mt-14 px-6 flex items-end gap-4">
+                    <div class="w-28 h-28 rounded-2xl bg-gray-200 animate-pulse border-4 border-gray-50"></div>
+                    <div class="flex-1 pb-2">
+                        <div class="h-6 w-48 bg-gray-200 rounded animate-pulse mb-2"></div>
+                        <div class="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-10">
+                <div class="h-20 bg-white border border-gray-100 rounded-2xl animate-pulse shadow-sm"></div>
+                <div class="h-20 bg-white border border-gray-100 rounded-2xl animate-pulse shadow-sm"></div>
+                <div class="h-20 bg-white border border-gray-100 rounded-2xl animate-pulse shadow-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" class="hidden pt-24 pb-16">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gray-50 flex items-center justify-center">
+                <i class="fas fa-user-slash text-3xl text-gray-300"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-2 text-gray-800">Seller Not Found</h2>
+            <p class="text-gray-400 mb-6">This seller profile doesn't exist or may have been removed.</p>
+            <a href="index.html"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-medium transition-all">
+                <i class="fas fa-arrow-left"></i>Back to Marketplace
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="mainContent" class="hidden pt-24 pb-16">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Seller Profile Header -->
+            <div class="relative mb-10">
+                <!-- Cover gradient -->
+                <div
+                    class="h-36 bg-gradient-to-r from-green-100 via-emerald-50 to-teal-50 rounded-2xl overflow-hidden relative">
+                    <div
+                        class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE0djJoLTJ2LTJoMnptMC0xMHYyaC0yVjRoMnptLTEwIDB2MmgtMlY0aDJ6bTEwIDEwdjJoLTJ2LTJoMnptLTEwIDB2MmgtMnYtMmgyem0xMCAxMHYyaC0ydi0yaDJ6bS0xMCAwdjJoLTJ2LTJoMnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-50">
+                    </div>
+                </div>
+                <!-- Profile info row -->
+                <div class="relative -mt-14 px-6">
+                    <div class="flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-6">
+                        <!-- Avatar -->
+                        <div id="sellerAvatar"
+                            class="w-28 h-28 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center overflow-hidden border-4 border-white shadow-lg">
+                            <i class="fas fa-user text-white text-4xl"></i>
+                        </div>
+                        <!-- Info -->
+                        <div class="text-center sm:text-left flex-1 pb-1">
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
+                                <h1 id="sellerName" class="text-2xl font-bold text-gray-900"></h1>
+                                <div id="ratingBadge"
+                                    class="hidden items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 text-amber-600 text-sm font-medium">
+                                    <i class="fas fa-star text-xs"></i>
+                                    <span id="ratingValue"></span>
+                                    <span id="reviewCount" class="text-amber-400 text-xs"></span>
+                                </div>
+                            </div>
+                            <p id="sellerCampus"
+                                class="text-gray-500 flex items-center justify-center sm:justify-start gap-2">
+                                <i class="fas fa-university"></i>
+                                <span></span>
+                            </p>
+                            <p id="memberSince"
+                                class="text-gray-400 text-sm mt-1 flex items-center justify-center sm:justify-start gap-2">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span></span>
+                            </p>
+                        </div>
+                        <!-- Share Button -->
+                        <div class="share-dropdown">
+                            <button id="shareBtn"
+                                class="px-5 py-2.5 rounded-xl bg-white border border-gray-300 hover:bg-gray-50 text-sm font-medium text-gray-700 transition-all flex items-center gap-2 shadow-sm">
+                                <i class="fas fa-share-alt"></i>
+                                Share Profile
+                            </button>
+                            <div id="shareMenu" class="share-menu">
+                                <button class="share-menu-item copy-link" id="copyLinkBtn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Copy Link</span>
+                                </button>
+                                <button class="share-menu-item whatsapp" id="shareWhatsApp">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>WhatsApp</span>
+                                </button>
+                                <button class="share-menu-item twitter" id="shareTwitter">
+                                    <i class="fab fa-x-twitter"></i>
+                                    <span>Twitter / X</span>
+                                </button>
+                                <button class="share-menu-item facebook" id="shareFacebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                    <span>Facebook</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+                <div
+                    class="p-5 rounded-2xl bg-white border border-gray-100 text-center group hover:border-green-200 transition-all shadow-sm">
+                    <p id="statAvailable"
+                        class="text-2xl font-bold text-green-700 group-hover:scale-110 transition-transform">0</p>
+                    <p class="text-sm text-gray-400">Available</p>
+                </div>
+                <div
+                    class="p-5 rounded-2xl bg-white border border-gray-100 text-center group hover:border-blue-200 transition-all shadow-sm">
+                    <p id="statSold"
+                        class="text-2xl font-bold text-blue-600 group-hover:scale-110 transition-transform">0</p>
+                    <p class="text-sm text-gray-400">Sold</p>
+                </div>
+                <div
+                    class="p-5 rounded-2xl bg-white border border-gray-100 text-center group hover:border-amber-200 transition-all shadow-sm">
+                    <p id="statRating"
+                        class="text-2xl font-bold text-amber-600 group-hover:scale-110 transition-transform">-</p>
+                    <p class="text-sm text-gray-400">Rating</p>
+                </div>
+                <div
+                    class="p-5 rounded-2xl bg-white border border-gray-100 text-center group hover:border-purple-200 transition-all shadow-sm">
+                    <p id="statReviews"
+                        class="text-2xl font-bold text-purple-600 group-hover:scale-110 transition-transform">0</p>
+                    <p class="text-sm text-gray-400">Reviews</p>
+                </div>
+            </div>
+
+            <!-- Contact Seller -->
+            <div id="contactSection" class="hidden mb-10">
+                <a id="whatsappLink" href="#" target="_blank" rel="noopener noreferrer"
+                    class="whatsapp-btn flex items-center justify-center gap-3 w-full py-4 rounded-2xl bg-gradient-to-r from-green-600 to-green-500 text-white font-semibold text-lg hover:shadow-lg hover:shadow-green-500/20 transition-all">
+                    <i class="fab fa-whatsapp text-2xl"></i>
+                    Contact Seller on WhatsApp
+                </a>
+            </div>
+
+            <!-- Section Title -->
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold flex items-center gap-2 text-gray-900">
+                    <i class="fas fa-store text-green-600"></i>
+                    Available Listings
+                </h2>
+                <span id="listingCount" class="text-sm text-gray-400"></span>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyProducts" class="hidden text-center py-16">
+                <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gray-50 flex items-center justify-center">
+                    <i class="fas fa-box-open text-3xl text-gray-300"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">No listings available</h3>
+                <p class="text-gray-400 mb-6">This seller doesn't have any active listings right now.</p>
+                <a href="index.html"
+                    class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition-all">
+                    <i class="fas fa-arrow-left"></i>Browse Marketplace
+                </a>
+            </div>
+
+            <!-- Reviews Section -->
+            <div id="reviewsSection" class="hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold flex items-center gap-2 text-gray-900">
+                        <i class="fas fa-star text-amber-500"></i>
+                        Seller Reviews
+                    </h2>
+                </div>
+                <div id="reviewsList" class="space-y-4">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Copied Toast -->
+    <div id="copiedToast"
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-xl bg-green-600 text-white font-medium text-sm shadow-lg shadow-green-600/20 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none z-[60] flex items-center gap-2">
+        <i class="fas fa-check-circle"></i>
+        Link copied to clipboard!
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js?v=5"></script>
+    <script src="js/utils.js?v=5"></script>
+    <script src="js/api.js?v=5"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                const authLink = document.getElementById('authLink');
+                authLink.href = 'profile.html';
+                authLink.innerHTML = '<i class="fas fa-user mr-2"></i>Profile';
+            }
+
+            const params = getUrlParams();
+            const sellerId = params.get('id');
+
+            if (!sellerId) {
+                showError();
+                return;
+            }
+
+            await loadSellerProfile(sellerId);
+        });
+
+        async function loadSellerProfile(sellerId) {
+            const loadingState = document.getElementById('loadingState');
+            const errorState = document.getElementById('errorState');
+            const mainContent = document.getElementById('mainContent');
+
+            try {
+                const response = await fetch(`${CONFIG.API_URL}/users/${sellerId}/profile`);
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    showError();
+                    return;
+                }
+
+                const { seller, stats, products, reviewStats } = data.data;
+
+                document.title = `${seller.name} - Seller on Sellout`;
+                document.querySelector('meta[name="description"]').content =
+                    `Check out ${seller.name}'s listings on Sellout Campus Marketplace. ${stats.available_products || 0} items available from ${seller.campus}.`;
+
+                document.getElementById('sellerName').textContent = seller.name;
+                document.getElementById('sellerCampus').querySelector('span').textContent = seller.campus;
+
+                const joinDate = new Date(seller.created_at);
+                document.getElementById('memberSince').querySelector('span').textContent =
+                    `Member since ${joinDate.toLocaleDateString(CONFIG.LOCALE, { month: 'long', year: 'numeric' })}`;
+
+                if (seller.profile_image) {
+                    document.getElementById('sellerAvatar').innerHTML =
+                        `<img src="${seller.profile_image}" alt="${escapeHtml(seller.name)}" class="w-full h-full object-cover">`;
+                }
+
+                if (reviewStats.totalReviews > 0) {
+                    const badge = document.getElementById('ratingBadge');
+                    badge.classList.remove('hidden');
+                    badge.classList.add('inline-flex');
+                    document.getElementById('ratingValue').textContent = reviewStats.averageRating;
+                    document.getElementById('reviewCount').textContent = `(${reviewStats.totalReviews})`;
+                }
+
+                document.getElementById('statAvailable').textContent = stats.available_products || 0;
+                document.getElementById('statSold').textContent = stats.sold_products || 0;
+                document.getElementById('statRating').textContent = reviewStats.totalReviews > 0 ? reviewStats.averageRating : '-';
+                document.getElementById('statReviews').textContent = reviewStats.totalReviews;
+
+                if (seller.whatsapp) {
+                    const contactSection = document.getElementById('contactSection');
+                    contactSection.classList.remove('hidden');
+                    const cleanPhone = seller.whatsapp.replace(/[^0-9]/g, '');
+                    document.getElementById('whatsappLink').href =
+                        `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hi ${seller.name}! I found your profile on Sellout and I'm interested in your listings.`)}`;
+                }
+
+                renderProducts(products);
+                await loadSellerReviews(sellerId);
+                setupShare(seller);
+
+                loadingState.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Error loading seller profile:', error);
+                showError();
+            }
+        }
+
+        function renderProducts(products) {
+            const grid = document.getElementById('productsGrid');
+            const empty = document.getElementById('emptyProducts');
+
+            document.getElementById('listingCount').textContent = `${products.length} item${products.length !== 1 ? 's' : ''}`;
+
+            if (products.length === 0) {
+                grid.classList.add('hidden');
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            grid.innerHTML = products.map(product => `
+                <a href="product-details.html?id=${product.id}" class="group product-card rounded-xl bg-white border border-gray-100 overflow-hidden hover:border-green-200 transition-all block shadow-sm">
+                    <div class="relative aspect-square overflow-hidden">
+                        <img src="${product.image_url || product.gallery_image}" alt="${escapeHtml(product.title)}"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy">
+                        <div class="absolute top-3 left-3">
+                            <span class="px-2.5 py-1 rounded-lg bg-white/90 backdrop-blur-sm text-xs font-medium text-gray-700 shadow-sm">
+                                <i class="${getCategoryIcon(product.category)} mr-1 text-green-600"></i>${product.category}
+                            </span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/30 to-transparent"></div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium truncate mb-1 text-gray-800 group-hover:text-green-700 transition-colors">${escapeHtml(product.title)}</h3>
+                        <div class="flex items-center justify-between">
+                            <p class="text-green-700 font-bold text-lg">${formatPrice(product.price)}</p>
+                            <span class="text-xs text-gray-400">${product.condition}</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 flex items-center gap-1">
+                            <i class="fas fa-clock"></i>${formatDate(product.created_at)}
+                        </p>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        async function loadSellerReviews(sellerId) {
+            try {
+                const response = await fetch(`${CONFIG.API_URL}/reviews/seller/${sellerId}`);
+                const data = await response.json();
+
+                if (!data.success || !data.data.reviews.length) return;
+
+                const section = document.getElementById('reviewsSection');
+                section.classList.remove('hidden');
+
+                const reviewsList = document.getElementById('reviewsList');
+                reviewsList.innerHTML = data.data.reviews.map(review => `
+                    <div class="p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0">
+                                ${review.reviewer_image
+                        ? `<img src="${review.reviewer_image}" alt="${escapeHtml(review.reviewer_name)}" class="w-full h-full object-cover">`
+                        : `<i class="fas fa-user text-gray-400 text-sm"></i>`
+                    }
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="font-medium text-sm text-gray-800">${escapeHtml(review.reviewer_name)}</span>
+                                    <span class="text-xs text-gray-400">${formatDate(review.created_at)}</span>
+                                </div>
+                                <div class="review-stars mb-2">
+                                    ${generateStars(review.rating)}
+                                </div>
+                                ${review.product_title ? `<p class="text-xs text-gray-400 mb-1">About: ${escapeHtml(review.product_title)}</p>` : ''}
+                                ${review.comment ? `<p class="text-sm text-gray-600 break-words">${escapeHtml(review.comment)}</p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading reviews:', error);
+            }
+        }
+
+        function generateStars(rating) {
+            let html = '';
+            for (let i = 1; i <= 5; i++) {
+                html += `<i class="fas fa-star ${i <= rating ? 'filled' : 'empty'}"></i>`;
+            }
+            return html;
+        }
+
+        function setupShare(seller) {
+            const shareBtn = document.getElementById('shareBtn');
+            const shareMenu = document.getElementById('shareMenu');
+            const pageUrl = window.location.href;
+            const shareText = `Check out ${seller.name}'s listings on Sellout! 🛍️`;
+
+            shareBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+
+                if (navigator.share && /Mobi|Android/i.test(navigator.userAgent)) {
+                    navigator.share({
+                        title: `${seller.name} on Sellout`,
+                        text: shareText,
+                        url: pageUrl
+                    }).catch(() => { });
+                    return;
+                }
+
+                shareMenu.classList.toggle('open');
+            });
+
+            document.addEventListener('click', () => {
+                shareMenu.classList.remove('open');
+            });
+            shareMenu.addEventListener('click', (e) => e.stopPropagation());
+
+            document.getElementById('copyLinkBtn').addEventListener('click', () => {
+                navigator.clipboard.writeText(pageUrl).then(() => {
+                    showCopiedToast();
+                    shareMenu.classList.remove('open');
+                }).catch(() => {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = pageUrl;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showCopiedToast();
+                    shareMenu.classList.remove('open');
+                });
+            });
+
+            document.getElementById('shareWhatsApp').addEventListener('click', () => {
+                const url = `https://wa.me/?text=${encodeURIComponent(shareText + '\n' + pageUrl)}`;
+                window.open(url, '_blank');
+                shareMenu.classList.remove('open');
+            });
+
+            document.getElementById('shareTwitter').addEventListener('click', () => {
+                const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pageUrl)}`;
+                window.open(url, '_blank');
+                shareMenu.classList.remove('open');
+            });
+
+            document.getElementById('shareFacebook').addEventListener('click', () => {
+                const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
+                window.open(url, '_blank');
+                shareMenu.classList.remove('open');
+            });
+        }
+
+        function showCopiedToast() {
+            const toast = document.getElementById('copiedToast');
+            toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                toast.classList.remove('opacity-100', 'translate-y-0');
+            }, 2500);
+        }
+
+        function showError() {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('errorState').classList.remove('hidden');
+        }
+    </script>
+</body>
+
+</html>

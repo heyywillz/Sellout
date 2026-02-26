@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sell your item on Sellout - Campus Resale Marketplace">
+    <title>List an Item | Sellout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css?v=5">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-b border-gray-100 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-2">
+                    <img src="assets/logo.png" alt="Sellout Logo" class="h-10 w-10 rounded-xl object-contain bg-green-600 p-1.5">
+                    <span class="text-xl font-bold text-gray-900">Sellout</span>
+                </a>
+                <a href="index.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Browse
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-green-50 mb-4">
+                    <i class="fas fa-plus text-3xl text-green-600"></i>
+                </div>
+                <h1 class="text-3xl font-bold mb-2 text-gray-900">List Your Item</h1>
+                <p class="text-gray-400">Add details about your item to start selling</p>
+            </div>
+
+            <!-- Upload Form -->
+            <form id="uploadForm" class="space-y-6">
+                <!-- Image Upload (Multi-Image) -->
+                <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Product Images</label>
+                    <p class="text-xs text-gray-400 mb-3">Upload up to 5 images. First image will be the main image.
+                        (JPG, PNG, WebP - max 5MB each)</p>
+                    <div id="imageUploadGrid" class="image-upload-grid">
+                        <!-- Primary slot -->
+                        <div class="image-upload-slot primary" id="slot-0" onclick="triggerFileSelect(0)">
+                            <div class="text-center" id="slot-0-placeholder">
+                                <i class="fas fa-cloud-upload-alt text-2xl text-gray-400 mb-2"></i>
+                                <p class="text-xs text-gray-400">Main Image *</p>
+                            </div>
+                            <img class="hidden" id="slot-0-img" alt="Main image">
+                            <div class="remove-btn hidden" id="slot-0-remove"
+                                onclick="event.stopPropagation(); removeSlotImage(0)">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <div class="primary-badge">Main</div>
+                        </div>
+                        <!-- Additional slots -->
+                        <div class="image-upload-slot" id="slot-1" onclick="triggerFileSelect(1)">
+                            <div class="text-center" id="slot-1-placeholder"><i class="fas fa-plus text-gray-400"></i>
+                            </div>
+                            <img class="hidden" id="slot-1-img" alt="Image 2">
+                            <div class="remove-btn hidden" id="slot-1-remove"
+                                onclick="event.stopPropagation(); removeSlotImage(1)"><i class="fas fa-times"></i></div>
+                        </div>
+                        <div class="image-upload-slot" id="slot-2" onclick="triggerFileSelect(2)">
+                            <div class="text-center" id="slot-2-placeholder"><i class="fas fa-plus text-gray-400"></i>
+                            </div>
+                            <img class="hidden" id="slot-2-img" alt="Image 3">
+                            <div class="remove-btn hidden" id="slot-2-remove"
+                                onclick="event.stopPropagation(); removeSlotImage(2)"><i class="fas fa-times"></i></div>
+                        </div>
+                        <div class="image-upload-slot" id="slot-3" onclick="triggerFileSelect(3)">
+                            <div class="text-center" id="slot-3-placeholder"><i class="fas fa-plus text-gray-400"></i>
+                            </div>
+                            <img class="hidden" id="slot-3-img" alt="Image 4">
+                            <div class="remove-btn hidden" id="slot-3-remove"
+                                onclick="event.stopPropagation(); removeSlotImage(3)"><i class="fas fa-times"></i></div>
+                        </div>
+                        <div class="image-upload-slot" id="slot-4" onclick="triggerFileSelect(4)">
+                            <div class="text-center" id="slot-4-placeholder"><i class="fas fa-plus text-gray-400"></i>
+                            </div>
+                            <img class="hidden" id="slot-4-img" alt="Image 5">
+                            <div class="remove-btn hidden" id="slot-4-remove"
+                                onclick="event.stopPropagation(); removeSlotImage(4)"><i class="fas fa-times"></i></div>
+                        </div>
+                    </div>
+                    <!-- Hidden file input -->
+                    <input type="file" id="imageInput" accept="image/jpeg,image/jpg,image/png,image/webp" class="hidden"
+                        multiple>
+                </div>
+
+                <!-- Product Details -->
+                <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm space-y-5">
+                    <h3 class="font-semibold text-lg text-gray-900">Product Details</h3>
+
+                    <!-- Title -->
+                    <div>
+                        <label for="title" class="block text-sm font-medium text-gray-600 mb-2">Title *</label>
+                        <input type="text" id="title" name="title" required maxlength="200"
+                            placeholder="e.g., HP Laptop 15s - Intel Core i5"
+                            class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 px-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                    </div>
+
+                    <!-- Category & Condition -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="category" class="block text-sm font-medium text-gray-600 mb-2">Category
+                                *</label>
+                            <select id="category" name="category" required
+                                class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 px-4 text-sm text-gray-700 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                                <option value="">Select category</option>
+                                <option value="Books">Books</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="condition" class="block text-sm font-medium text-gray-600 mb-2">Condition
+                                *</label>
+                            <select id="condition" name="condition" required
+                                class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 px-4 text-sm text-gray-700 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                                <option value="">Select condition</option>
+                                <option value="New">New</option>
+                                <option value="Fairly Used">Fairly Used</option>
+                                <option value="Used">Used</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Price -->
+                    <div>
+                        <label for="price" class="block text-sm font-medium text-gray-600 mb-2">Price (₵) *</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">₵</span>
+                            <input type="number" id="price" name="price" required min="0" step="0.01" placeholder="0.00"
+                                class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 pl-10 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Campus -->
+                    <div>
+                        <label for="campus" class="block text-sm font-medium text-gray-600 mb-2">Campus Location</label>
+                        <div class="relative">
+                            <input type="text" id="campus" name="campus"
+                                placeholder="Leave empty to use your default campus"
+                                class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                            <i class="fas fa-map-marker-alt absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label for="description"
+                            class="block text-sm font-medium text-gray-600 mb-2">Description</label>
+                        <textarea id="description" name="description" rows="4" maxlength="2000"
+                            placeholder="Describe your item - include details like brand, age, any defects, etc."
+                            class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 px-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all resize-none"></textarea>
+                        <p class="text-xs text-gray-400 mt-1 text-right"><span id="charCount">0</span>/2000</p>
+                    </div>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage"
+                    class="hidden p-4 rounded-xl bg-red-50 border border-red-100 text-red-600 text-sm">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span id="errorText"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button type="submit" id="submitBtn"
+                        class="flex-1 py-3.5 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 hover:shadow-lg hover:shadow-green-600/20 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>List Item</span>
+                    </button>
+                    <a href="index.html"
+                        class="py-3.5 px-6 rounded-xl border border-gray-300 text-center font-medium text-gray-700 hover:bg-gray-50 transition-all">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js?v=5"></script>
+    <script src="js/utils.js?v=5"></script>
+    <script src="js/api.js?v=5"></script>
+    <script>
+        const slotFiles = [null, null, null, null, null];
+        let activeSlot = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                showToast('Please login to list items', 'error');
+                setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+                return;
+            }
+
+            const imageInput = document.getElementById('imageInput');
+            const description = document.getElementById('description');
+            const charCount = document.getElementById('charCount');
+            const uploadForm = document.getElementById('uploadForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            if (user.campus) {
+                document.getElementById('campus').placeholder = user.campus;
+            }
+
+            imageInput.addEventListener('change', (e) => {
+                const files = Array.from(e.target.files);
+                let currentSlot = activeSlot;
+                files.forEach((file, index) => {
+                    if (file.size > 5 * 1024 * 1024) {
+                        showToast(`"${file.name}" exceeds 5MB limit`, 'error');
+                        return;
+                    }
+                    if (index === 0) {
+                        setSlotImage(currentSlot, file);
+                        currentSlot = findNextEmptySlot(currentSlot + 1);
+                    } else {
+                        if (currentSlot < 5 && !slotFiles[currentSlot]) {
+                            setSlotImage(currentSlot, file);
+                            currentSlot = findNextEmptySlot(currentSlot + 1);
+                        }
+                    }
+                });
+                imageInput.value = '';
+            });
+
+            description.addEventListener('input', () => {
+                charCount.textContent = description.value.length;
+            });
+
+            uploadForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                errorMessage.classList.add('hidden');
+
+                if (!slotFiles[0]) {
+                    showError('Please upload at least a main product image');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('title', document.getElementById('title').value.trim());
+                formData.append('category', document.getElementById('category').value);
+                formData.append('condition', document.getElementById('condition').value);
+                formData.append('price', document.getElementById('price').value);
+                formData.append('description', document.getElementById('description').value.trim());
+
+                const campus = document.getElementById('campus').value.trim();
+                if (campus) {
+                    formData.append('campus', campus);
+                }
+
+                slotFiles.forEach(file => {
+                    if (file) formData.append('images', file);
+                });
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Uploading...';
+
+                try {
+                    const response = await api.postFormData('/products', formData);
+
+                    if (response.success) {
+                        showToast('Item listed successfully!', 'success');
+                        setTimeout(() => {
+                            window.location.href = `product-details.html?id=${response.data.product.id}`;
+                        }, 1500);
+                    } else {
+                        showError(response.message || 'Failed to list item');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-plus-circle"></i><span>List Item</span>';
+                    }
+                } catch (error) {
+                    showError(error.message || 'An error occurred. Please try again.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-plus-circle"></i><span>List Item</span>';
+                }
+            });
+
+            function showError(message) {
+                errorText.textContent = message;
+                errorMessage.classList.remove('hidden');
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+
+        function triggerFileSelect(slotIndex) {
+            activeSlot = slotIndex;
+            document.getElementById('imageInput').click();
+        }
+
+        function setSlotImage(slotIndex, file) {
+            if (slotIndex >= 5) return;
+
+            slotFiles[slotIndex] = file;
+            const slot = document.getElementById(`slot-${slotIndex}`);
+            const img = document.getElementById(`slot-${slotIndex}-img`);
+            const placeholder = document.getElementById(`slot-${slotIndex}-placeholder`);
+            const removeBtn = document.getElementById(`slot-${slotIndex}-remove`);
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                img.src = e.target.result;
+                img.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+                removeBtn.classList.remove('hidden');
+                slot.classList.add('has-image');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeSlotImage(slotIndex) {
+            slotFiles[slotIndex] = null;
+            const slot = document.getElementById(`slot-${slotIndex}`);
+            const img = document.getElementById(`slot-${slotIndex}-img`);
+            const placeholder = document.getElementById(`slot-${slotIndex}-placeholder`);
+            const removeBtn = document.getElementById(`slot-${slotIndex}-remove`);
+
+            img.src = '';
+            img.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            removeBtn.classList.add('hidden');
+            slot.classList.remove('has-image');
+        }
+
+        function findNextEmptySlot(startFrom = 0) {
+            for (let i = startFrom; i < 5; i++) {
+                if (!slotFiles[i]) return i;
+            }
+            for (let i = 0; i < startFrom; i++) {
+                if (!slotFiles[i]) return i;
+            }
+            return 0;
+        }
+    </script>
+</body>
+
+</html>

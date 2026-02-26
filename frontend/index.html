@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Sellout - Campus Resale Marketplace. Buy and sell used items within your university community.">
+    <meta name="keywords" content="campus, resale, marketplace, buy, sell, university, students">
+    <title>Sellout | Campus Resale Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-white text-gray-800 font-sans min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-b border-gray-200 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2.5">
+                    <img src="assets/logo.png" alt="Sellout Logo" class="h-10 w-10 rounded-xl object-contain bg-green-600 p-1.5">
+                    <span class="text-xl font-bold text-gray-900">Sellout</span>
+                </a>
+
+                <!-- Search Bar (Desktop) -->
+                <div class="hidden md:flex flex-1 max-w-xl mx-8">
+                    <div class="relative w-full">
+                        <input type="text" id="searchInput" placeholder="Search for items..."
+                            class="w-full bg-gray-50 border border-gray-300 rounded-xl py-2.5 pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                        <button id="searchBtn"
+                            class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-600 transition-colors">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="index.html"
+                        class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all">Browse</a>
+                    <a href="upload-product.html" id="sellLink"
+                        class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all">Sell</a>
+
+                    <!-- Auth Buttons (Logged Out) -->
+                    <div id="authButtons" class="flex items-center gap-2 ml-2">
+                        <a href="login.html"
+                            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all">Login</a>
+                        <a href="register.html"
+                            class="px-5 py-2.5 rounded-xl bg-green-600 text-sm font-semibold text-white hover:bg-green-700 hover:shadow-lg hover:shadow-green-600/20 transition-all">Sign
+                            Up</a>
+                    </div>
+
+                    <!-- User Menu (Logged In) -->
+                    <div id="userMenu" class="hidden relative">
+                        <button id="userMenuBtn"
+                            class="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-50 transition-all">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center overflow-hidden"
+                                id="userAvatar">
+                                <i class="fas fa-user text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700" id="userName">User</span>
+                            <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                        </button>
+                        <div id="userDropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden">
+                            <a href="profile.html"
+                                class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 transition-all">
+                                <i class="fas fa-user-circle text-gray-400"></i>
+                                <span class="text-sm">My Profile</span>
+                            </a>
+                            <a href="profile.html#my-listings"
+                                class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 transition-all">
+                                <i class="fas fa-boxes text-gray-400"></i>
+                                <span class="text-sm">My Listings</span>
+                            </a>
+                            <a href="favorites.html"
+                                class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 transition-all">
+                                <i class="fas fa-heart text-gray-400"></i>
+                                <span class="text-sm">My Favorites</span>
+                            </a>
+                            <hr class="border-gray-100">
+                            <button id="logoutBtn"
+                                class="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-all text-red-500">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span class="text-sm">Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-50 transition-all">
+                    <i class="fas fa-bars text-xl text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-4 py-3">
+                <div class="relative">
+                    <input type="text" id="mobileSearchInput" placeholder="Search for items..."
+                        class="w-full bg-gray-50 border border-gray-300 rounded-xl py-2.5 pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500 transition-all">
+                    <button id="mobileSearchBtn"
+                        class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-600 transition-colors">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="px-2 pb-3 space-y-1">
+                <a href="index.html"
+                    class="block px-4 py-2.5 rounded-lg text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-all">Browse</a>
+                <a href="#" id="mobileSellLink"
+                    class="block px-4 py-2.5 rounded-lg text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-all">Sell
+                    Item</a>
+                <div id="mobileAuthButtons">
+                    <a href="login.html"
+                        class="block px-4 py-2.5 rounded-lg text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-all">Login</a>
+                    <a href="register.html"
+                        class="block px-4 py-2.5 rounded-lg text-green-600 hover:bg-gray-50 transition-all">Sign
+                        Up</a>
+                </div>
+                <div id="mobileUserMenu" class="hidden">
+                    <a href="profile.html"
+                        class="block px-4 py-2.5 rounded-lg text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-all">My
+                        Profile</a>
+                    <button id="mobileLogoutBtn"
+                        class="w-full text-left px-4 py-2.5 rounded-lg text-red-500 hover:bg-gray-50 transition-all">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section relative pt-24 pb-0 overflow-hidden">
+        <!-- Background gradient blobs -->
+        <div class="absolute inset-0 bg-gradient-to-b from-green-100/60 via-purple-50/20 to-transparent"></div>
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-br from-green-200/50 via-green-100/30 to-pink-100/20 rounded-full blur-[140px]">
+        </div>
+        <div class="absolute top-40 -left-20 w-[300px] h-[300px] bg-green-200/40 rounded-full blur-[100px]"></div>
+        <div class="absolute top-40 -right-20 w-[300px] h-[300px] bg-purple-100/30 rounded-full blur-[100px]"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+            <!-- Main Hero Content with Floating Images -->
+            <div class="hero-layout relative mt-8">
+
+                <!-- Left Floating Student Images (hidden on mobile) -->
+                <div class="hero-floating-images hero-floating-left hidden lg:block">
+                    <div class="floating-card floating-card-1" style="top: 0; left: 10px;">
+                        <img src="assets/image 1.jpg" alt="Student" loading="lazy">
+                    </div>
+                    <div class="floating-card floating-card-2" style="top: 100px; left: -20px;">
+                        <img src="assets/image 2.jpg" alt="Student" loading="lazy">
+                    </div>
+                    <div class="floating-card floating-card-3" style="top: 230px; left: 30px;">
+                        <img src="assets/image 3.jpg" alt="Student" loading="lazy">
+                    </div>
+                    <div class="floating-card floating-card-4" style="top: 340px; left: -10px;">
+                        <img src="assets/image 4.jpg" alt="Student" loading="lazy">
+                    </div>
+                    <!-- Decorative dots - left -->
+                    <div class="hero-dot dot-green" style="top: 60px; left: 120px;"></div>
+                    <div class="hero-dot dot-cyan" style="top: 200px; left: -40px;"></div>
+                    <div class="hero-dot dot-pink" style="top: 310px; left: 100px;"></div>
+                </div>
+
+                <!-- Right Floating Student Images (hidden on mobile) -->
+                <div class="hero-floating-images hero-floating-right hidden lg:block">
+                    <div class="floating-card floating-card-5" style="top: -10px; right: 0px;">
+                        <img src="assets/image 5.jpg" alt="Student" loading="lazy">
+                    </div>
+                    <div class="floating-card floating-card-6" style="top: 110px; right: -15px;">
+                        <img src="assets/image 6.jpg" alt="Student" loading="lazy">
+                    </div>
+                    <div class="floating-card floating-card-7" style="top: 240px; right: 20px;">
+                        <img src="assets/image 7.jpg" alt="Student" loading="lazy">
+                    </div>
+                    <div class="floating-card floating-card-8" style="top: 350px; right: -5px;">
+                        <img src="assets/image 8.jpg" alt="Student" loading="lazy">
+                    </div>
+                    <!-- Decorative dots - right -->
+                    <div class="hero-dot dot-magenta" style="top: 20px; right: 110px;"></div>
+                    <div class="hero-dot dot-blue" style="top: 290px; right: -30px;"></div>
+                    <div class="hero-dot dot-green" style="top: 180px; right: 100px;"></div>
+                </div>
+
+                <!-- Center Content -->
+                <div class="text-center max-w-3xl mx-auto relative z-10 py-8">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 border border-green-100 mb-6 hero-badge-animate">
+                        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                        <span class="text-sm text-green-700 font-medium">Campus Marketplace</span>
+                    </div>
+                    <h1
+                        class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-gray-900 hero-heading">
+                        Buy & Sell Within<br class="hidden sm:inline"> Your Campus
+                    </h1>
+                    <p class="text-lg text-gray-500 mb-8 max-w-2xl mx-auto leading-relaxed">
+                        The fastest way to resell your textbooks, gadgets, furniture, and more to fellow students. Safe,
+                        local, and hassle-free.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+                        <a href="#products"
+                            class="hero-btn-primary w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold hover:shadow-xl hover:shadow-green-600/25 transition-all flex items-center justify-center gap-2 uppercase tracking-wider text-sm">
+                            <i class="fas fa-shopping-bag"></i>
+                            Start Shopping
+                        </a>
+                        <a href="#" id="heroSellBtn"
+                            class="hero-btn-secondary w-full sm:w-auto px-8 py-3.5 rounded-full bg-white border-2 border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center justify-center gap-2 uppercase tracking-wider text-sm">
+                            <i class="fas fa-plus"></i>
+                            List an Item
+                        </a>
+                    </div>
+
+                    <!-- Avatar Stack + Join Text -->
+                    <div class="flex items-center justify-center gap-3">
+                        <!-- Curved arrow -->
+                        <svg class="hero-arrow hidden sm:block" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                            <path d="M5 25C5 15 15 8 25 5" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"
+                                fill="none" />
+                            <path d="M20 3L26 5L22 10" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round" fill="none" />
+                        </svg>
+                        <div class="flex -space-x-3">
+                            <img class="w-9 h-9 rounded-full border-2 border-white object-cover shadow-sm"
+                                src="assets/image 1.jpg" alt="Student">
+                            <img class="w-9 h-9 rounded-full border-2 border-white object-cover shadow-sm"
+                                src="assets/image 2.jpg" alt="Student">
+                            <img class="w-9 h-9 rounded-full border-2 border-white object-cover shadow-sm"
+                                src="assets/image 3.jpg" alt="Student">
+                            <img class="w-9 h-9 rounded-full border-2 border-white object-cover shadow-sm"
+                                src="assets/image 4.jpg" alt="Student">
+                            <div
+                                class="w-9 h-9 rounded-full border-2 border-white bg-green-50 flex items-center justify-center shadow-sm">
+                                <span class="text-[10px] font-bold text-green-700">+99</span>
+                            </div>
+                        </div>
+                        <span class="text-sm font-semibold text-gray-600">Join over <span
+                                class="text-green-700">1000</span> students!</span>
+                    </div>
+                </div>
+
+            </div><!-- /hero-layout -->
+
+            <!-- Trusted By Section -->
+            <div class="hero-trusted-section mt-32 mb-4">
+                <p class="text-center text-xs font-medium text-gray-400 uppercase tracking-widest mb-6">Trusted by
+                    Students & Campuses</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+                    <div
+                        class="hero-stat-card text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200/80 shadow-sm hover:shadow-md hover:border-green-100 transition-all">
+                        <div class="text-3xl font-bold text-green-700" id="statsProducts">0</div>
+                        <div class="text-sm text-gray-400 mt-1">Active Listings</div>
+                    </div>
+                    <div
+                        class="hero-stat-card text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200/80 shadow-sm hover:shadow-md hover:border-green-100 transition-all">
+                        <div class="text-3xl font-bold text-green-700" id="statsUsers">0</div>
+                        <div class="text-sm text-gray-400 mt-1">Happy Students</div>
+                    </div>
+                    <div
+                        class="hero-stat-card text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200/80 shadow-sm hover:shadow-md hover:border-green-100 transition-all">
+                        <div class="text-3xl font-bold text-green-700" id="statsCampuses">0</div>
+                        <div class="text-sm text-gray-400 mt-1">Campuses</div>
+                    </div>
+                    <div
+                        class="hero-stat-card text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200/80 shadow-sm hover:shadow-md hover:border-green-100 transition-all">
+                        <div class="text-3xl font-bold text-green-700">100%</div>
+                        <div class="text-sm text-gray-400 mt-1">Free Forever</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-12 bg-gray-50/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-8 text-gray-900">Browse by Category</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                <button
+                    class="category-btn group p-6 rounded-2xl bg-white border border-gray-200 hover:border-green-200 hover:shadow-md transition-all shadow-sm"
+                    data-category="Books">
+                    <div
+                        class="w-14 h-14 mx-auto mb-3 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-book text-2xl text-blue-500"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700">Books</span>
+                </button>
+                <button
+                    class="category-btn group p-6 rounded-2xl bg-white border border-gray-200 hover:border-green-200 hover:shadow-md transition-all shadow-sm"
+                    data-category="Electronics">
+                    <div
+                        class="w-14 h-14 mx-auto mb-3 rounded-xl bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-laptop text-2xl text-purple-500"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700">Electronics</span>
+                </button>
+                <button
+                    class="category-btn group p-6 rounded-2xl bg-white border border-gray-200 hover:border-green-200 hover:shadow-md transition-all shadow-sm"
+                    data-category="Fashion">
+                    <div
+                        class="w-14 h-14 mx-auto mb-3 rounded-xl bg-gradient-to-br from-pink-100 to-pink-50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-tshirt text-2xl text-pink-500"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700">Fashion</span>
+                </button>
+                <button
+                    class="category-btn group p-6 rounded-2xl bg-white border border-gray-200 hover:border-green-200 hover:shadow-md transition-all shadow-sm"
+                    data-category="Furniture">
+                    <div
+                        class="w-14 h-14 mx-auto mb-3 rounded-xl bg-gradient-to-br from-amber-100 to-amber-50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-couch text-2xl text-amber-500"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700">Furniture</span>
+                </button>
+                <button
+                    class="category-btn group p-6 rounded-2xl bg-white border border-gray-200 hover:border-green-200 hover:shadow-md transition-all shadow-sm"
+                    data-category="Others">
+                    <div
+                        class="w-14 h-14 mx-auto mb-3 rounded-xl bg-gradient-to-br from-gray-100 to-gray-50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-ellipsis-h text-2xl text-gray-500"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700">Others</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Filters -->
+            <div class="flex flex-col lg:flex-row gap-6 mb-8">
+                <!-- Filter Toggle (Mobile) -->
+                <button id="filterToggle"
+                    class="lg:hidden flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-gray-300 text-sm font-medium text-gray-700 shadow-sm">
+                    <i class="fas fa-filter"></i>
+                    Filters
+                </button>
+
+                <!-- Filter Panel -->
+                <div id="filterPanel" class="hidden lg:block lg:w-64 flex-shrink-0">
+                    <div class="sticky top-24 p-5 rounded-2xl bg-white border border-gray-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="font-semibold text-gray-900">Filters</h3>
+                            <button id="clearFilters"
+                                class="text-xs text-green-600 hover:text-green-700 transition-colors">Clear
+                                All</button>
+                        </div>
+
+                        <!-- Campus Filter -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-500 mb-2">Campus</label>
+                            <select id="filterCampus"
+                                class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-green-500 transition-all">
+                                <option value="all">All Campuses</option>
+                            </select>
+                        </div>
+
+                        <!-- Category Filter -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-500 mb-2">Category</label>
+                            <select id="filterCategory"
+                                class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-green-500 transition-all">
+                                <option value="all">All Categories</option>
+                                <option value="Books">Books</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+
+                        <!-- Condition Filter -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-500 mb-2">Condition</label>
+                            <select id="filterCondition"
+                                class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-green-500 transition-all">
+                                <option value="all">Any Condition</option>
+                                <option value="New">New</option>
+                                <option value="Fairly Used">Fairly Used</option>
+                                <option value="Used">Used</option>
+                            </select>
+                        </div>
+
+                        <!-- Price Range -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-500 mb-2">Price Range</label>
+                            <div class="flex items-center gap-2">
+                                <input type="number" id="minPrice" placeholder="Min"
+                                    class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-green-500 transition-all">
+                                <span class="text-gray-300">-</span>
+                                <input type="number" id="maxPrice" placeholder="Max"
+                                    class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-green-500 transition-all">
+                            </div>
+                        </div>
+
+                        <button id="applyFilters"
+                            class="w-full py-2.5 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-all">
+                            Apply Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="flex-1">
+                    <!-- Sort & Results Info -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">All Listings</h2>
+                            <p class="text-sm text-gray-400 mt-1"><span id="resultsCount">0</span> items available</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-400">Sort by:</span>
+                            <select id="sortBy"
+                                class="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-green-500 transition-all shadow-sm">
+                                <option value="newest">Newest First</option>
+                                <option value="price_low">Price: Low to High</option>
+                                <option value="price_high">Price: High to Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Product Grid -->
+                    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="hidden">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div
+                                class="skeleton-card rounded-2xl bg-white border border-gray-100 overflow-hidden animate-pulse shadow-sm">
+                                <div class="aspect-square bg-gray-100"></div>
+                                <div class="p-4">
+                                    <div class="h-4 bg-gray-100 rounded w-3/4 mb-2"></div>
+                                    <div class="h-3 bg-gray-100 rounded w-1/2 mb-3"></div>
+                                    <div class="h-5 bg-gray-100 rounded w-1/3"></div>
+                                </div>
+                            </div>
+                            <div
+                                class="skeleton-card rounded-2xl bg-white border border-gray-100 overflow-hidden animate-pulse shadow-sm">
+                                <div class="aspect-square bg-gray-100"></div>
+                                <div class="p-4">
+                                    <div class="h-4 bg-gray-100 rounded w-3/4 mb-2"></div>
+                                    <div class="h-3 bg-gray-100 rounded w-1/2 mb-3"></div>
+                                    <div class="h-5 bg-gray-100 rounded w-1/3"></div>
+                                </div>
+                            </div>
+                            <div
+                                class="skeleton-card rounded-2xl bg-white border border-gray-100 overflow-hidden animate-pulse shadow-sm">
+                                <div class="aspect-square bg-gray-100"></div>
+                                <div class="p-4">
+                                    <div class="h-4 bg-gray-100 rounded w-3/4 mb-2"></div>
+                                    <div class="h-3 bg-gray-100 rounded w-1/2 mb-3"></div>
+                                    <div class="h-5 bg-gray-100 rounded w-1/3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="emptyState" class="hidden text-center py-16">
+                        <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gray-50 flex items-center justify-center">
+                            <i class="fas fa-box-open text-3xl text-gray-300"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">No listings found</h3>
+                        <p class="text-gray-400 mb-6">Try adjusting your filters or search terms</p>
+                        <button id="resetSearch"
+                            class="px-6 py-2.5 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-all">
+                            Clear Filters
+                        </button>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div id="pagination" class="hidden flex items-center justify-center gap-2 mt-10">
+                        <button id="prevPage"
+                            class="px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm">
+                            <i class="fas fa-chevron-left mr-2"></i>Previous
+                        </button>
+                        <div id="pageNumbers" class="flex items-center gap-2"></div>
+                        <button id="nextPage"
+                            class="px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm">
+                            Next<i class="fas fa-chevron-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="assets/logo.png" alt="Sellout Logo" class="h-10 w-10 rounded-xl object-contain bg-green-600 p-1.5">
+                        <span class="text-xl font-bold text-gray-900">Sellout</span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-sm">
+                        The trusted campus marketplace for students to buy and sell used items safely within their
+                        university community.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-gray-800">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="index.html" class="hover:text-green-600 transition-colors">Browse Items</a></li>
+                        <li><a href="upload-product.html" class="hover:text-green-600 transition-colors">Sell an
+                                Item</a></li>
+                        <li><a href="profile.html" class="hover:text-green-600 transition-colors">My Account</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-gray-800">Categories</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-green-600 transition-colors">Books</a></li>
+                        <li><a href="#" class="hover:text-green-600 transition-colors">Electronics</a></li>
+                        <li><a href="#" class="hover:text-green-600 transition-colors">Fashion</a></li>
+                        <li><a href="#" class="hover:text-green-600 transition-colors">Furniture</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-10 pt-6 border-t border-gray-300 text-center text-sm text-gray-400">
+                <p>&copy; 2026 Sellout. Made with <i class="fas fa-heart text-red-400"></i> for students.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js?v=6"></script>
+    <script src="js/utils.js?v=6"></script>
+    <script src="js/api.js?v=6"></script>
+    <script src="js/auth.js?v=6"></script>
+    <script src="js/products.js?v=6"></script>
+    <script src="js/app.js?v=6"></script>
+</body>
+
+</html>

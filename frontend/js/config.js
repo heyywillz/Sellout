@@ -1,7 +1,10 @@
-// API Configuration
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
 const CONFIG = {
-    // Change this to your deployed backend URL in production
-    API_URL: 'http://localhost:5000/api',
+    // Automatically switch between localhost and your deployed backend URL on Render
+    API_URL: isLocalhost
+        ? 'http://localhost:5000/api'
+        : 'https://sellout-backend.onrender.com/api', // <-- YOU WILL UPDATE THIS ONCE YOU HAVE YOUR RENDER URL
 
     // Default currency
     CURRENCY: '₵',

@@ -21,7 +21,7 @@ const auth = async (req, res, next) => {
 
         // Get user from database
         const [users] = await pool.query(
-            'SELECT id, name, email, campus, whatsapp, profile_image, created_at FROM users WHERE id = ?',
+            'SELECT id, name, email, campus, whatsapp, profile_image, is_verified, is_admin, created_at FROM users WHERE id = ?',
             [decoded.userId]
         );
 
@@ -69,7 +69,7 @@ const optionalAuth = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         const [users] = await pool.query(
-            'SELECT id, name, email, campus, whatsapp, profile_image, created_at FROM users WHERE id = ?',
+            'SELECT id, name, email, campus, whatsapp, profile_image, is_verified, is_admin, created_at FROM users WHERE id = ?',
             [decoded.userId]
         );
 

@@ -10,6 +10,8 @@ const userRoutes = require('./routes/users');
 const productRoutes = require('./routes/products');
 const favoriteRoutes = require('./routes/favorites');
 const reviewRoutes = require('./routes/reviews');
+const verificationRoutes = require('./routes/verification');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 
@@ -44,6 +46,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/favorites', favoriteRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/verification', verificationRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

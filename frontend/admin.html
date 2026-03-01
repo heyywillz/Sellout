@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard - Sellout Campus Marketplace">
+    <title>Admin Dashboard | Sellout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css?v=5">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-b border-gray-100 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-2">
+                    <img src="assets/logo.png" alt="Sellout Logo"
+                        class="h-10 w-10 rounded-xl object-contain bg-green-600 p-1.5">
+                    <span class="text-xl font-bold text-gray-900">Sellout</span>
+                    <span class="px-2 py-0.5 rounded-md bg-red-100 text-red-600 text-xs font-semibold ml-1">ADMIN</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+                        <i class="fas fa-home mr-2"></i>Browse
+                    </a>
+                    <a href="profile.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+                        <i class="fas fa-user mr-2"></i>Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Access Denied State -->
+    <div id="accessDenied" class="hidden pt-24 pb-16">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-red-50 flex items-center justify-center">
+                <i class="fas fa-lock text-3xl text-red-400"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-2 text-gray-800">Access Denied</h2>
+            <p class="text-gray-400 mb-6">You don't have admin privileges to view this page.</p>
+            <a href="index.html"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-medium transition-all">
+                <i class="fas fa-arrow-left"></i>Back to Marketplace
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="mainContent" class="hidden pt-24 pb-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Page Title -->
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                    <i class="fas fa-shield-alt text-green-600"></i>
+                    Verification Dashboard
+                </h1>
+                <p class="text-gray-400 text-sm mt-1">Review and manage student ID verification requests</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                <div class="p-5 rounded-2xl bg-white border border-gray-100 text-center shadow-sm">
+                    <p id="statTotal" class="text-2xl font-bold text-gray-700">0</p>
+                    <p class="text-sm text-gray-400">Total</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-white border border-amber-100 text-center shadow-sm">
+                    <p id="statPending" class="text-2xl font-bold text-amber-600">0</p>
+                    <p class="text-sm text-gray-400">Pending</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-white border border-green-100 text-center shadow-sm">
+                    <p id="statApproved" class="text-2xl font-bold text-green-600">0</p>
+                    <p class="text-sm text-gray-400">Approved</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-white border border-red-100 text-center shadow-sm">
+                    <p id="statRejected" class="text-2xl font-bold text-red-500">0</p>
+                    <p class="text-sm text-gray-400">Rejected</p>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex items-center gap-2 mb-6">
+                <button
+                    class="filter-btn active px-4 py-2 rounded-lg bg-green-50 text-green-700 text-sm font-medium transition-all"
+                    data-filter="">All</button>
+                <button
+                    class="filter-btn px-4 py-2 rounded-lg bg-gray-100 text-gray-500 text-sm font-medium hover:bg-gray-200 transition-all"
+                    data-filter="pending">Pending</button>
+                <button
+                    class="filter-btn px-4 py-2 rounded-lg bg-gray-100 text-gray-500 text-sm font-medium hover:bg-gray-200 transition-all"
+                    data-filter="approved">Approved</button>
+                <button
+                    class="filter-btn px-4 py-2 rounded-lg bg-gray-100 text-gray-500 text-sm font-medium hover:bg-gray-200 transition-all"
+                    data-filter="rejected">Rejected</button>
+            </div>
+
+            <!-- Verifications List -->
+            <div id="verificationsList" class="space-y-4"></div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="hidden">
+                <div class="space-y-4">
+                    <div class="h-32 bg-white border border-gray-100 rounded-2xl animate-pulse"></div>
+                    <div class="h-32 bg-white border border-gray-100 rounded-2xl animate-pulse"></div>
+                    <div class="h-32 bg-white border border-gray-100 rounded-2xl animate-pulse"></div>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden text-center py-16">
+                <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gray-50 flex items-center justify-center">
+                    <i class="fas fa-inbox text-3xl text-gray-300"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">No verification requests</h3>
+                <p class="text-gray-400">There are no verification submissions matching this filter.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rejection Reason Modal -->
+    <div id="rejectModal"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Rejection Reason</h3>
+            <textarea id="rejectionReason" rows="3" placeholder="Provide a reason for rejection (optional)..."
+                class="w-full bg-gray-50 border border-gray-300 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all resize-none"></textarea>
+            <div class="flex gap-3 mt-4">
+                <button id="cancelReject"
+                    class="flex-1 py-2.5 rounded-xl bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition-all text-sm">Cancel</button>
+                <button id="confirmReject"
+                    class="flex-1 py-2.5 rounded-xl bg-red-500 text-white font-medium hover:bg-red-600 transition-all text-sm">Reject
+                    Verification</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div id="imageModal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 cursor-pointer">
+        <img id="modalImage" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl">
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js?v=5"></script>
+    <script src="js/utils.js?v=5"></script>
+    <script src="js/api.js?v=5"></script>
+    <script>
+        let currentFilter = '';
+        let pendingRejectId = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Check if user is admin
+            try {
+                const profileRes = await api.get('/users/profile');
+                if (!profileRes.success || profileRes.data.user.is_admin !== 1) {
+                    document.getElementById('accessDenied').classList.remove('hidden');
+                    return;
+                }
+            } catch (e) {
+                document.getElementById('accessDenied').classList.remove('hidden');
+                return;
+            }
+
+            document.getElementById('mainContent').classList.remove('hidden');
+            await loadStats();
+            await loadVerifications();
+
+            // Filter tabs
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('active', 'bg-green-50', 'text-green-700');
+                        b.classList.add('bg-gray-100', 'text-gray-500');
+                    });
+                    btn.classList.add('active', 'bg-green-50', 'text-green-700');
+                    btn.classList.remove('bg-gray-100', 'text-gray-500');
+                    currentFilter = btn.dataset.filter;
+                    loadVerifications();
+                });
+            });
+
+            // Reject modal
+            document.getElementById('cancelReject').addEventListener('click', () => {
+                document.getElementById('rejectModal').classList.add('hidden');
+                pendingRejectId = null;
+            });
+
+            document.getElementById('confirmReject').addEventListener('click', async () => {
+                if (!pendingRejectId) return;
+                const reason = document.getElementById('rejectionReason').value;
+                await reviewVerification(pendingRejectId, 'rejected', reason);
+                document.getElementById('rejectModal').classList.add('hidden');
+                document.getElementById('rejectionReason').value = '';
+                pendingRejectId = null;
+            });
+
+            // Image modal close
+            document.getElementById('imageModal').addEventListener('click', () => {
+                document.getElementById('imageModal').classList.add('hidden');
+            });
+        });
+
+        async function loadStats() {
+            try {
+                const response = await api.get('/admin/stats');
+                if (response.success) {
+                    const { verifications } = response.data;
+                    document.getElementById('statTotal').textContent = verifications.total || 0;
+                    document.getElementById('statPending').textContent = verifications.pending || 0;
+                    document.getElementById('statApproved').textContent = verifications.approved || 0;
+                    document.getElementById('statRejected').textContent = verifications.rejected || 0;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        async function loadVerifications() {
+            const list = document.getElementById('verificationsList');
+            const loading = document.getElementById('loadingState');
+            const empty = document.getElementById('emptyState');
+
+            list.innerHTML = '';
+            loading.classList.remove('hidden');
+            empty.classList.add('hidden');
+
+            try {
+                let url = '/admin/verifications';
+                if (currentFilter) url += `?status=${currentFilter}`;
+
+                const response = await api.get(url);
+                loading.classList.add('hidden');
+
+                if (response.success && response.data.verifications.length > 0) {
+                    list.innerHTML = response.data.verifications.map(v => renderVerificationCard(v)).join('');
+                } else {
+                    empty.classList.remove('hidden');
+                }
+            } catch (error) {
+                loading.classList.add('hidden');
+                empty.classList.remove('hidden');
+                console.error('Error loading verifications:', error);
+            }
+        }
+
+        function renderVerificationCard(v) {
+            const statusColors = {
+                pending: 'bg-amber-100 text-amber-700',
+                approved: 'bg-green-100 text-green-700',
+                rejected: 'bg-red-100 text-red-700'
+            };
+
+            const statusIcons = {
+                pending: 'fa-clock',
+                approved: 'fa-check-circle',
+                rejected: 'fa-times-circle'
+            };
+
+            return `
+                <div class="p-5 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <!-- Student ID Image -->
+                        <div class="w-full sm:w-40 h-28 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+                             onclick="showImage('${v.student_id_image_url}')">
+                            <img src="${v.student_id_image_url}" alt="Student ID"
+                                class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- Details -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between mb-2">
+                                <div>
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <h3 class="font-semibold text-gray-900">${escapeHtml(v.user_name)}</h3>
+                                        <span class="px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[v.status]}">
+                                            <i class="fas ${statusIcons[v.status]} mr-1"></i>${v.status.charAt(0).toUpperCase() + v.status.slice(1)}
+                                        </span>
+                                    </div>
+                                    <p class="text-sm text-gray-500">${escapeHtml(v.user_email)}</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                                <div>
+                                    <span class="text-gray-400">University:</span>
+                                    <span class="text-gray-700 font-medium ml-1">${escapeHtml(v.university_name || 'N/A')}</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-400">Student ID:</span>
+                                    <span class="text-gray-700 font-medium ml-1">${escapeHtml(v.student_id_number || 'N/A')}</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-400">Campus:</span>
+                                    <span class="text-gray-700 font-medium ml-1">${escapeHtml(v.user_campus || 'N/A')}</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-400">Submitted:</span>
+                                    <span class="text-gray-700 font-medium ml-1">${new Date(v.submitted_at).toLocaleDateString()}</span>
+                                </div>
+                            </div>
+                            ${v.rejection_reason ? `<p class="text-sm text-red-500 mb-3"><i class="fas fa-info-circle mr-1"></i>${escapeHtml(v.rejection_reason)}</p>` : ''}
+                            ${v.status === 'pending' ? `
+                                <div class="flex gap-2">
+                                    <button onclick="reviewVerification(${v.id}, 'approved')"
+                                        class="px-4 py-2 rounded-lg bg-green-600 text-white text-sm font-medium hover:bg-green-700 transition-all flex items-center gap-1.5">
+                                        <i class="fas fa-check"></i> Approve
+                                    </button>
+                                    <button onclick="openRejectModal(${v.id})"
+                                        class="px-4 py-2 rounded-lg bg-red-50 text-red-600 text-sm font-medium hover:bg-red-100 transition-all flex items-center gap-1.5">
+                                        <i class="fas fa-times"></i> Reject
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openRejectModal(id) {
+            pendingRejectId = id;
+            document.getElementById('rejectModal').classList.remove('hidden');
+        }
+
+        function showImage(url) {
+            document.getElementById('modalImage').src = url;
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+
+        async function reviewVerification(id, status, reason = '') {
+            try {
+                const body = { status };
+                if (reason) body.rejection_reason = reason;
+
+                const response = await api.put(`/admin/verifications/${id}/review`, body);
+                if (response.success) {
+                    showToast(`Verification ${status} successfully!`, 'success');
+                    await loadStats();
+                    await loadVerifications();
+                }
+            } catch (error) {
+                showToast(error.message || 'Failed to review verification', 'error');
+            }
+        }
+    </script>
+</body>
+
+</html>

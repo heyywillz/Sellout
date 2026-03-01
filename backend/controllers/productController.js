@@ -131,7 +131,7 @@ const getProducts = async (req, res) => {
 
         const offset = (page - 1) * limit;
         let query = `
-            SELECT p.*, u.name as seller_name, u.whatsapp as seller_whatsapp, u.profile_image as seller_image
+            SELECT p.*, u.name as seller_name, u.whatsapp as seller_whatsapp, u.profile_image as seller_image, u.is_verified as seller_verified
             FROM products p
             JOIN users u ON p.user_id = u.id
             WHERE 1=1
@@ -176,7 +176,7 @@ const getProducts = async (req, res) => {
 
         // Count query
         const countQuery = query.replace(
-            'SELECT p.*, u.name as seller_name, u.whatsapp as seller_whatsapp, u.profile_image as seller_image',
+            'SELECT p.*, u.name as seller_name, u.whatsapp as seller_whatsapp, u.profile_image as seller_image, u.is_verified as seller_verified',
             'SELECT COUNT(*) as total'
         );
         const [countResult] = await pool.query(countQuery, params);
@@ -234,7 +234,7 @@ const getProduct = async (req, res) => {
         const { id } = req.params;
 
         const [products] = await pool.query(
-            `SELECT p.*, u.name as seller_name, u.whatsapp as seller_whatsapp, u.profile_image as seller_image, u.campus as seller_campus
+            `SELECT p.*, u.name as seller_name, u.whatsapp as seller_whatsapp, u.profile_image as seller_image, u.campus as seller_campus, u.is_verified as seller_verified
             FROM products p
             JOIN users u ON p.user_id = u.id
             WHERE p.id = ?`,

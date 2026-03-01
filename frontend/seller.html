@@ -30,7 +30,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <a href="index.html" class="flex items-center gap-2">
-                    <img src="assets/logo.png" alt="Sellout Logo" class="h-10 w-10 rounded-xl object-contain bg-green-600 p-1.5">
+                    <img src="assets/logo.png" alt="Sellout Logo"
+                        class="h-10 w-10 rounded-xl object-contain bg-green-600 p-1.5">
                     <span class="text-xl font-bold text-gray-900">Sellout</span>
                 </a>
                 <div class="flex items-center gap-4">
@@ -107,6 +108,10 @@
                         <div class="text-center sm:text-left flex-1 pb-1">
                             <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
                                 <h1 id="sellerName" class="text-2xl font-bold text-gray-900"></h1>
+                                <span id="verifiedBadge"
+                                    class="hidden items-center gap-1 px-2.5 py-1 rounded-full bg-green-50 text-green-600 text-sm font-medium">
+                                    <i class="fas fa-check-circle"></i> Verified
+                                </span>
                                 <div id="ratingBadge"
                                     class="hidden items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 text-amber-600 text-sm font-medium">
                                     <i class="fas fa-star text-xs"></i>
@@ -304,6 +309,13 @@
                     badge.classList.add('inline-flex');
                     document.getElementById('ratingValue').textContent = reviewStats.averageRating;
                     document.getElementById('reviewCount').textContent = `(${reviewStats.totalReviews})`;
+                }
+
+                // Show verified badge
+                if (seller.is_verified === 'verified') {
+                    const vBadge = document.getElementById('verifiedBadge');
+                    vBadge.classList.remove('hidden');
+                    vBadge.classList.add('inline-flex');
                 }
 
                 document.getElementById('statAvailable').textContent = stats.available_products || 0;

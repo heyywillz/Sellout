@@ -229,7 +229,7 @@ const getPublicProfile = async (req, res) => {
 
         // Get user info (exclude password and email for privacy)
         const [users] = await pool.query(
-            'SELECT id, name, campus, whatsapp, profile_image, created_at FROM users WHERE id = ?',
+            'SELECT id, name, campus, whatsapp, profile_image, is_verified, created_at FROM users WHERE id = ?',
             [id]
         );
 

@@ -452,7 +452,7 @@
                 const whatsappMessage = encodeURIComponent(
                     `Hello, I'm interested in your item "${product.title}" listed on Sellout for ${formatPrice(product.price)}. Is it still available?`
                 );
-                const whatsappNumber = product.seller_whatsapp.replace(/[^0-9]/g, '');
+                const whatsappNumber = (product.seller_whatsapp || '').replace(/[^0-9]/g, '');
                 document.getElementById('whatsappBtn').href = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
                 // Show sold badge if sold

@@ -105,6 +105,7 @@ const products = {
                         <span class="text-xs text-gray-400">${product.category}</span>
                         <span class="text-gray-200">•</span>
                         <span class="text-xs text-gray-400">${product.campus}</span>
+                        ${product.seller_verified === 'verified' ? '<span class="text-gray-200">•</span><span class="text-xs text-green-600 font-medium"><i class="fas fa-check-circle mr-0.5"></i>Verified</span>' : ''}
                     </div>
                     <h3 class="font-semibold text-sm mb-2 text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors">
                         ${escapeHtml(product.title)}

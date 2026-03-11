@@ -1014,6 +1014,101 @@ html.dark .border-dashed:hover {
     border-color: rgba(34, 197, 94, 0.4) !important;
 }
 
+/* ---------- REPORTS (Admin + Product Details) ---------- */
+html.dark .report-card {
+    background-color: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .report-stat-card {
+    background-color: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .report-card .text-gray-900,
+html.dark .report-card .text-gray-700 {
+    color: var(--dark-text-primary) !important;
+}
+
+html.dark .report-card .text-gray-400,
+html.dark .report-card .text-gray-500 {
+    color: var(--dark-text-muted) !important;
+}
+
+html.dark .report-card .border-gray-50,
+html.dark .report-card .border-gray-100 {
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .report-reason-btn {
+    background-color: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+html.dark .report-reason-btn:hover,
+html.dark .report-reason-btn.border-red-400 {
+    border-color: #ef4444 !important;
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    color: #fca5a5 !important;
+}
+
+html.dark .report-modal-inner {
+    background-color: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .report-modal-inner .text-gray-900,
+html.dark .report-modal-inner .text-gray-700 {
+    color: var(--dark-text-primary) !important;
+}
+
+html.dark .report-modal-inner .text-gray-400 {
+    color: var(--dark-text-muted) !important;
+}
+
+html.dark .report-modal-inner textarea {
+    background-color: var(--dark-surface) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+html.dark #reportBtn {
+    background-color: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text-muted) !important;
+}
+
+html.dark #reportBtn:hover {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+    color: #fca5a5 !important;
+}
+
+html.dark #reportStatusFilter,
+html.dark #reportReasonFilter {
+    background-color: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+html.dark #reportsBadge {
+    background-color: #f97316 !important;
+}
+
+html.dark .report-card .bg-gray-50,
+html.dark .report-card .bg-gray-100,
+html.dark .report-card .bg-green-50,
+html.dark .report-card .bg-blue-50,
+html.dark .report-card .bg-red-50,
+html.dark .report-card .bg-orange-50 {
+    background-color: var(--dark-surface) !important;
+}
+
+html.dark .report-card .bg-red-50.border-red-100 {
+    border-color: rgba(239, 68, 68, 0.2) !important;
+}
+
 /* ---------- PRINT: ALWAYS LIGHT ---------- */
 @media print {
     html.dark body {

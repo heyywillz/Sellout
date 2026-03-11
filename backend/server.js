@@ -12,6 +12,7 @@ const favoriteRoutes = require('./routes/favorites');
 const reviewRoutes = require('./routes/reviews');
 const verificationRoutes = require('./routes/verification');
 const adminRoutes = require('./routes/admin');
+const reportRoutes = require('./routes/reports');
 
 const app = express();
 
@@ -55,6 +56,7 @@ app.use('/api/favorites', favoriteRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/verification', verificationRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/reports', reportRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

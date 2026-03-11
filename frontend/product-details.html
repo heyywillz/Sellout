@@ -199,6 +199,13 @@
                             Contact Seller on WhatsApp
                         </a>
 
+                        <!-- Report Button (hidden for product owner) -->
+                        <button id="reportBtn" onclick="openReportModal()"
+                            class="hidden group flex items-center justify-center gap-2.5 w-full py-3 mt-3 rounded-2xl border-2 border-dashed border-gray-200 text-gray-400 hover:bg-red-50/60 hover:border-red-300 hover:text-red-500 text-sm font-medium transition-all duration-300">
+                            <i class="fas fa-flag text-xs group-hover:animate-bounce"></i>
+                            <span id="reportBtnText">Report Listing</span>
+                        </button>
+
                         <!-- Owner Actions -->
                         <div id="ownerActions" class="hidden mt-4 grid grid-cols-2 gap-4">
                             <a id="editBtn" href="#"
@@ -340,6 +347,96 @@
         </div>
     </div>
 
+    <!-- Report Modal -->
+    <div id="reportModal"
+        class="hidden fixed inset-0 bg-black/30 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="report-modal-inner bg-white border border-gray-100 rounded-3xl max-w-md w-full shadow-2xl overflow-hidden">
+            <!-- Header with gradient accent -->
+            <div class="relative px-6 pt-6 pb-4">
+                <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-400 via-orange-400 to-amber-400"></div>
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center shadow-lg shadow-red-200/50">
+                        <i class="fas fa-shield-alt text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Report This Listing</h3>
+                        <p class="text-xs text-gray-400">Help us keep the marketplace safe</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-6 pb-6">
+                <!-- Reason Selection -->
+                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Select a reason</p>
+                <div id="reportReasons" class="grid grid-cols-2 gap-2.5 mb-5">
+                    <button type="button" data-reason="scam" class="report-reason-btn group flex items-center gap-2.5 px-3.5 py-3 rounded-2xl border-2 border-gray-100 text-sm text-gray-600 hover:border-red-300 hover:bg-red-50/60 transition-all text-left">
+                        <div class="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-100 transition-colors">
+                            <i class="fas fa-exclamation-triangle text-amber-500 text-xs"></i>
+                        </div>
+                        <span class="font-medium">Scam</span>
+                    </button>
+                    <button type="button" data-reason="inappropriate" class="report-reason-btn group flex items-center gap-2.5 px-3.5 py-3 rounded-2xl border-2 border-gray-100 text-sm text-gray-600 hover:border-red-300 hover:bg-red-50/60 transition-all text-left">
+                        <div class="w-8 h-8 rounded-xl bg-red-50 flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition-colors">
+                            <i class="fas fa-ban text-red-400 text-xs"></i>
+                        </div>
+                        <span class="font-medium">Inappropriate</span>
+                    </button>
+                    <button type="button" data-reason="duplicate" class="report-reason-btn group flex items-center gap-2.5 px-3.5 py-3 rounded-2xl border-2 border-gray-100 text-sm text-gray-600 hover:border-red-300 hover:bg-red-50/60 transition-all text-left">
+                        <div class="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
+                            <i class="fas fa-copy text-blue-400 text-xs"></i>
+                        </div>
+                        <span class="font-medium">Duplicate</span>
+                    </button>
+                    <button type="button" data-reason="wrong_category" class="report-reason-btn group flex items-center gap-2.5 px-3.5 py-3 rounded-2xl border-2 border-gray-100 text-sm text-gray-600 hover:border-red-300 hover:bg-red-50/60 transition-all text-left">
+                        <div class="w-8 h-8 rounded-xl bg-purple-50 flex items-center justify-center flex-shrink-0 group-hover:bg-purple-100 transition-colors">
+                            <i class="fas fa-tag text-purple-400 text-xs"></i>
+                        </div>
+                        <span class="font-medium">Wrong Category</span>
+                    </button>
+                    <button type="button" data-reason="misleading" class="report-reason-btn group flex items-center gap-2.5 px-3.5 py-3 rounded-2xl border-2 border-gray-100 text-sm text-gray-600 hover:border-red-300 hover:bg-red-50/60 transition-all text-left">
+                        <div class="w-8 h-8 rounded-xl bg-gray-50 flex items-center justify-center flex-shrink-0 group-hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-eye-slash text-gray-400 text-xs"></i>
+                        </div>
+                        <span class="font-medium">Misleading</span>
+                    </button>
+                    <button type="button" data-reason="other" class="report-reason-btn group flex items-center gap-2.5 px-3.5 py-3 rounded-2xl border-2 border-gray-100 text-sm text-gray-600 hover:border-red-300 hover:bg-red-50/60 transition-all text-left">
+                        <div class="w-8 h-8 rounded-xl bg-gray-50 flex items-center justify-center flex-shrink-0 group-hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-ellipsis-h text-gray-400 text-xs"></i>
+                        </div>
+                        <span class="font-medium">Other</span>
+                    </button>
+                </div>
+
+                <!-- Details Textarea -->
+                <div class="relative mb-5">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Additional details <span class="normal-case font-normal">(optional)</span></label>
+                    <textarea id="reportDetails" rows="3" maxlength="500"
+                        class="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 text-sm focus:outline-none focus:ring-0 focus:border-red-300 resize-none transition-all placeholder:text-gray-300"
+                        placeholder="Describe what's wrong with this listing..."
+                        oninput="document.getElementById('charCount').textContent = this.value.length"></textarea>
+                    <span class="absolute bottom-3 right-3 text-[10px] text-gray-300 font-medium"><span id="charCount">0</span>/500</span>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex gap-3">
+                    <button onclick="closeReportModal()"
+                        class="flex-1 py-3 rounded-2xl text-gray-500 text-sm font-medium hover:bg-gray-50 transition-all">
+                        Cancel
+                    </button>
+                    <button id="submitReportBtn" onclick="submitReport()"
+                        class="flex-1 py-3 rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white text-sm font-semibold transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-red-200/40 disabled:shadow-none" disabled>
+                        <i class="fas fa-paper-plane mr-1.5"></i>Submit Report
+                    </button>
+                </div>
+
+                <!-- Privacy note -->
+                <p class="text-[10px] text-gray-300 text-center mt-3">
+                    <i class="fas fa-lock mr-1"></i>Your report is anonymous. The seller won't know who reported.
+                </p>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Container -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
 
@@ -363,6 +460,7 @@
             }
 
             await loadProduct(productId);
+            await initReportButton();
         });
 
         // Close share menu when clicking outside
@@ -842,6 +940,101 @@
         function showNotFound() {
             document.getElementById('loadingState').classList.add('hidden');
             document.getElementById('notFoundState').classList.remove('hidden');
+        }
+
+        // ==================== REPORT FUNCTIONS ====================
+        let selectedReportReason = null;
+
+        // Show/hide report button based on auth and ownership
+        async function initReportButton() {
+            const token = localStorage.getItem('token');
+            if (!token || !currentProduct) return;
+
+            try {
+                const authRes = await api.get('/auth/me');
+                if (!authRes.success) return;
+
+                // Don't show report button for own products
+                if (authRes.data.id === currentProduct.user_id) return;
+
+                const reportBtn = document.getElementById('reportBtn');
+                reportBtn.classList.remove('hidden');
+
+                // Check if already reported
+                const checkRes = await api.get(`/reports/check/${currentProduct.id}`);
+                if (checkRes.success && checkRes.data.hasReported) {
+                    reportBtn.disabled = true;
+                    reportBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    document.getElementById('reportBtnText').textContent = 'Already Reported';
+                    reportBtn.querySelector('i').classList.replace('fa-flag', 'fa-check');
+                }
+            } catch (e) { /* silent */ }
+        }
+
+        function openReportModal() {
+            selectedReportReason = null;
+            document.querySelectorAll('.report-reason-btn').forEach(btn => {
+                btn.classList.remove('border-red-400', 'bg-red-50', 'text-red-600');
+            });
+            document.getElementById('reportDetails').value = '';
+            document.getElementById('submitReportBtn').disabled = true;
+            document.getElementById('reportModal').classList.remove('hidden');
+        }
+
+        function closeReportModal() {
+            document.getElementById('reportModal').classList.add('hidden');
+        }
+
+        // Reason button click handlers
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.report-reason-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.report-reason-btn').forEach(b => {
+                        b.classList.remove('border-red-400', 'bg-red-50', 'text-red-600');
+                    });
+                    btn.classList.add('border-red-400', 'bg-red-50', 'text-red-600');
+                    selectedReportReason = btn.dataset.reason;
+                    document.getElementById('submitReportBtn').disabled = false;
+                });
+            });
+
+            // Close modal on backdrop click
+            document.getElementById('reportModal').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) closeReportModal();
+            });
+        });
+
+        async function submitReport() {
+            if (!selectedReportReason || !currentProduct) return;
+
+            const btn = document.getElementById('submitReportBtn');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            try {
+                const details = document.getElementById('reportDetails').value.trim();
+                const response = await api.post(`/reports/${currentProduct.id}`, {
+                    reason: selectedReportReason,
+                    details: details || undefined
+                });
+
+                if (response.success) {
+                    closeReportModal();
+                    showToast(response.message || 'Report submitted successfully', 'success');
+
+                    // Update button to show already reported
+                    const reportBtn = document.getElementById('reportBtn');
+                    reportBtn.disabled = true;
+                    reportBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    document.getElementById('reportBtnText').textContent = 'Already Reported';
+                    reportBtn.querySelector('i').classList.replace('fa-flag', 'fa-check');
+                }
+            } catch (error) {
+                showToast(error.message || 'Failed to submit report', 'error');
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Submit Report';
         }
     </script>
 </body>

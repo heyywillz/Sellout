@@ -13,6 +13,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+    <script src="js/theme.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -52,6 +54,9 @@
 
                 <!-- Desktop Navigation Links -->
                 <div class="hidden md:flex items-center gap-1">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode" id="desktopThemeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
                     <a href="index.html"
                         class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all">Browse</a>
                     <a href="upload-product.html" id="sellLink"
@@ -104,10 +109,15 @@
                     </div>
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-50 transition-all">
-                    <i class="fas fa-bars text-xl text-gray-700"></i>
-                </button>
+                <!-- Mobile Theme Toggle + Menu Button -->
+                <div class="md:hidden flex items-center gap-1">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode" id="mobileThemeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="mobileMenuBtn" class="p-2 rounded-lg hover:bg-gray-50 transition-all">
+                        <i class="fas fa-bars text-xl text-gray-700"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -542,7 +552,7 @@
                 </div>
             </div>
             <div class="mt-10 pt-6 border-t border-gray-300 text-center text-sm text-gray-400">
-                <p>&copy; 2026 Sellout. Made with <i class="fas fa-heart text-red-400"></i> for students.</p>
+                <p>&copy; 2026 SellOut. Built for students.</p>
             </div>
         </div>
     </footer>

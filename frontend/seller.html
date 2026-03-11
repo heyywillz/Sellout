@@ -11,6 +11,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css?v=5">
+    <link rel="stylesheet" href="css/dark-mode.css">
+    <script src="js/theme.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -35,6 +37,9 @@
                     <span class="text-xl font-bold text-gray-900">Sellout</span>
                 </a>
                 <div class="flex items-center gap-4">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
                     <a href="index.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
                         <i class="fas fa-home mr-2"></i>Browse
                     </a>

@@ -830,7 +830,7 @@ input:-webkit-autofill:focus {
 .hero-floating-images {
     position: absolute;
     top: 0;
-    width: 140px;
+    width: 165px;
     height: 100%;
     pointer-events: none;
     z-index: 5;
@@ -864,58 +864,58 @@ input:-webkit-autofill:focus {
 
 /* Varying sizes for organic feel */
 .floating-card-1 {
-    width: 72px;
-    height: 72px;
-    border-radius: 18px;
+    width: 85px;
+    height: 85px;
+    border-radius: 20px;
     animation: heroFloat1 6s ease-in-out infinite;
 }
 
 .floating-card-2 {
-    width: 90px;
-    height: 90px;
-    border-radius: 20px;
+    width: 106px;
+    height: 106px;
+    border-radius: 22px;
     animation: heroFloat2 7s ease-in-out infinite;
 }
 
 .floating-card-3 {
-    width: 66px;
-    height: 66px;
-    border-radius: 14px;
+    width: 78px;
+    height: 78px;
+    border-radius: 16px;
     animation: heroFloat3 5.5s ease-in-out infinite;
 }
 
 .floating-card-4 {
-    width: 80px;
-    height: 80px;
-    border-radius: 18px;
+    width: 94px;
+    height: 94px;
+    border-radius: 20px;
     animation: heroFloat1 6.5s ease-in-out infinite 0.5s;
 }
 
 .floating-card-5 {
-    width: 80px;
-    height: 80px;
-    border-radius: 18px;
+    width: 94px;
+    height: 94px;
+    border-radius: 20px;
     animation: heroFloat2 6s ease-in-out infinite 0.3s;
 }
 
 .floating-card-6 {
-    width: 94px;
-    height: 94px;
-    border-radius: 22px;
+    width: 111px;
+    height: 111px;
+    border-radius: 24px;
     animation: heroFloat3 7s ease-in-out infinite 0.7s;
 }
 
 .floating-card-7 {
-    width: 70px;
-    height: 70px;
-    border-radius: 16px;
+    width: 83px;
+    height: 83px;
+    border-radius: 18px;
     animation: heroFloat1 5.8s ease-in-out infinite 1s;
 }
 
 .floating-card-8 {
-    width: 76px;
-    height: 76px;
-    border-radius: 18px;
+    width: 90px;
+    height: 90px;
+    border-radius: 20px;
     animation: heroFloat2 6.2s ease-in-out infinite 0.2s;
 }
 

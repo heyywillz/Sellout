@@ -29,8 +29,15 @@ const limiter = rateLimit({
 });
 
 // Middleware
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000').split(',').map(s => s.trim());
 app.use(cors({
-    origin: process.env.FRONTEND_URL || '*',
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(null, true); // Allow all in development
+        }
+    },
     credentials: true
 }));
 app.use(express.json());

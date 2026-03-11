@@ -10,7 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css?v=5">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="css/style.css?v=7">
+    <link rel="stylesheet" href="css/dark-mode.css">
+    <script src="js/theme.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -22,6 +25,58 @@
             }
         }
     </script>
+    <style>
+        .tab-btn.active {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            color: white;
+        }
+
+        .tab-btn:not(.active) {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .tab-btn:not(.active):hover {
+            background: #e5e7eb;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .bar-fill {
+            transition: width 0.8s ease-out;
+        }
+
+        .user-row {
+            transition: background 0.2s ease;
+        }
+
+        .user-row:hover {
+            background: #f9fafb;
+        }
+
+        .section-fade {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen">
@@ -36,6 +91,9 @@
                     <span class="px-2 py-0.5 rounded-md bg-red-100 text-red-600 text-xs font-semibold ml-1">ADMIN</span>
                 </a>
                 <div class="flex items-center gap-4">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
                     <a href="index.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
                         <i class="fas fa-home mr-2"></i>Browse
                     </a>
@@ -64,71 +122,455 @@
 
     <!-- Main Content -->
     <main id="mainContent" class="hidden pt-24 pb-16">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Page Title -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Page Header -->
             <div class="mb-8">
                 <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
                     <i class="fas fa-shield-alt text-green-600"></i>
-                    Verification Dashboard
+                    Admin Dashboard
                 </h1>
-                <p class="text-gray-400 text-sm mt-1">Review and manage student ID verification requests</p>
+                <p class="text-gray-400 text-sm mt-1">Manage your platform, users, and verifications</p>
             </div>
 
-            <!-- Stats Cards -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                <div class="p-5 rounded-2xl bg-white border border-gray-100 text-center shadow-sm">
-                    <p id="statTotal" class="text-2xl font-bold text-gray-700">0</p>
-                    <p class="text-sm text-gray-400">Total</p>
+            <!-- Tab Navigation -->
+            <div class="flex flex-wrap items-center gap-2 mb-8">
+                <button class="tab-btn active px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
+                    data-tab="overview">
+                    <i class="fas fa-chart-pie mr-2"></i>Overview
+                </button>
+                <button class="tab-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all" data-tab="users">
+                    <i class="fas fa-users mr-2"></i>Users
+                </button>
+                <button class="tab-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all" data-tab="products">
+                    <i class="fas fa-box-open mr-2"></i>Products
+                </button>
+                <button class="tab-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all relative"
+                    data-tab="verifications">
+                    <i class="fas fa-id-card mr-2"></i>Verifications
+                    <span id="pendingBadge" class="hidden absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center animate-pulse"></span>
+                </button>
+                <button class="tab-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all" data-tab="campus">
+                    <i class="fas fa-university mr-2"></i>Campus Analytics
+                </button>
+            </div>
+
+            <!-- ==================== OVERVIEW TAB ==================== -->
+            <div id="tab-overview" class="tab-content section-fade">
+                <!-- Platform Stats Row 1 -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+                                <i class="fas fa-users text-blue-500"></i>
+                            </div>
+                        </div>
+                        <p id="overviewUsers" class="text-2xl font-bold text-gray-800">0</p>
+                        <p class="text-xs text-gray-400 mt-1">Total Users</p>
+                    </div>
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
+                                <i class="fas fa-box-open text-green-500"></i>
+                            </div>
+                        </div>
+                        <p id="overviewProducts" class="text-2xl font-bold text-gray-800">0</p>
+                        <p class="text-xs text-gray-400 mt-1">Total Products</p>
+                    </div>
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
+                                <i class="fas fa-check-circle text-purple-500"></i>
+                            </div>
+                        </div>
+                        <p id="overviewSold" class="text-2xl font-bold text-gray-800">0</p>
+                        <p class="text-xs text-gray-400 mt-1">Items Sold</p>
+                    </div>
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
+                                <i class="fas fa-clock text-amber-500"></i>
+                            </div>
+                        </div>
+                        <p id="overviewPending" class="text-2xl font-bold text-amber-600">0</p>
+                        <p class="text-xs text-gray-400 mt-1">Pending Verifications</p>
+                    </div>
                 </div>
-                <div class="p-5 rounded-2xl bg-white border border-amber-100 text-center shadow-sm">
-                    <p id="statPending" class="text-2xl font-bold text-amber-600">0</p>
-                    <p class="text-sm text-gray-400">Pending</p>
+
+                <!-- Stats Row 2 -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                                <i class="fas fa-cedi-sign text-emerald-500"></i>
+                            </div>
+                        </div>
+                        <p id="overviewSoldValue" class="text-2xl font-bold text-gray-800">₵0</p>
+                        <p class="text-xs text-gray-400 mt-1">Total Sold Value</p>
+                    </div>
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-cyan-50 flex items-center justify-center">
+                                <i class="fas fa-tag text-cyan-500"></i>
+                            </div>
+                        </div>
+                        <p id="overviewAvgPrice" class="text-2xl font-bold text-gray-800">₵0</p>
+                        <p class="text-xs text-gray-400 mt-1">Average Price</p>
+                    </div>
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
+                                <i class="fas fa-user-check text-indigo-500"></i>
+                            </div>
+                        </div>
+                        <p id="overviewVerified" class="text-2xl font-bold text-gray-800">0</p>
+                        <p class="text-xs text-gray-400 mt-1">Verified Users</p>
+                    </div>
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center">
+                                <i class="fas fa-star text-rose-500"></i>
+                            </div>
+                        </div>
+                        <p id="overviewAvgRating" class="text-2xl font-bold text-gray-800">—</p>
+                        <p class="text-xs text-gray-400 mt-1">Avg Seller Rating</p>
+                    </div>
                 </div>
-                <div class="p-5 rounded-2xl bg-white border border-green-100 text-center shadow-sm">
-                    <p id="statApproved" class="text-2xl font-bold text-green-600">0</p>
-                    <p class="text-sm text-gray-400">Approved</p>
+
+                <!-- Charts Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <!-- Category Doughnut Chart -->
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4"><i
+                                class="fas fa-layer-group text-green-500 mr-2"></i>Products by Category</h3>
+                        <div class="relative" style="height: 280px;"><canvas id="categoryChartCanvas"></canvas></div>
+                    </div>
+                    <!-- Auth Methods Pie Chart -->
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4"><i
+                                class="fas fa-sign-in-alt text-blue-500 mr-2"></i>Authentication Methods</h3>
+                        <div class="relative" style="height: 280px;"><canvas id="authChartCanvas"></canvas></div>
+                    </div>
                 </div>
-                <div class="p-5 rounded-2xl bg-white border border-red-100 text-center shadow-sm">
-                    <p id="statRejected" class="text-2xl font-bold text-red-500">0</p>
-                    <p class="text-sm text-gray-400">Rejected</p>
+
+                <!-- Product Status Bar Chart -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4"><i
+                                class="fas fa-chart-bar text-purple-500 mr-2"></i>Product Status</h3>
+                        <div class="relative" style="height: 280px;"><canvas id="productStatusChartCanvas"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4"><i
+                                class="fas fa-calendar text-green-500 mr-2"></i>Growth</h3>
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-green-50">
+                                <span class="text-sm text-gray-700"><i
+                                        class="fas fa-user-plus mr-2 text-green-500"></i>New users this week</span>
+                                <span id="growthWeek" class="text-lg font-bold text-green-600">0</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-blue-50">
+                                <span class="text-sm text-gray-700"><i class="fas fa-users mr-2 text-blue-500"></i>New
+                                    users this month</span>
+                                <span id="growthMonth" class="text-lg font-bold text-blue-600">0</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-purple-50">
+                                <span class="text-sm text-gray-700"><i class="fas fa-box mr-2 text-purple-500"></i>New
+                                    products this week</span>
+                                <span id="growthProductsWeek" class="text-lg font-bold text-purple-600">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platform Health Metrics -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm text-center">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-green-50 flex items-center justify-center">
+                            <i class="fas fa-percentage text-green-500"></i>
+                        </div>
+                        <p id="healthSellThrough" class="text-2xl font-bold text-gray-800 counter" data-target="0">0%</p>
+                        <p class="text-xs text-gray-400 mt-1">Sell-Through Rate</p>
+                    </div>
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm text-center">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-blue-50 flex items-center justify-center">
+                            <i class="fas fa-list-ol text-blue-500"></i>
+                        </div>
+                        <p id="healthListingsPerUser" class="text-2xl font-bold text-gray-800 counter" data-target="0">0</p>
+                        <p class="text-xs text-gray-400 mt-1">Listings / User</p>
+                    </div>
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm text-center">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-indigo-50 flex items-center justify-center">
+                            <i class="fas fa-user-check text-indigo-500"></i>
+                        </div>
+                        <p id="healthVerificationRate" class="text-2xl font-bold text-gray-800 counter" data-target="0">0%</p>
+                        <p class="text-xs text-gray-400 mt-1">Verification Rate</p>
+                    </div>
+                    <div class="stat-card p-5 rounded-2xl bg-white border border-gray-100 shadow-sm text-center">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-amber-50 flex items-center justify-center">
+                            <i class="fas fa-chart-line text-amber-500"></i>
+                        </div>
+                        <p id="healthEngagement" class="text-2xl font-bold text-gray-800 counter" data-target="0">0</p>
+                        <p class="text-xs text-gray-400 mt-1">Engagement Rate</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Filter Tabs -->
-            <div class="flex items-center gap-2 mb-6">
-                <button
-                    class="filter-btn active px-4 py-2 rounded-lg bg-green-50 text-green-700 text-sm font-medium transition-all"
-                    data-filter="">All</button>
-                <button
-                    class="filter-btn px-4 py-2 rounded-lg bg-gray-100 text-gray-500 text-sm font-medium hover:bg-gray-200 transition-all"
-                    data-filter="pending">Pending</button>
-                <button
-                    class="filter-btn px-4 py-2 rounded-lg bg-gray-100 text-gray-500 text-sm font-medium hover:bg-gray-200 transition-all"
-                    data-filter="approved">Approved</button>
-                <button
-                    class="filter-btn px-4 py-2 rounded-lg bg-gray-100 text-gray-500 text-sm font-medium hover:bg-gray-200 transition-all"
-                    data-filter="rejected">Rejected</button>
-            </div>
+            <!-- ==================== USERS TAB ==================== -->
+            <div id="tab-users" class="tab-content hidden section-fade">
+                <!-- User Controls -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
+                    <div class="relative flex-1 w-full">
+                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                        <input id="userSearch" type="text" placeholder="Search by name or email..."
+                            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm text-gray-800 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20">
+                    </div>
+                    <select id="userFilter"
+                        class="px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm text-gray-600 focus:outline-none focus:border-green-500">
+                        <option value="">All Users</option>
+                        <option value="verified">Verified</option>
+                        <option value="unverified">Unverified</option>
+                        <option value="admin">Admins</option>
+                    </select>
+                    <select id="userSort"
+                        class="px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm text-gray-600 focus:outline-none focus:border-green-500">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="name">By Name</option>
+                        <option value="listings">Most Listings</option>
+                    </select>
+                    <button onclick="exportUsersCSV()" class="px-4 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap">
+                        <i class="fas fa-download"></i>Export CSV
+                    </button>
+                </div>
 
-            <!-- Verifications List -->
-            <div id="verificationsList" class="space-y-4"></div>
+                <!-- User Count -->
+                <p id="userCount" class="text-sm text-gray-400 mb-4">Loading users...</p>
 
-            <!-- Loading State -->
-            <div id="loadingState" class="hidden">
-                <div class="space-y-4">
-                    <div class="h-32 bg-white border border-gray-100 rounded-2xl animate-pulse"></div>
-                    <div class="h-32 bg-white border border-gray-100 rounded-2xl animate-pulse"></div>
-                    <div class="h-32 bg-white border border-gray-100 rounded-2xl animate-pulse"></div>
+                <!-- Users Table -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b border-gray-100 text-left">
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        User</th>
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Campus</th>
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">
+                                        Listings</th>
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">
+                                        Rating</th>
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">
+                                        Status</th>
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">
+                                        Joined</th>
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">
+                                        Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Users Empty State -->
+                <div id="usersEmpty" class="hidden text-center py-16">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gray-50 flex items-center justify-center">
+                        <i class="fas fa-users text-2xl text-gray-300"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-1 text-gray-800">No users found</h3>
+                    <p class="text-gray-400 text-sm">Try a different search or filter.</p>
                 </div>
             </div>
 
-            <!-- Empty State -->
-            <div id="emptyState" class="hidden text-center py-16">
-                <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gray-50 flex items-center justify-center">
-                    <i class="fas fa-inbox text-3xl text-gray-300"></i>
+            <!-- ==================== PRODUCTS TAB ==================== -->
+            <div id="tab-products" class="tab-content hidden section-fade">
+                <!-- Product Controls -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
+                    <div class="relative flex-1 w-full">
+                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                        <input id="productSearch" type="text" placeholder="Search products or sellers..."
+                            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm text-gray-800 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20">
+                    </div>
+                    <select id="productCategoryFilter"
+                        class="px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm text-gray-600 focus:outline-none focus:border-green-500">
+                        <option value="">All Categories</option>
+                        <option value="Books">Books</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Others">Others</option>
+                    </select>
+                    <select id="productStatusFilter"
+                        class="px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm text-gray-600 focus:outline-none focus:border-green-500">
+                        <option value="">All Status</option>
+                        <option value="available">Available</option>
+                        <option value="sold">Sold</option>
+                    </select>
+                    <select id="productSort"
+                        class="px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm text-gray-600 focus:outline-none focus:border-green-500">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="price_high">Price: High→Low</option>
+                        <option value="price_low">Price: Low→High</option>
+                        <option value="title">By Title</option>
+                    </select>
+                    <button onclick="exportProductsCSV()" class="px-4 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap">
+                        <i class="fas fa-download"></i>Export CSV
+                    </button>
                 </div>
-                <h3 class="text-xl font-semibold mb-2 text-gray-800">No verification requests</h3>
-                <p class="text-gray-400">There are no verification submissions matching this filter.</p>
+
+                <!-- Product Count -->
+                <p id="productCount" class="text-sm text-gray-400 mb-4">Loading products...</p>
+
+                <!-- Products Table -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b border-gray-100 text-left">
+                                    <th class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">Product</th>
+                                    <th class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">Seller</th>
+                                    <th class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">Category</th>
+                                    <th class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">Price</th>
+                                    <th class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">Status</th>
+                                    <th class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">Listed</th>
+                                    <th class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Product Pagination -->
+                <div id="productPagination" class="flex items-center justify-center gap-2 mt-6"></div>
+
+                <!-- Products Empty State -->
+                <div id="productsEmpty" class="hidden text-center py-16">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gray-50 flex items-center justify-center">
+                        <i class="fas fa-box-open text-2xl text-gray-300"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-1 text-gray-800">No products found</h3>
+                    <p class="text-gray-400 text-sm">Try a different search or filter.</p>
+                </div>
+            </div>
+
+            <!-- ==================== VERIFICATIONS TAB ==================== -->
+            <div id="tab-verifications" class="tab-content hidden section-fade">
+                <!-- Verification Stats -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+                    <div class="p-5 rounded-2xl bg-white border border-gray-100 text-center shadow-sm">
+                        <p id="statTotal" class="text-2xl font-bold text-gray-700">0</p>
+                        <p class="text-sm text-gray-400">Total</p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-white border border-amber-100 text-center shadow-sm">
+                        <p id="statPending" class="text-2xl font-bold text-amber-600">0</p>
+                        <p class="text-sm text-gray-400">Pending</p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-white border border-green-100 text-center shadow-sm">
+                        <p id="statApproved" class="text-2xl font-bold text-green-600">0</p>
+                        <p class="text-sm text-gray-400">Approved</p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-white border border-red-100 text-center shadow-sm">
+                        <p id="statRejected" class="text-2xl font-bold text-red-500">0</p>
+                        <p class="text-sm text-gray-400">Rejected</p>
+                    </div>
+                </div>
+
+                <!-- Verification Filter Tabs -->
+                <div class="flex items-center gap-2 mb-6">
+                    <button
+                        class="verify-filter-btn active px-4 py-2 rounded-lg bg-green-50 text-green-700 text-sm font-medium transition-all"
+                        data-filter="">All</button>
+                    <button
+                        class="verify-filter-btn px-4 py-2 rounded-lg bg-gray-100 text-gray-500 text-sm font-medium hover:bg-gray-200 transition-all"
+                        data-filter="pending">Pending</button>
+                    <button
+                        class="verify-filter-btn px-4 py-2 rounded-lg bg-gray-100 text-gray-500 text-sm font-medium hover:bg-gray-200 transition-all"
+                        data-filter="approved">Approved</button>
+                    <button
+                        class="verify-filter-btn px-4 py-2 rounded-lg bg-gray-100 text-gray-500 text-sm font-medium hover:bg-gray-200 transition-all"
+                        data-filter="rejected">Rejected</button>
+                </div>
+
+                <!-- Verifications List -->
+                <div id="verificationsList" class="space-y-4"></div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="hidden">
+                    <div class="space-y-4">
+                        <div class="h-32 bg-white border border-gray-100 rounded-2xl animate-pulse"></div>
+                        <div class="h-32 bg-white border border-gray-100 rounded-2xl animate-pulse"></div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="hidden text-center py-16">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gray-50 flex items-center justify-center">
+                        <i class="fas fa-inbox text-3xl text-gray-300"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">No verification requests</h3>
+                    <p class="text-gray-400">There are no verification submissions matching this filter.</p>
+                </div>
+            </div>
+
+            <!-- ==================== CAMPUS ANALYTICS TAB ==================== -->
+            <div id="tab-campus" class="tab-content hidden section-fade">
+                <!-- Campus Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4"><i
+                                class="fas fa-users text-blue-500 mr-2"></i>Users by Campus</h3>
+                        <div class="relative" style="height: 300px;"><canvas id="campusUsersCanvas"></canvas></div>
+                    </div>
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4"><i
+                                class="fas fa-box-open text-green-500 mr-2"></i>Products by Campus</h3>
+                        <div class="relative" style="height: 300px;"><canvas id="campusProductsCanvas"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- Campus Details Table -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-gray-100">
+                        <h3 class="text-lg font-semibold text-gray-900"><i
+                                class="fas fa-table text-purple-500 mr-2"></i>Campus Details</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b border-gray-100 text-left">
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Campus</th>
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">
+                                        Products</th>
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">
+                                        Available</th>
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">
+                                        Sold</th>
+                                    <th
+                                        class="px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">
+                                        Avg Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="campusTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -156,16 +598,35 @@
         <img id="modalImage" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl">
     </div>
 
+    <!-- User Detail Modal -->
+    <div id="userDetailModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] hidden flex items-end sm:items-center justify-center sm:justify-end">
+        <div class="bg-white rounded-t-2xl sm:rounded-l-2xl sm:rounded-tr-none w-full sm:w-[480px] max-h-[90vh] sm:max-h-screen sm:h-screen overflow-y-auto shadow-2xl">
+            <div class="sticky top-0 bg-white/90 backdrop-blur-xl p-5 border-b border-gray-100 flex items-center justify-between z-10">
+                <h3 class="text-lg font-bold text-gray-900">User Details</h3>
+                <button onclick="closeUserDetail()" class="w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-all">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="userDetailContent" class="p-5">
+                <div class="flex items-center justify-center py-12">
+                    <i class="fas fa-spinner fa-spin text-2xl text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Container -->
     <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
 
     <!-- Scripts -->
-    <script src="js/config.js?v=5"></script>
-    <script src="js/utils.js?v=5"></script>
-    <script src="js/api.js?v=5"></script>
+    <script src="js/config.js?v=6"></script>
+    <script src="js/utils.js?v=6"></script>
+    <script src="js/api.js?v=6"></script>
     <script>
         let currentFilter = '';
         let pendingRejectId = null;
+        let currentTab = 'overview';
+        let chartInstances = {};
 
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('token');
@@ -187,13 +648,41 @@
             }
 
             document.getElementById('mainContent').classList.remove('hidden');
-            await loadStats();
-            await loadVerifications();
 
-            // Filter tabs
-            document.querySelectorAll('.filter-btn').forEach(btn => {
+            // Load overview tab by default
+            await loadOverviewData();
+            // Load pending badge count
+            loadPendingBadge();
+
+            // Tab navigation
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const tab = btn.dataset.tab;
+                    currentTab = tab;
+
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                    const tabEl = document.getElementById(`tab-${tab}`);
+                    tabEl.classList.remove('hidden');
+                    // Re-trigger animation
+                    tabEl.classList.remove('section-fade');
+                    void tabEl.offsetWidth;
+                    tabEl.classList.add('section-fade');
+
+                    if (tab === 'overview') await loadOverviewData();
+                    if (tab === 'users') await loadUsers();
+                    if (tab === 'products') await loadProducts();
+                    if (tab === 'verifications') { await loadStats(); await loadVerifications(); }
+                    if (tab === 'campus') await loadCampusAnalytics();
+                });
+            });
+
+            // Verification filter tabs
+            document.querySelectorAll('.verify-filter-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    document.querySelectorAll('.filter-btn').forEach(b => {
+                    document.querySelectorAll('.verify-filter-btn').forEach(b => {
                         b.classList.remove('active', 'bg-green-50', 'text-green-700');
                         b.classList.add('bg-gray-100', 'text-gray-500');
                     });
@@ -203,6 +692,25 @@
                     loadVerifications();
                 });
             });
+
+            // User search & filters
+            let searchTimeout;
+            document.getElementById('userSearch').addEventListener('input', () => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(loadUsers, 400);
+            });
+            document.getElementById('userFilter').addEventListener('change', loadUsers);
+            document.getElementById('userSort').addEventListener('change', loadUsers);
+
+            // Product search & filters
+            let productSearchTimeout;
+            document.getElementById('productSearch').addEventListener('input', () => {
+                clearTimeout(productSearchTimeout);
+                productSearchTimeout = setTimeout(() => loadProducts(1), 400);
+            });
+            document.getElementById('productCategoryFilter').addEventListener('change', () => loadProducts(1));
+            document.getElementById('productStatusFilter').addEventListener('change', () => loadProducts(1));
+            document.getElementById('productSort').addEventListener('change', () => loadProducts(1));
 
             // Reject modal
             document.getElementById('cancelReject').addEventListener('click', () => {
@@ -223,8 +731,158 @@
             document.getElementById('imageModal').addEventListener('click', () => {
                 document.getElementById('imageModal').classList.add('hidden');
             });
+
+            // User detail modal backdrop close
+            document.getElementById('userDetailModal').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) closeUserDetail();
+            });
         });
 
+        // ==================== OVERVIEW ====================
+        async function loadOverviewData() {
+            try {
+                const response = await api.get('/admin/stats');
+                if (!response.success) return;
+                const d = response.data;
+
+                document.getElementById('overviewUsers').textContent = d.users.total_users || 0;
+                document.getElementById('overviewProducts').textContent = d.products.total_products || 0;
+                document.getElementById('overviewSold').textContent = d.products.sold || 0;
+                document.getElementById('overviewPending').textContent = d.verifications.pending || 0;
+                document.getElementById('overviewSoldValue').textContent = '₵' + Number(d.products.total_sold_value || 0).toLocaleString();
+                document.getElementById('overviewAvgPrice').textContent = '₵' + Number(d.products.avg_price || 0).toLocaleString();
+                document.getElementById('overviewVerified').textContent = d.users.verified_users || 0;
+                document.getElementById('overviewAvgRating').textContent = d.reviews.avg_rating ? d.reviews.avg_rating + ' ★' : '—';
+                document.getElementById('growthWeek').textContent = d.users.new_this_week || 0;
+                document.getElementById('growthMonth').textContent = d.users.new_this_month || 0;
+                document.getElementById('growthProductsWeek').textContent = d.products.new_this_week || 0;
+
+                // Health metrics
+                if (d.health) {
+                    animateCounter('healthSellThrough', d.health.sell_through_rate, '%');
+                    animateCounter('healthListingsPerUser', d.health.listings_per_user, '', true);
+                    animateCounter('healthVerificationRate', d.health.verification_rate, '%');
+                    animateCounter('healthEngagement', d.health.engagement_rate, '', true);
+                }
+
+                // Update pending badge
+                loadPendingBadge();
+
+                // Category doughnut chart
+                const cc = getChartColors();
+                const catColors = { 'Electronics': '#3b82f6', 'Books': '#f59e0b', 'Fashion': '#ec4899', 'Furniture': '#10b981', 'Others': '#6b7280' };
+                if (d.categories && d.categories.length > 0) {
+                    renderChart('categoryChartCanvas', 'doughnut', {
+                        labels: d.categories.map(c => c.category),
+                        datasets: [{ data: d.categories.map(c => c.count), backgroundColor: d.categories.map(c => catColors[c.category] || '#9ca3af'), borderWidth: 2, borderColor: cc.border, hoverOffset: 8 }]
+                    }, { cutout: '55%', plugins: { legend: { position: 'bottom', labels: { color: cc.text, padding: 16, usePointStyle: true, pointStyleWidth: 10, font: { family: 'Inter', size: 12 } } } } });
+                }
+
+                // Auth methods pie chart
+                const localUsers = Number(d.users.local_users || 0);
+                const googleUsers = Number(d.users.google_users || 0);
+                renderChart('authChartCanvas', 'pie', {
+                    labels: ['Email/Password', 'Google OAuth'],
+                    datasets: [{ data: [localUsers, googleUsers], backgroundColor: ['#6366f1', '#ef4444'], borderWidth: 2, borderColor: cc.border, hoverOffset: 8 }]
+                }, { plugins: { legend: { position: 'bottom', labels: { color: cc.text, padding: 16, usePointStyle: true, pointStyleWidth: 10, font: { family: 'Inter', size: 12 } } } } });
+
+                // Product status bar chart
+                const available = Number(d.products.available || 0);
+                const sold = Number(d.products.sold || 0);
+                renderChart('productStatusChartCanvas', 'bar', {
+                    labels: ['Available', 'Sold'],
+                    datasets: [{ label: 'Products', data: [available, sold], backgroundColor: ['#22c55e', '#a855f7'], borderRadius: 8, barThickness: 60 }]
+                }, { indexAxis: 'x', plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: cc.text, font: { family: 'Inter' } }, grid: { color: cc.grid } }, x: { grid: { display: false }, ticks: { color: cc.text, font: { family: 'Inter', weight: 600 } } } } });
+            } catch (error) {
+                console.error('Error loading overview:', error);
+            }
+        }
+
+        // ==================== USERS ====================
+        async function loadUsers() {
+            const search = document.getElementById('userSearch').value;
+            const status = document.getElementById('userFilter').value;
+            const sort = document.getElementById('userSort').value;
+
+            try {
+                let url = `/admin/users?sort=${sort}`;
+                if (search) url += `&search=${encodeURIComponent(search)}`;
+                if (status) url += `&status=${status}`;
+
+                const response = await api.get(url);
+                const tbody = document.getElementById('usersTableBody');
+                const empty = document.getElementById('usersEmpty');
+                const countEl = document.getElementById('userCount');
+
+                if (response.success && response.data.users.length > 0) {
+                    const users = response.data.users;
+                    countEl.textContent = `${users.length} user${users.length !== 1 ? 's' : ''} found`;
+                    empty.classList.add('hidden');
+
+                    tbody.innerHTML = users.map(u => `
+                        <tr class="user-row border-b border-gray-50">
+                            <td class="px-5 py-4">
+                                <button onclick="showUserDetail(${u.id})" class="flex items-center gap-3 text-left hover:opacity-80 transition-opacity">
+                                    <img src="${u.profile_image || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(u.name) + '&background=16a34a&color=fff'}" 
+                                        alt="${escapeHtml(u.name)}" class="w-9 h-9 rounded-full object-cover">
+                                    <div>
+                                        <p class="font-medium text-gray-900">${escapeHtml(u.name)}
+                                            ${u.is_admin ? '<span class="ml-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-600">ADMIN</span>' : ''}
+                                        </p>
+                                        <p class="text-xs text-gray-400">${escapeHtml(u.email)}</p>
+                                    </div>
+                                </button>
+                            </td>
+                            <td class="px-5 py-4 text-gray-600">${escapeHtml(u.campus || 'N/A')}</td>
+                            <td class="px-5 py-4 text-center">
+                                <span class="text-gray-800 font-medium">${u.total_listings || 0}</span>
+                                <span class="text-xs text-gray-400 ml-1">(${u.sold_listings || 0} sold)</span>
+                            </td>
+                            <td class="px-5 py-4 text-center">
+                                ${u.avg_rating ? `<span class="text-amber-500">${u.avg_rating} ★</span> <span class="text-xs text-gray-400">(${u.total_reviews})</span>` : '<span class="text-gray-300">—</span>'}
+                            </td>
+                            <td class="px-5 py-4 text-center">
+                                ${u.is_verified === 'verified'
+                            ? '<span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700"><i class="fas fa-check-circle mr-1"></i>Verified</span>'
+                            : '<span class="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-500">Unverified</span>'}
+                            </td>
+                            <td class="px-5 py-4 text-center text-xs text-gray-400">${new Date(u.created_at).toLocaleDateString()}</td>
+                            <td class="px-5 py-4 text-center">
+                                <button onclick="toggleAdmin(${u.id}, '${escapeHtml(u.name)}')" 
+                                    class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${u.is_admin
+                            ? 'bg-red-50 text-red-600 hover:bg-red-100'
+                            : 'bg-blue-50 text-blue-600 hover:bg-blue-100'}"
+                                    title="${u.is_admin ? 'Remove admin' : 'Make admin'}">
+                                    <i class="fas ${u.is_admin ? 'fa-user-minus' : 'fa-user-shield'} mr-1"></i>
+                                    ${u.is_admin ? 'Demote' : 'Promote'}
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    countEl.textContent = '0 users found';
+                    tbody.innerHTML = '';
+                    empty.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error loading users:', error);
+            }
+        }
+
+        async function toggleAdmin(userId, userName) {
+            if (!confirm(`Are you sure you want to change admin status for "${userName}"?`)) return;
+            try {
+                const response = await api.put(`/admin/users/${userId}/toggle-admin`);
+                if (response.success) {
+                    showToast(response.message, 'success');
+                    await loadUsers();
+                }
+            } catch (error) {
+                showToast(error.message || 'Failed to update user', 'error');
+            }
+        }
+
+        // ==================== VERIFICATIONS ====================
         async function loadStats() {
             try {
                 const response = await api.get('/admin/stats');
@@ -264,7 +922,6 @@
             } catch (error) {
                 loading.classList.add('hidden');
                 empty.classList.remove('hidden');
-                console.error('Error loading verifications:', error);
             }
         }
 
@@ -274,7 +931,6 @@
                 approved: 'bg-green-100 text-green-700',
                 rejected: 'bg-red-100 text-red-700'
             };
-
             const statusIcons = {
                 pending: 'fa-clock',
                 approved: 'fa-check-circle',
@@ -284,14 +940,10 @@
             return `
                 <div class="p-5 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all">
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <!-- Student ID Image -->
                         <div class="w-full sm:w-40 h-28 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
                              onclick="showImage('${v.student_id_image_url}')">
-                            <img src="${v.student_id_image_url}" alt="Student ID"
-                                class="w-full h-full object-cover">
+                            <img src="${v.student_id_image_url}" alt="Student ID" class="w-full h-full object-cover">
                         </div>
-
-                        <!-- Details -->
                         <div class="flex-1 min-w-0">
                             <div class="flex items-start justify-between mb-2">
                                 <div>
@@ -305,22 +957,10 @@
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-2 text-sm mb-3">
-                                <div>
-                                    <span class="text-gray-400">University:</span>
-                                    <span class="text-gray-700 font-medium ml-1">${escapeHtml(v.university_name || 'N/A')}</span>
-                                </div>
-                                <div>
-                                    <span class="text-gray-400">Student ID:</span>
-                                    <span class="text-gray-700 font-medium ml-1">${escapeHtml(v.student_id_number || 'N/A')}</span>
-                                </div>
-                                <div>
-                                    <span class="text-gray-400">Campus:</span>
-                                    <span class="text-gray-700 font-medium ml-1">${escapeHtml(v.user_campus || 'N/A')}</span>
-                                </div>
-                                <div>
-                                    <span class="text-gray-400">Submitted:</span>
-                                    <span class="text-gray-700 font-medium ml-1">${new Date(v.submitted_at).toLocaleDateString()}</span>
-                                </div>
+                                <div><span class="text-gray-400">University:</span><span class="text-gray-700 font-medium ml-1">${escapeHtml(v.university_name || 'N/A')}</span></div>
+                                <div><span class="text-gray-400">Student ID:</span><span class="text-gray-700 font-medium ml-1">${escapeHtml(v.student_id_number || 'N/A')}</span></div>
+                                <div><span class="text-gray-400">Campus:</span><span class="text-gray-700 font-medium ml-1">${escapeHtml(v.user_campus || 'N/A')}</span></div>
+                                <div><span class="text-gray-400">Submitted:</span><span class="text-gray-700 font-medium ml-1">${new Date(v.submitted_at).toLocaleDateString()}</span></div>
                             </div>
                             ${v.rejection_reason ? `<p class="text-sm text-red-500 mb-3"><i class="fas fa-info-circle mr-1"></i>${escapeHtml(v.rejection_reason)}</p>` : ''}
                             ${v.status === 'pending' ? `
@@ -355,7 +995,6 @@
             try {
                 const body = { status };
                 if (reason) body.rejection_reason = reason;
-
                 const response = await api.put(`/admin/verifications/${id}/review`, body);
                 if (response.success) {
                     showToast(`Verification ${status} successfully!`, 'success');
@@ -365,6 +1004,318 @@
             } catch (error) {
                 showToast(error.message || 'Failed to review verification', 'error');
             }
+        }
+
+        // ==================== CHART HELPER ====================
+        function renderChart(canvasId, type, data, options = {}) {
+            if (chartInstances[canvasId]) chartInstances[canvasId].destroy();
+            const ctx = document.getElementById(canvasId);
+            if (!ctx) return;
+            const defaults = { responsive: true, maintainAspectRatio: false, animation: { duration: 800, easing: 'easeOutQuart' } };
+            chartInstances[canvasId] = new Chart(ctx, { type, data, options: { ...defaults, ...options } });
+        }
+
+        // ==================== CAMPUS ANALYTICS ====================
+        async function loadCampusAnalytics() {
+            try {
+                const response = await api.get('/admin/campus-analytics');
+                if (!response.success) return;
+                const d = response.data;
+                const palette = ['#3b82f6', '#22c55e', '#f59e0b', '#ec4899', '#8b5cf6', '#14b8a6', '#f97316', '#06b6d4'];
+                const cc = getChartColors();
+
+                // Users by campus horizontal bar chart
+                if (d.users_by_campus && d.users_by_campus.length > 0) {
+                    renderChart('campusUsersCanvas', 'bar', {
+                        labels: d.users_by_campus.map(c => c.campus),
+                        datasets: [{ label: 'Users', data: d.users_by_campus.map(c => c.user_count), backgroundColor: palette.slice(0, d.users_by_campus.length), borderRadius: 6, barThickness: 28 }]
+                    }, { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, ticks: { stepSize: 1, color: cc.text, font: { family: 'Inter' } }, grid: { color: cc.grid } }, y: { grid: { display: false }, ticks: { color: cc.text, font: { family: 'Inter', size: 12 } } } } });
+                }
+
+                // Products by campus horizontal bar chart
+                if (d.products_by_campus && d.products_by_campus.length > 0) {
+                    renderChart('campusProductsCanvas', 'bar', {
+                        labels: d.products_by_campus.map(c => c.campus),
+                        datasets: [
+                            { label: 'Available', data: d.products_by_campus.map(c => c.available || 0), backgroundColor: '#22c55e', borderRadius: 6, barThickness: 20 },
+                            { label: 'Sold', data: d.products_by_campus.map(c => c.sold || 0), backgroundColor: '#a855f7', borderRadius: 6, barThickness: 20 }
+                        ]
+                    }, { indexAxis: 'y', plugins: { legend: { position: 'top', labels: { color: cc.text, usePointStyle: true, pointStyleWidth: 10, font: { family: 'Inter', size: 12 } } } }, scales: { x: { stacked: true, beginAtZero: true, ticks: { stepSize: 1, color: cc.text, font: { family: 'Inter' } }, grid: { color: cc.grid } }, y: { stacked: true, grid: { display: false }, ticks: { color: cc.text, font: { family: 'Inter', size: 12 } } } } });
+                }
+
+                // Campus details table
+                const tableBody = document.getElementById('campusTableBody');
+                if (d.products_by_campus && d.products_by_campus.length > 0) {
+                    tableBody.innerHTML = d.products_by_campus.map(c => `
+                        <tr class="user-row border-b border-gray-50">
+                            <td class="px-5 py-4 font-medium text-gray-900">${escapeHtml(c.campus)}</td>
+                            <td class="px-5 py-4 text-center text-gray-800 font-semibold">${c.total_products}</td>
+                            <td class="px-5 py-4 text-center"><span class="px-2 py-1 rounded-full text-xs bg-green-50 text-green-700">${c.available || 0}</span></td>
+                            <td class="px-5 py-4 text-center"><span class="px-2 py-1 rounded-full text-xs bg-red-50 text-red-600">${c.sold || 0}</span></td>
+                            <td class="px-5 py-4 text-center text-gray-600">₵${Number(c.avg_price || 0).toLocaleString()}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tableBody.innerHTML = '<tr><td colspan="5" class="px-5 py-8 text-center text-gray-400">No campus data yet.</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading campus analytics:', error);
+            }
+        }
+
+        // ==================== PRODUCTS ====================
+        let currentProductPage = 1;
+        let cachedProducts = [];
+
+        async function loadProducts(page = 1) {
+            currentProductPage = page;
+            const search = document.getElementById('productSearch').value;
+            const category = document.getElementById('productCategoryFilter').value;
+            const status = document.getElementById('productStatusFilter').value;
+            const sort = document.getElementById('productSort').value;
+
+            try {
+                let url = `/admin/products?page=${page}&limit=15&sort=${sort}`;
+                if (search) url += `&search=${encodeURIComponent(search)}`;
+                if (category) url += `&category=${category}`;
+                if (status) url += `&status=${status}`;
+
+                const response = await api.get(url);
+                const tbody = document.getElementById('productsTableBody');
+                const empty = document.getElementById('productsEmpty');
+                const countEl = document.getElementById('productCount');
+
+                if (response.success && response.data.products.length > 0) {
+                    const products = response.data.products;
+                    cachedProducts = products;
+                    const { pagination } = response.data;
+                    countEl.textContent = `${pagination.total} product${pagination.total !== 1 ? 's' : ''} found (page ${pagination.page} of ${pagination.pages})`;
+                    empty.classList.add('hidden');
+
+                    tbody.innerHTML = products.map(p => `
+                        <tr class="user-row border-b border-gray-50">
+                            <td class="px-5 py-4">
+                                <div class="flex items-center gap-3">
+                                    <img src="${p.image_url}" alt="${escapeHtml(p.title)}" class="w-12 h-12 rounded-lg object-cover bg-gray-100">
+                                    <div class="min-w-0">
+                                        <p class="font-medium text-gray-900 truncate max-w-[200px]">${escapeHtml(p.title)}</p>
+                                        <p class="text-xs text-gray-400">${escapeHtml(p.product_condition || '')}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-5 py-4">
+                                <button onclick="showUserDetail(${p.user_id})" class="text-left hover:text-green-600 transition-colors">
+                                    <p class="text-sm font-medium text-gray-700">${escapeHtml(p.seller_name)}</p>
+                                    <p class="text-xs text-gray-400">${escapeHtml(p.seller_campus || '')}</p>
+                                </button>
+                            </td>
+                            <td class="px-5 py-4 text-center">
+                                <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600">${escapeHtml(p.category)}</span>
+                            </td>
+                            <td class="px-5 py-4 text-center font-semibold text-gray-800">₵${Number(p.price).toLocaleString()}</td>
+                            <td class="px-5 py-4 text-center">
+                                <span class="px-2 py-1 rounded-full text-xs font-medium ${p.status === 'available' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}">${p.status}</span>
+                            </td>
+                            <td class="px-5 py-4 text-center text-xs text-gray-400">${new Date(p.created_at).toLocaleDateString()}</td>
+                            <td class="px-5 py-4 text-center">
+                                <div class="flex items-center justify-center gap-2">
+                                    <a href="product-details.html?id=${p.id}" target="_blank" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all" title="View">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <button onclick="deleteProductAdmin(${p.id}, '${escapeHtml(p.title).replace(/'/g, "\\'")}')" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-red-50 text-red-600 hover:bg-red-100 transition-all" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('');
+
+                    // Pagination
+                    const pagDiv = document.getElementById('productPagination');
+                    if (pagination.pages > 1) {
+                        let pagHTML = '';
+                        pagHTML += `<button onclick="loadProducts(${Math.max(1, page-1)})" class="px-3 py-2 rounded-lg text-sm ${page === 1 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100'}" ${page === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i></button>`;
+                        for (let i = 1; i <= pagination.pages; i++) {
+                            if (i === page) {
+                                pagHTML += `<button class="px-3.5 py-2 rounded-lg text-sm font-semibold bg-green-600 text-white">${i}</button>`;
+                            } else if (Math.abs(i - page) <= 2 || i === 1 || i === pagination.pages) {
+                                pagHTML += `<button onclick="loadProducts(${i})" class="px-3.5 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">${i}</button>`;
+                            } else if (Math.abs(i - page) === 3) {
+                                pagHTML += `<span class="px-1 text-gray-400">…</span>`;
+                            }
+                        }
+                        pagHTML += `<button onclick="loadProducts(${Math.min(pagination.pages, page+1)})" class="px-3 py-2 rounded-lg text-sm ${page === pagination.pages ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100'}" ${page === pagination.pages ? 'disabled' : ''}><i class="fas fa-chevron-right"></i></button>`;
+                        pagDiv.innerHTML = pagHTML;
+                    } else {
+                        pagDiv.innerHTML = '';
+                    }
+                } else {
+                    countEl.textContent = '0 products found';
+                    tbody.innerHTML = '';
+                    empty.classList.remove('hidden');
+                    document.getElementById('productPagination').innerHTML = '';
+                }
+            } catch (error) {
+                console.error('Error loading products:', error);
+            }
+        }
+
+        async function deleteProductAdmin(id, title) {
+            if (!confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) return;
+            try {
+                const response = await api.delete(`/admin/products/${id}`);
+                if (response.success) {
+                    showToast('Product deleted successfully', 'success');
+                    await loadProducts(currentProductPage);
+                }
+            } catch (error) {
+                showToast(error.message || 'Failed to delete product', 'error');
+            }
+        }
+
+        // ==================== PENDING BADGE ====================
+        async function loadPendingBadge() {
+            try {
+                const response = await api.get('/admin/stats');
+                if (response.success) {
+                    const pending = Number(response.data.verifications.pending || 0);
+                    const badge = document.getElementById('pendingBadge');
+                    if (pending > 0) {
+                        badge.textContent = pending > 99 ? '99+' : pending;
+                        badge.classList.remove('hidden');
+                    } else {
+                        badge.classList.add('hidden');
+                    }
+                }
+            } catch (e) { /* silent */ }
+        }
+
+        // ==================== USER DETAIL ====================
+        async function showUserDetail(userId) {
+            const modal = document.getElementById('userDetailModal');
+            const content = document.getElementById('userDetailContent');
+            modal.classList.remove('hidden');
+            content.innerHTML = '<div class="flex items-center justify-center py-12"><i class="fas fa-spinner fa-spin text-2xl text-gray-300"></i></div>';
+
+            try {
+                const response = await api.get(`/admin/users/${userId}/details`);
+                if (!response.success) { content.innerHTML = '<p class="text-center text-red-500 py-8">Failed to load user</p>'; return; }
+                const { user, products, reviews, rating, listings, verification } = response.data;
+
+                content.innerHTML = `
+                    <div class="text-center mb-6">
+                        <img src="${user.profile_image || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=16a34a&color=fff'}" class="w-20 h-20 rounded-full object-cover mx-auto mb-3 border-4 border-gray-100">
+                        <h3 class="text-xl font-bold text-gray-900">${escapeHtml(user.name)} ${user.is_admin ? '<span class="ml-1 px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-600">ADMIN</span>' : ''}</h3>
+                        <p class="text-sm text-gray-400">${escapeHtml(user.email)}</p>
+                        <div class="flex items-center justify-center gap-2 mt-2">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-medium ${user.is_verified === 'verified' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}">${user.is_verified === 'verified' ? '<i class="fas fa-check-circle mr-1"></i>Verified' : 'Unverified'}</span>
+                            <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-600"><i class="fas fa-${user.auth_provider === 'google' ? 'google' : 'envelope'} mr-1"></i>${user.auth_provider}</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mb-6">
+                        <div class="p-3 rounded-xl bg-gray-50 text-center"><p class="text-lg font-bold text-gray-800">${listings.total || 0}</p><p class="text-xs text-gray-400">Total Listings</p></div>
+                        <div class="p-3 rounded-xl bg-gray-50 text-center"><p class="text-lg font-bold text-green-600">${listings.sold || 0}</p><p class="text-xs text-gray-400">Items Sold</p></div>
+                        <div class="p-3 rounded-xl bg-gray-50 text-center"><p class="text-lg font-bold text-amber-600">${rating.avg_rating ? rating.avg_rating + ' ★' : '—'}</p><p class="text-xs text-gray-400">Avg Rating (${rating.total_reviews || 0})</p></div>
+                        <div class="p-3 rounded-xl bg-gray-50 text-center"><p class="text-lg font-bold text-gray-800">₵${Number(listings.total_earned || 0).toLocaleString()}</p><p class="text-xs text-gray-400">Total Earned</p></div>
+                    </div>
+                    <div class="space-y-2 mb-6 text-sm">
+                        <div class="flex justify-between"><span class="text-gray-400">Campus</span><span class="text-gray-700 font-medium">${escapeHtml(user.campus || 'N/A')}</span></div>
+                        <div class="flex justify-between"><span class="text-gray-400">WhatsApp</span><span class="text-gray-700 font-medium">${escapeHtml(user.whatsapp || 'N/A')}</span></div>
+                        <div class="flex justify-between"><span class="text-gray-400">Joined</span><span class="text-gray-700 font-medium">${new Date(user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span></div>
+                        ${verification ? `<div class="flex justify-between"><span class="text-gray-400">Verification</span><span class="text-gray-700 font-medium">${verification.university_name || ''} (${verification.status})</span></div>` : ''}
+                    </div>
+                    ${products.length > 0 ? `
+                        <h4 class="text-sm font-semibold text-gray-800 mb-3"><i class="fas fa-box-open mr-2 text-green-500"></i>Recent Listings</h4>
+                        <div class="space-y-2 mb-6">${products.map(p => `
+                            <div class="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all">
+                                <img src="${p.image_url}" class="w-10 h-10 rounded-lg object-cover">
+                                <div class="flex-1 min-w-0"><p class="text-sm font-medium text-gray-800 truncate">${escapeHtml(p.title)}</p><p class="text-xs text-gray-400">₵${Number(p.price).toLocaleString()} · ${p.status}</p></div>
+                            </div>
+                        `).join('')}</div>` : ''}
+                    ${reviews.length > 0 ? `
+                        <h4 class="text-sm font-semibold text-gray-800 mb-3"><i class="fas fa-star mr-2 text-amber-500"></i>Recent Reviews</h4>
+                        <div class="space-y-2">${reviews.map(r => `
+                            <div class="p-3 rounded-xl bg-gray-50">
+                                <div class="flex items-center gap-2 mb-1"><span class="text-sm font-medium text-gray-800">${escapeHtml(r.reviewer_name)}</span><span class="text-amber-500 text-xs">${'★'.repeat(r.rating)}</span></div>
+                                ${r.comment ? `<p class="text-xs text-gray-500">${escapeHtml(r.comment)}</p>` : ''}
+                            </div>
+                        `).join('')}</div>` : ''}
+                `;
+            } catch (error) {
+                content.innerHTML = '<p class="text-center text-red-500 py-8">Error loading user details</p>';
+            }
+        }
+
+        function closeUserDetail() {
+            document.getElementById('userDetailModal').classList.add('hidden');
+        }
+
+        // ==================== CSV EXPORT ====================
+        function exportUsersCSV() {
+            const rows = document.querySelectorAll('#usersTableBody tr');
+            if (rows.length === 0) { showToast('No data to export', 'warning'); return; }
+            let csv = 'Name,Email,Campus,Listings,Sold,Rating,Status,Joined\n';
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const name = cells[0]?.querySelector('p.font-medium')?.textContent?.trim() || '';
+                const email = cells[0]?.querySelector('p.text-xs')?.textContent?.trim() || '';
+                const campus = cells[1]?.textContent?.trim() || '';
+                const listings = cells[2]?.querySelector('span.font-medium')?.textContent?.trim() || '0';
+                const sold = cells[2]?.querySelector('span.text-xs')?.textContent?.replace(/[()sold ]/g, '') || '0';
+                const rating = cells[3]?.textContent?.trim() || '—';
+                const status = cells[4]?.textContent?.trim() || '';
+                const joined = cells[5]?.textContent?.trim() || '';
+                csv += `"${name}","${email}","${campus}","${listings}","${sold}","${rating}","${status}","${joined}"\n`;
+            });
+            downloadCSV(csv, 'sellout_users.csv');
+        }
+
+        function exportProductsCSV() {
+            if (cachedProducts.length === 0) { showToast('No data to export', 'warning'); return; }
+            let csv = 'Title,Seller,Category,Condition,Price,Campus,Status,Listed\n';
+            cachedProducts.forEach(p => {
+                csv += `"${p.title}","${p.seller_name}","${p.category}","${p.product_condition || ''}","₵${p.price}","${p.campus}","${p.status}","${new Date(p.created_at).toLocaleDateString()}"\n`;
+            });
+            downloadCSV(csv, 'sellout_products.csv');
+        }
+
+        function downloadCSV(csv, filename) {
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+            URL.revokeObjectURL(link.href);
+            showToast(`Exported ${filename}`, 'success');
+        }
+
+        // ==================== ANIMATED COUNTERS ====================
+        function animateCounter(elementId, target, suffix = '', isDecimal = false) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            const duration = 800;
+            const start = performance.now();
+            const startVal = 0;
+
+            function update(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = startVal + (target - startVal) * eased;
+                el.textContent = (isDecimal ? current.toFixed(1) : Math.round(current)) + suffix;
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
+        // ==================== DARK-MODE CHART HELPER ====================
+        function getChartColors() {
+            const isDark = document.documentElement.classList.contains('dark');
+            return {
+                grid: isDark ? '#2a2d3a' : '#f3f4f6',
+                text: isDark ? '#c9cdd3' : undefined,
+                border: isDark ? '#1a1d27' : '#fff'
+            };
         }
     </script>
 </body>

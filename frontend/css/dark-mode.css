@@ -1,0 +1,1023 @@
+/* ===================================
+   Sellout — Dark Mode Theme
+   Premium, polished dark palette
+   ====================================== */
+
+/* ---------- CSS VARIABLES ---------- */
+:root {
+    --dark-bg: #0f1117;
+    --dark-surface: #141620;
+    --dark-card: #1a1d27;
+    --dark-card-hover: #1e2130;
+    --dark-border: #2a2d3a;
+    --dark-border-hover: #3d4157;
+    --dark-text-primary: #f1f3f5;
+    --dark-text-secondary: #c9cdd3;
+    --dark-text-muted: #8b92a0;
+    --dark-text-faint: #5c6370;
+    --dark-accent: #22c55e;
+}
+
+/* ---------- CORE ---------- */
+html.dark {
+    color-scheme: dark;
+}
+
+/* ---------- BODY & BACKGROUNDS ---------- */
+html.dark body {
+    background-color: var(--dark-bg);
+    color: var(--dark-text-secondary);
+}
+
+html.dark .bg-white {
+    background-color: var(--dark-card) !important;
+}
+
+html.dark .bg-gray-50,
+html.dark .bg-gray-100 {
+    background-color: var(--dark-surface) !important;
+}
+
+html.dark .bg-gray-50\/50 {
+    background-color: rgba(20, 22, 32, 0.5) !important;
+}
+
+html.dark .bg-gray-50\/95 {
+    background-color: rgba(20, 22, 32, 0.95) !important;
+}
+
+/* ---------- TEXT COLORS ---------- */
+html.dark .text-gray-900 {
+    color: var(--dark-text-primary) !important;
+}
+
+html.dark .text-gray-800 {
+    color: #e2e5ea !important;
+}
+
+html.dark .text-gray-700 {
+    color: var(--dark-text-secondary) !important;
+}
+
+html.dark .text-gray-600 {
+    color: #a3aab5 !important;
+}
+
+html.dark .text-gray-500 {
+    color: var(--dark-text-muted) !important;
+}
+
+html.dark .text-gray-400 {
+    color: #7a8190 !important;
+}
+
+html.dark .text-gray-300 {
+    color: #6b7280 !important;
+}
+
+html.dark .text-gray-200 {
+    color: #4d5563 !important;
+}
+
+/* ---------- BORDERS ---------- */
+html.dark .border-gray-50,
+html.dark .border-gray-100,
+html.dark .border-gray-200,
+html.dark .border-gray-300 {
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .border-b {
+    border-color: var(--dark-border);
+}
+
+html.dark .border-t {
+    border-color: var(--dark-border) !important;
+}
+
+/* ---------- NAVIGATION ---------- */
+html.dark nav,
+html.dark .bg-white\/80 {
+    background-color: rgba(15, 17, 23, 0.88) !important;
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    border-color: var(--dark-border) !important;
+}
+
+/* Mobile menu */
+html.dark #mobileMenu {
+    background-color: rgba(15, 17, 23, 0.97) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark #mobileMenu a,
+html.dark #mobileMenu button {
+    color: var(--dark-text-secondary) !important;
+}
+
+html.dark #mobileMenu a:hover,
+html.dark #mobileMenu button:hover {
+    background-color: var(--dark-card-hover) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+/* ---------- HERO SECTION ---------- */
+html.dark .hero-section {
+    background-color: var(--dark-bg) !important;
+}
+
+html.dark .hero-section .bg-gradient-to-b {
+    background: linear-gradient(to bottom, rgba(22, 163, 74, 0.06), rgba(34, 197, 94, 0.02), transparent) !important;
+}
+
+html.dark .hero-section .bg-gradient-to-br {
+    opacity: 0.15 !important;
+}
+
+html.dark .hero-section [class*="bg-green-200"],
+html.dark .hero-section [class*="bg-green-100"],
+html.dark .hero-section [class*="bg-purple-100"],
+html.dark .hero-section [class*="bg-pink-100"] {
+    opacity: 0.08 !important;
+}
+
+html.dark .hero-gradient {
+    background: linear-gradient(-45deg, #0b1a12, #0f2118, #0a1e14, #0d2419) !important;
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+/* Hero badge */
+html.dark .hero-badge-animate,
+html.dark .hero-section .bg-green-50 {
+    background-color: rgba(22, 163, 74, 0.12) !important;
+    border-color: rgba(22, 163, 74, 0.2) !important;
+}
+
+html.dark .hero-section .text-green-700 {
+    color: #4ade80 !important;
+}
+
+/* Hero CTA buttons */
+html.dark .hero-btn-secondary,
+html.dark .hero-section .bg-white.border-2 {
+    background-color: var(--dark-card) !important;
+    border-color: var(--dark-border-hover) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+html.dark .hero-btn-secondary:hover,
+html.dark .hero-section .bg-white.border-2:hover {
+    background-color: var(--dark-card-hover) !important;
+    border-color: #4d5170 !important;
+}
+
+/* Hero stat cards */
+html.dark .hero-trusted-section {
+    background: rgba(20, 22, 32, 0.6) !important;
+}
+
+html.dark .hero-stat-card,
+html.dark .hero-trusted-section .bg-white\/80 {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+    backdrop-filter: none;
+}
+
+html.dark .hero-stat-card:hover {
+    border-color: rgba(34, 197, 94, 0.3) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Floating cards */
+html.dark .floating-card {
+    border-color: var(--dark-border);
+    background: var(--dark-card);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Avatar borders in hero */
+html.dark .hero-section .border-white,
+html.dark .hero-section .border-2.border-white {
+    border-color: var(--dark-card) !important;
+}
+
+/* ---------- CATEGORIES SECTION ---------- */
+html.dark .category-btn {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .category-btn:hover {
+    border-color: rgba(34, 197, 94, 0.4) !important;
+    background: var(--dark-card-hover) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Category icon backgrounds — dark tinted versions */
+html.dark .category-btn .bg-gradient-to-br.from-blue-100 {
+    background: rgba(59, 130, 246, 0.12) !important;
+}
+
+html.dark .category-btn .bg-gradient-to-br.from-purple-100 {
+    background: rgba(168, 85, 247, 0.12) !important;
+}
+
+html.dark .category-btn .bg-gradient-to-br.from-pink-100 {
+    background: rgba(236, 72, 153, 0.12) !important;
+}
+
+html.dark .category-btn .bg-gradient-to-br.from-amber-100 {
+    background: rgba(245, 158, 11, 0.12) !important;
+}
+
+html.dark .category-btn .bg-gradient-to-br.from-gray-100 {
+    background: rgba(107, 114, 128, 0.12) !important;
+}
+
+/* ---------- PRODUCT CARDS ---------- */
+html.dark .product-card {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .product-card:hover {
+    border-color: var(--dark-border-hover) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark .product-card .favorite-btn {
+    background: rgba(26, 29, 39, 0.85);
+}
+
+/* ---------- FILTER PANEL ---------- */
+html.dark #filterPanel .bg-white,
+html.dark #filterPanel > div {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+/* Filter toggle button (mobile) */
+html.dark #filterToggle {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+/* Sort dropdown */
+html.dark #sortBy {
+    background: var(--dark-card) !important;
+}
+
+/* ---------- INPUTS, SELECTS, TEXTAREAS ---------- */
+html.dark input,
+html.dark select,
+html.dark textarea {
+    background-color: var(--dark-surface) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+html.dark input::placeholder,
+html.dark select::placeholder,
+html.dark textarea::placeholder {
+    color: var(--dark-text-faint) !important;
+}
+
+html.dark input:focus,
+html.dark select:focus,
+html.dark textarea:focus {
+    border-color: #22c55e !important;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15) !important;
+}
+
+html.dark input:-webkit-autofill,
+html.dark input:-webkit-autofill:hover,
+html.dark input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px var(--dark-surface) inset !important;
+    -webkit-text-fill-color: var(--dark-text-primary) !important;
+    border-color: var(--dark-border) !important;
+}
+
+/* Search bar in nav */
+html.dark .desktop-search input,
+html.dark nav input {
+    background-color: var(--dark-surface) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .desktop-search input:focus,
+html.dark nav input:focus {
+    border-color: #22c55e !important;
+    background-color: var(--dark-bg) !important;
+}
+
+/* ---------- BUTTONS ---------- */
+html.dark .bg-green-600 {
+    background-color: #16a34a !important;
+}
+
+html.dark .hover\:bg-gray-50:hover {
+    background-color: var(--dark-card-hover) !important;
+}
+
+html.dark .bg-white.border.border-gray-300,
+html.dark .bg-white.border-gray-300 {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+/* Pagination buttons */
+html.dark #pagination button {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+html.dark #pagination button:hover:not(:disabled) {
+    background: var(--dark-card-hover) !important;
+    border-color: var(--dark-border-hover) !important;
+}
+
+/* ---------- SHADOWS ---------- */
+html.dark .shadow-xl,
+html.dark .shadow-lg,
+html.dark .shadow-md {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark .shadow-sm {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark .shadow-xl.shadow-black\/\[0\.03\] {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* ---------- SKELETON LOADING ---------- */
+html.dark .skeleton-card {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .skeleton-card .aspect-square,
+html.dark .skeleton-card .bg-gray-100,
+html.dark .skeleton-card .h-4,
+html.dark .skeleton-card .h-3,
+html.dark .skeleton-card .h-5,
+html.dark .skeleton-card .h-6,
+html.dark .animate-pulse .bg-gray-100,
+html.dark .animate-pulse .bg-gray-200 {
+    background: linear-gradient(90deg, #1e2130 25%, #282c3a 50%, #1e2130 75%) !important;
+    background-size: 200% 100% !important;
+    animation: shimmer 1.5s infinite !important;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ---------- EMPTY STATE ---------- */
+html.dark .empty-state-icon,
+html.dark #emptyState .bg-gray-50 {
+    background: linear-gradient(135deg, var(--dark-card), var(--dark-card-hover)) !important;
+}
+
+/* ---------- FOOTER ---------- */
+html.dark footer {
+    background-color: var(--dark-surface) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark footer a:hover {
+    color: #4ade80 !important;
+}
+
+html.dark footer .border-t {
+    border-color: var(--dark-border) !important;
+}
+
+/* ---------- SCROLLBAR ---------- */
+html.dark ::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+    background: #3d4157;
+    border-radius: 4px;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+    background: #4d5170;
+}
+
+/* ---------- SELECTION ---------- */
+html.dark ::selection {
+    background: rgba(34, 197, 94, 0.3);
+    color: var(--dark-text-primary);
+}
+
+/* ---------- SHARE MENU ---------- */
+html.dark .share-menu {
+    background: var(--dark-card);
+    border-color: var(--dark-border);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+html.dark .share-menu-item {
+    color: var(--dark-text-muted);
+}
+
+html.dark .share-menu-item:hover {
+    background: var(--dark-card-hover);
+    color: var(--dark-text-primary);
+}
+
+/* ---------- TOAST NOTIFICATIONS ---------- */
+html.dark .toast {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .bg-white.border-green-200 {
+    background-color: var(--dark-card) !important;
+    border-color: #166534 !important;
+}
+
+html.dark .bg-white.border-red-200 {
+    background-color: var(--dark-card) !important;
+    border-color: #991b1b !important;
+}
+
+html.dark .bg-white.border-amber-200 {
+    background-color: var(--dark-card) !important;
+    border-color: #92400e !important;
+}
+
+html.dark .bg-white.border-blue-200 {
+    background-color: var(--dark-card) !important;
+    border-color: #1e40af !important;
+}
+
+/* ---------- GALLERY / PRODUCT DETAIL ---------- */
+html.dark .gallery-main {
+    background: var(--dark-surface);
+}
+
+html.dark .gallery-nav {
+    background: rgba(26, 29, 39, 0.9);
+    border-color: rgba(255, 255, 255, 0.06);
+    color: var(--dark-text-secondary);
+}
+
+html.dark .gallery-nav:hover {
+    background: var(--dark-card-hover);
+}
+
+html.dark .gallery-thumb {
+    border-color: transparent;
+}
+
+html.dark .gallery-thumb.active {
+    border-color: #22c55e;
+}
+
+/* ---------- COLORED BACKGROUNDS ---------- */
+html.dark .bg-green-50 {
+    background-color: rgba(34, 197, 94, 0.1) !important;
+}
+
+html.dark .bg-green-100 {
+    background-color: rgba(34, 197, 94, 0.12) !important;
+}
+
+html.dark .bg-blue-50 {
+    background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+html.dark .bg-red-50 {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+}
+
+html.dark .bg-amber-50,
+html.dark .bg-yellow-50 {
+    background-color: rgba(245, 158, 11, 0.1) !important;
+}
+
+html.dark .bg-purple-50 {
+    background-color: rgba(168, 85, 247, 0.1) !important;
+}
+
+html.dark .bg-pink-50 {
+    background-color: rgba(236, 72, 153, 0.1) !important;
+}
+
+html.dark .bg-indigo-50 {
+    background-color: rgba(99, 102, 241, 0.1) !important;
+}
+
+html.dark .bg-emerald-50 {
+    background-color: rgba(16, 185, 129, 0.1) !important;
+}
+
+html.dark .bg-cyan-50 {
+    background-color: rgba(6, 182, 212, 0.1) !important;
+}
+
+html.dark .bg-rose-50 {
+    background-color: rgba(244, 63, 94, 0.1) !important;
+}
+
+html.dark .bg-gray-50 {
+    background-color: var(--dark-surface) !important;
+}
+
+/* Colored borders for admin stats */
+html.dark .border-amber-100,
+html.dark .border-green-100,
+html.dark .border-red-100,
+html.dark .border-blue-100,
+html.dark .border-green-200,
+html.dark .border-blue-200,
+html.dark .border-amber-200,
+html.dark .border-purple-200 {
+    border-color: var(--dark-border) !important;
+}
+
+/* ---------- GREEN TEXT ---------- */
+html.dark .text-green-600 {
+    color: #4ade80 !important;
+}
+
+html.dark .text-green-700 {
+    color: #4ade80 !important;
+}
+
+/* ---------- STATUS & CONDITION BADGES ---------- */
+html.dark .status-available {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+}
+
+html.dark .status-sold {
+    background: rgba(220, 38, 38, 0.15);
+    color: #f87171;
+}
+
+html.dark .condition-new {
+    background: rgba(37, 99, 235, 0.15);
+    color: #60a5fa;
+}
+
+html.dark .condition-fairly-used {
+    background: rgba(217, 119, 6, 0.15);
+    color: #fbbf24;
+}
+
+html.dark .condition-used {
+    background: rgba(107, 114, 128, 0.15);
+    color: #9ca3af;
+}
+
+/* ---------- REVIEW CARDS ---------- */
+html.dark .review-card {
+    background: var(--dark-card);
+    border-color: var(--dark-border);
+}
+
+html.dark .review-card:hover {
+    border-color: var(--dark-border-hover);
+}
+
+html.dark .review-stars .fa-star.empty {
+    color: #3d4157;
+}
+
+html.dark .rating-bar-container {
+    background: var(--dark-card-hover);
+}
+
+html.dark .star-rating-input label {
+    color: #3d4157;
+}
+
+/* ---------- IMAGE UPLOAD ---------- */
+html.dark .image-upload-slot {
+    background-color: var(--dark-surface);
+    border-color: var(--dark-border);
+}
+
+html.dark .image-upload-slot:hover {
+    border-color: rgba(34, 197, 94, 0.4);
+    background: rgba(34, 197, 94, 0.05);
+}
+
+html.dark .image-upload-slot.has-image {
+    border-color: var(--dark-border);
+}
+
+html.dark .image-upload-area.dragover {
+    border-color: #22c55e;
+    background-color: rgba(34, 197, 94, 0.08);
+}
+
+/* ---------- MODALS ---------- */
+html.dark .modal-backdrop,
+html.dark [class*="bg-black/50"] {
+    background: rgba(0, 0, 0, 0.7) !important;
+}
+
+html.dark .modal-content,
+html.dark #rejectModal > div,
+html.dark #imageModal {
+    background: var(--dark-card);
+    border-color: var(--dark-border);
+}
+
+/* ---------- FILTER PANEL MOBILE ---------- */
+@media (max-width: 1023px) {
+    html.dark .filter-panel-open {
+        background: rgba(15, 17, 23, 0.97);
+    }
+}
+
+/* ---------- LOGIN / REGISTER PAGES ---------- */
+
+/* Auth card container */
+html.dark .bg-white.border.border-gray-100.rounded-2xl,
+html.dark .bg-white.border-gray-100.rounded-2xl {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+/* Background blobs on login/register */
+html.dark .fixed.inset-0 [class*="bg-green-100"],
+html.dark .fixed.inset-0 [class*="bg-emerald-100"] {
+    opacity: 0.06 !important;
+}
+
+/* "Or continue with" / "New to Sellout?" / "Already have an account?" divider spans */
+html.dark .relative .flex.justify-center span.bg-white,
+html.dark span.bg-white {
+    background-color: var(--dark-card) !important;
+    color: var(--dark-text-muted) !important;
+}
+
+/* Secondary auth buttons: "Create an Account" / "Sign In" link */
+html.dark a.block.border.border-gray-300.text-gray-700,
+html.dark a.border.border-gray-300.text-gray-700,
+html.dark a[href="register.html"].border,
+html.dark a[href="login.html"].border {
+    background-color: transparent !important;
+    border-color: var(--dark-border-hover) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+html.dark a.block.border.border-gray-300.text-gray-700:hover,
+html.dark a.border.border-gray-300.text-gray-700:hover,
+html.dark a[href="register.html"].border:hover,
+html.dark a[href="login.html"].border:hover {
+    background-color: var(--dark-card-hover) !important;
+    border-color: #4d5170 !important;
+    color: var(--dark-text-primary) !important;
+}
+
+/* Primary submit buttons — ensure glow works on dark */
+html.dark #submitBtn {
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.25);
+}
+
+html.dark #submitBtn:hover {
+    box-shadow: 0 8px 24px rgba(22, 163, 74, 0.35) !important;
+}
+
+/* Google Auth button container — override Google's inline styles */
+html.dark #googleBtn {
+    filter: none;
+}
+
+html.dark #googleBtn iframe {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+/* Google button custom wrapper (for fallback / custom Google buttons) */
+html.dark .google-btn,
+html.dark [id*="google"] button {
+    background: var(--dark-surface) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+/* Form labels */
+html.dark label.text-gray-600,
+html.dark .text-sm.font-medium.text-gray-600 {
+    color: var(--dark-text-secondary) !important;
+}
+
+/* "Back to Home" link */
+html.dark a.text-gray-400.hover\:text-green-600 {
+    color: var(--dark-text-muted) !important;
+}
+
+html.dark a.text-gray-400.hover\:text-green-600:hover {
+    color: #4ade80 !important;
+}
+
+/* Password visibility toggle & input icons */
+html.dark .text-gray-400 i,
+html.dark button.text-gray-400 {
+    color: var(--dark-text-faint) !important;
+}
+
+html.dark button.text-gray-400:hover {
+    color: var(--dark-text-muted) !important;
+}
+
+/* Floating toggle on login/register */
+html.dark .theme-toggle.fixed {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- ADMIN DASHBOARD ---------- */
+html.dark .stat-card {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .stat-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    border-color: var(--dark-border-hover) !important;
+}
+
+html.dark .tab-btn:not(.active) {
+    background: var(--dark-card) !important;
+    color: var(--dark-text-muted) !important;
+}
+
+html.dark .tab-btn:not(.active):hover {
+    background: var(--dark-card-hover) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+html.dark .tab-btn.active {
+    background: linear-gradient(135deg, #16a34a, #15803d) !important;
+    color: white !important;
+}
+
+html.dark .verify-filter-btn:not(.active) {
+    background: var(--dark-card) !important;
+    color: var(--dark-text-muted) !important;
+}
+
+html.dark .verify-filter-btn.active {
+    background: rgba(34, 197, 94, 0.12) !important;
+    color: #4ade80 !important;
+}
+
+html.dark .bg-white.rounded-2xl.border {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .bg-gradient-to-r {
+    opacity: 0.92;
+}
+
+html.dark table {
+    border-color: var(--dark-border) !important;
+}
+
+html.dark table thead {
+    background: var(--dark-surface) !important;
+}
+
+html.dark table th {
+    color: var(--dark-text-muted) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark table td {
+    color: var(--dark-text-secondary) !important;
+}
+
+html.dark .user-row:hover,
+html.dark tr:hover {
+    background: var(--dark-card-hover) !important;
+}
+
+html.dark .border-gray-50 {
+    border-color: var(--dark-card-hover) !important;
+}
+
+/* Admin growth cards */
+html.dark .bg-green-50.rounded-xl,
+html.dark .bg-blue-50.rounded-xl,
+html.dark .bg-purple-50.rounded-xl {
+    border: 1px solid var(--dark-border);
+}
+
+/* User detail modal */
+html.dark #userDetailModal > div {
+    background: var(--dark-card) !important;
+}
+
+html.dark #userDetailModal .sticky {
+    background: rgba(26, 29, 39, 0.92) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html.dark #userDetailContent .rounded-xl.bg-gray-50,
+html.dark #userDetailContent .p-3.rounded-xl.bg-gray-50 {
+    background: var(--dark-surface) !important;
+}
+
+html.dark #userDetailContent .border-4.border-gray-100 {
+    border-color: var(--dark-border) !important;
+}
+
+/* Health metric icon backgrounds */
+html.dark .stat-card .bg-green-50,
+html.dark .stat-card .bg-blue-50,
+html.dark .stat-card .bg-purple-50,
+html.dark .stat-card .bg-amber-50,
+html.dark .stat-card .bg-cyan-50,
+html.dark .stat-card .bg-indigo-50,
+html.dark .stat-card .bg-rose-50,
+html.dark .stat-card .bg-emerald-50 {
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Pending badge */
+html.dark #pendingBadge {
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
+/* Product table image */
+html.dark .productsTableBody img {
+    border: 1px solid var(--dark-border);
+}
+
+/* Admin select/input dark mode */
+html.dark #productSearch,
+html.dark #productCategoryFilter,
+html.dark #productStatusFilter,
+html.dark #productSort {
+    background: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+/* Admin pagination buttons */
+html.dark #productPagination button {
+    color: var(--dark-text-secondary);
+}
+
+html.dark #productPagination button:hover {
+    background: var(--dark-card-hover) !important;
+}
+
+html.dark #productPagination .bg-green-600 {
+    color: white !important;
+}
+
+/* ---------- PROFILE PAGE ---------- */
+html.dark .bg-gradient-to-r.from-green-100 {
+    background: linear-gradient(to right, rgba(34, 197, 94, 0.08), rgba(16, 185, 129, 0.05), rgba(20, 184, 166, 0.04)) !important;
+}
+
+html.dark .border-4.border-white {
+    border-color: var(--dark-card) !important;
+}
+
+/* Profile tabs */
+html.dark [role="tab"],
+html.dark .profile-tab {
+    color: var(--dark-text-muted);
+}
+
+html.dark [role="tab"].active,
+html.dark .profile-tab.active {
+    color: var(--dark-text-primary);
+}
+
+/* ---------- SELLER PAGE COVER GRADIENT ---------- */
+html.dark .bg-gradient-to-r.from-green-100.via-emerald-50 {
+    background: linear-gradient(to right, rgba(34, 197, 94, 0.08), rgba(16, 185, 129, 0.06), rgba(20, 184, 166, 0.04)) !important;
+}
+
+/* ---------- WHATSAPP BUTTON ---------- */
+html.dark .whatsapp-btn {
+    box-shadow: 0 4px 16px rgba(34, 197, 94, 0.15);
+}
+
+/* ---------- FAVORITE BUTTON ---------- */
+html.dark .favorite-btn {
+    background: rgba(20, 22, 32, 0.85) !important;
+}
+
+/* ---------- GLASS EFFECT ---------- */
+html.dark .glass {
+    background: rgba(26, 29, 39, 0.75);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Backdrop blur elements need no override — they work natively with dark bg */
+
+/* Product card overlay badges */
+html.dark .product-card .bg-white\/90 {
+    background: rgba(26, 29, 39, 0.9) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+html.dark .product-card .bg-white\/70 {
+    background: rgba(15, 17, 23, 0.7) !important;
+}
+
+/* ---------- THEME TOGGLE BUTTON ---------- */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.05rem;
+    position: relative;
+}
+
+.theme-toggle:hover {
+    background: rgba(34, 197, 94, 0.08);
+    color: #16a34a;
+    transform: scale(1.08);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+html.dark .theme-toggle {
+    color: #fbbf24;
+}
+
+html.dark .theme-toggle:hover {
+    background: rgba(251, 191, 36, 0.1);
+    color: #fcd34d;
+}
+
+/* ---------- SMOOTH THEME TRANSITION ---------- */
+html.dark body,
+html.dark nav,
+html.dark footer,
+html.dark .product-card,
+html.dark .category-btn,
+html.dark .hero-stat-card,
+html.dark input,
+html.dark select,
+html.dark textarea {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* ---------- COPIED TOAST ---------- */
+html.dark #copiedToast {
+    background-color: #16a34a !important;
+    box-shadow: 0 8px 24px rgba(22, 163, 74, 0.25) !important;
+}
+
+/* ---------- ERROR STATES ---------- */
+html.dark .bg-red-50.border.border-red-100 {
+    background-color: rgba(239, 68, 68, 0.08) !important;
+    border-color: rgba(239, 68, 68, 0.2) !important;
+}
+
+/* ---------- CHECKBOX ---------- */
+html.dark input[type="checkbox"] {
+    background-color: var(--dark-surface) !important;
+    border-color: var(--dark-border) !important;
+}
+
+/* ---------- BORDER DASHED (upload area) ---------- */
+html.dark .border-dashed {
+    border-color: var(--dark-border) !important;
+}
+
+html.dark .border-dashed:hover {
+    border-color: rgba(34, 197, 94, 0.4) !important;
+}
+
+/* ---------- PRINT: ALWAYS LIGHT ---------- */
+@media print {
+    html.dark body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+}

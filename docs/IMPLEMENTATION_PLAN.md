@@ -24,6 +24,7 @@ Sellout/
 │   │   ├── favoriteController.js # Wishlist management
 │   │   ├── reviewController.js  # Seller reviews & ratings
 │   │   ├── verificationController.js # Student ID verification
+│   │   ├── reportController.js  # Product flagging and reporting
 │   │   └── adminController.js   # Admin dashboard & management
 │   ├── middleware/
 │   │   ├── auth.js              # JWT verification middleware
@@ -36,6 +37,7 @@ Sellout/
 │   │   ├── favorites.js         # Favorites routes
 │   │   ├── reviews.js           # Review routes
 │   │   ├── verification.js      # Verification routes
+│   │   ├── reports.js           # Reporting routes
 │   │   └── admin.js             # Admin routes
 │   ├── .env                     # Environment variables
 │   ├── server.js                # Express app entry point
@@ -79,7 +81,7 @@ Sellout/
 
 ### Phase 1: Database Setup ✅
 - Created consolidated MySQL schema (`schema.sql`)
-- Defined 6 tables: users, products, favorites, reviews, product_images, student_verifications
+- Defined 7 tables: users, products, favorites, reviews, product_images, student_verifications, product_reports
 - Added indexes for performance (full-text search, foreign keys)
 - Seed data with demo user and 12 sample products
 
@@ -154,6 +156,7 @@ Sellout/
     - Approve/reject verifications
     - User management with search, filter, and sort
     - Campus analytics with charts
+    - Product Reports management tab
 
 ### Phase 8: Admin Dashboard Enhancement ✅
 - **Product Management Tab**:
@@ -240,6 +243,16 @@ Sellout/
 |--------|----------|------|-------------|
 | POST | `/api/verification/submit` | Yes | Submit student ID |
 | GET | `/api/verification/status` | Yes | Check verification status |
+
+### Reports
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | `/api/reports/:id` | Yes | Report a product |
+| GET | `/api/reports/check/:id` | Yes | Check report status |
+| GET | `/api/reports` | Admin | Get all reports |
+| GET | `/api/reports/stats` | Admin | Get reports statistics |
+| PUT | `/api/reports/:id/resolve` | Admin | Resolve single report |
+| PUT | `/api/reports/product/:productId/resolve-all` | Admin | Resolve product reports |
 
 ### Admin
 | Method | Endpoint | Auth | Description |
@@ -330,5 +343,18 @@ Sellout/
 | student_id_number | VARCHAR(100) | Student ID number |
 | status | VARCHAR(20) | pending / approved / rejected |
 | rejection_reason | TEXT | Reason if rejected |
-| submitted_at | TIMESTAMP | Submission time |
-| reviewed_at | TIMESTAMP | Review time |
+| `submitted_at` | TIMESTAMP | Submission time |
+| `reviewed_at` | TIMESTAMP | Review time |
+
+### product_reports
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT | Primary key |
+| reporter_id | INT | User FK |
+| product_id | INT | Product FK |
+| reason | ENUM | scam, inappropriate, etc |
+| details | TEXT | Additional info |
+| status | ENUM | pending, reviewed, dismissed |
+| admin_note | TEXT | Resolution note |
+| created_at | TIMESTAMP | Report time |
+| resolved_at | TIMESTAMP | Resolution time |

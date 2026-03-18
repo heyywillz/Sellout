@@ -10,11 +10,12 @@ A full-stack web application for university students to buy and sell used items 
 - **Wishlist/Favorites**: Save items for later and view them in a dedicated page
 - **Seller Reviews**: Rate and review sellers with star ratings (1-5) to build trust
 - **Student Verification**: Submit student ID for admin-reviewed identity verification
-- **Admin Dashboard**: Comprehensive admin panel with 5 tabs:
+- **Admin Dashboard**: Comprehensive admin panel with 6 tabs:
   - **Overview** with platform stats, charts, and health metrics
   - **Users** management with search, filter, and detail drawer
   - **Products** moderation with search, filter, delete, and pagination
   - **Verifications** queue with pending badge and approve/reject workflow
+  - **Reports** management for flagged listings with resolve actions
   - **Campus Analytics** with per-campus breakdowns
 - **CSV Data Export**: Export users and products tables to CSV files
 - **Dark Mode**: Full dark mode toggle with theme persistence and dark-aware charts
@@ -59,6 +60,7 @@ Sellout/
 │   │   ├── favoriteController.js # Wishlist
 │   │   ├── reviewController.js  # Seller reviews
 │   │   ├── verificationController.js # Student verification
+│   │   ├── reportController.js  # Product reports
 │   │   └── adminController.js   # Admin dashboard
 │   ├── middleware/
 │   │   ├── auth.js              # JWT middleware
@@ -71,6 +73,7 @@ Sellout/
 │   │   ├── favorites.js
 │   │   ├── reviews.js
 │   │   ├── verification.js
+│   │   ├── reports.js
 │   │   └── admin.js
 │   ├── .env                     # Environment variables
 │   ├── server.js                # App entry point
@@ -130,7 +133,7 @@ Run the single schema file to create the database, all tables, and seed data:
 mysql -u root -p < database/schema.sql
 ```
 
-This creates the `sellout_db` database with 6 tables and 12 sample product listings.
+This creates the `sellout_db` database with 7 tables and 12 sample product listings.
 
 ### 3. Backend Setup
 

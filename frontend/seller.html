@@ -65,7 +65,8 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-4 mb-10">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+                <div class="h-20 bg-white border border-gray-100 rounded-2xl animate-pulse shadow-sm"></div>
                 <div class="h-20 bg-white border border-gray-100 rounded-2xl animate-pulse shadow-sm"></div>
                 <div class="h-20 bg-white border border-gray-100 rounded-2xl animate-pulse shadow-sm"></div>
                 <div class="h-20 bg-white border border-gray-100 rounded-2xl animate-pulse shadow-sm"></div>
@@ -212,7 +213,7 @@
             </div>
 
             <!-- Products Grid -->
-            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div id="productsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
             </div>
 
             <!-- Empty State -->
@@ -361,31 +362,40 @@
                 return;
             }
 
-            grid.innerHTML = products.map(product => `
-                <a href="product-details.html?id=${product.id}" class="group product-card rounded-xl bg-white border border-gray-100 overflow-hidden hover:border-green-200 transition-all block shadow-sm">
+            grid.innerHTML = products.map(product => {
+                const condition = product.condition || product.product_condition || 'Used';
+                const conditionClass = condition === 'New' ? 'condition-new' : condition === 'Fairly Used' ? 'condition-fairly-used' : 'condition-used';
+                return `
+                <a href="product-details.html?id=${product.id}" class="product-card group block rounded-2xl bg-white border border-gray-200 overflow-hidden hover:border-green-200 transition-all shadow-sm">
                     <div class="relative aspect-square overflow-hidden">
                         <img src="${product.image_url || product.gallery_image}" alt="${escapeHtml(product.title)}"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             loading="lazy">
-                        <div class="absolute top-3 left-3">
-                            <span class="px-2.5 py-1 rounded-lg bg-white/90 backdrop-blur-sm text-xs font-medium text-gray-700 shadow-sm">
-                                <i class="${getCategoryIcon(product.category)} mr-1 text-green-600"></i>${product.category}
+                        <div class="absolute top-2 left-2 sm:top-3 sm:left-3">
+                            <span class="px-2 py-1 sm:px-2.5 sm:py-1 rounded-full ${conditionClass} text-[10px] sm:text-xs font-semibold backdrop-blur-sm shadow-sm">
+                                ${condition}
                             </span>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/30 to-transparent"></div>
+                        ${product.status === 'sold' ? `
+                            <div class="absolute inset-0 bg-white/70 flex items-center justify-center">
+                                <span class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-red-500 text-white text-[10px] sm:text-xs font-bold shadow-md uppercase">Sold</span>
+                            </div>
+                        ` : ''}
                     </div>
-                    <div class="p-4">
-                        <h3 class="font-medium truncate mb-1 text-gray-800 group-hover:text-green-700 transition-colors">${escapeHtml(product.title)}</h3>
-                        <div class="flex items-center justify-between">
-                            <p class="text-green-700 font-bold text-lg">${formatPrice(product.price)}</p>
-                            <span class="text-xs text-gray-400">${product.condition}</span>
+                    <div class="p-3 sm:p-4">
+                        <div class="flex flex-wrap items-center gap-1 sm:gap-2 mb-1.5 sm:mb-2 text-[10px] sm:text-xs font-medium text-gray-400">
+                            <span>${product.category}</span>
+                            ${product.campus ? `<span class="text-gray-200 hidden sm:inline">•</span><span class="truncate max-w-[80px] sm:max-w-none">${product.campus}</span>` : ''}
+                            ${product.seller_verified === 'verified' ? '<span class="text-gray-200 hidden sm:inline">•</span><span class="text-green-600 font-medium whitespace-nowrap"><i class="fas fa-check-circle mr-0.5"></i><span class="hidden sm:inline">Verified</span></span>' : ''}
                         </div>
-                        <p class="text-xs text-gray-400 mt-2 flex items-center gap-1">
-                            <i class="fas fa-clock"></i>${formatDate(product.created_at)}
-                        </p>
+                        <h3 class="font-semibold text-sm sm:text-sm mb-1.5 sm:mb-2 text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors leading-snug">${escapeHtml(product.title)}</h3>
+                        <div class="flex items-center justify-between mt-2 sm:mt-3">
+                            <p class="text-base sm:text-lg font-bold text-green-700">${formatPrice(product.price)}</p>
+                            <span class="text-[10px] sm:text-xs font-medium text-gray-400 flex items-center gap-1"><i class="far fa-clock"></i>${formatDate(product.created_at)}</span>
+                        </div>
                     </div>
                 </a>
-            `).join('');
+            `}).join('');
         }
 
         async function loadSellerReviews(sellerId) {

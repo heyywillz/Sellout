@@ -77,8 +77,9 @@ const products = {
      * Render single product card
      */
     renderProductCard(product) {
-        const conditionClass = product.product_condition === 'New' ? 'condition-new' :
-            product.product_condition === 'Fairly Used' ? 'condition-fairly-used' : 'condition-used';
+        const condition = product.product_condition || product.condition || 'Used';
+        const conditionClass = condition === 'New' ? 'condition-new' :
+            condition === 'Fairly Used' ? 'condition-fairly-used' : 'condition-used';
 
         return `
             <a href="product-details.html?id=${product.id}" class="product-card group block rounded-2xl bg-white border border-gray-200 overflow-hidden hover:border-green-200 transition-all shadow-sm">
@@ -86,33 +87,32 @@ const products = {
                     <img src="${product.image_url}" alt="${escapeHtml(product.title)}" 
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy">
-                    <div class="absolute top-3 left-3">
-                        <span class="px-2.5 py-1 rounded-full ${conditionClass} text-xs font-medium backdrop-blur-sm">
-                            ${product.product_condition}
+                    <div class="absolute top-2 left-2 sm:top-3 sm:left-3">
+                        <span class="px-2 py-1 sm:px-2.5 sm:py-1 rounded-full ${conditionClass} text-[10px] sm:text-xs font-semibold backdrop-blur-sm shadow-sm">
+                            ${condition}
                         </span>
                     </div>
                     <button class="favorite-btn" data-product-id="${product.id}" onclick="event.preventDefault(); event.stopPropagation(); products.toggleCardFavorite(this, ${product.id});" title="Add to Favorites">
-                        <i class="far fa-heart text-sm text-gray-500"></i>
+                        <i class="far fa-heart text-xs sm:text-sm text-gray-500"></i>
                     </button>
                     ${product.status === 'sold' ? `
                         <div class="absolute inset-0 bg-white/70 flex items-center justify-center">
-                            <span class="px-4 py-2 rounded-full bg-red-500 text-white text-sm font-semibold">Sold</span>
+                            <span class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-red-500 text-white text-[10px] sm:text-xs font-bold shadow-md uppercase">Sold</span>
                         </div>
                     ` : ''}
                 </div>
-                <div class="p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="text-xs text-gray-400">${product.category}</span>
-                        <span class="text-gray-200">•</span>
-                        <span class="text-xs text-gray-400">${product.campus}</span>
-                        ${product.seller_verified === 'verified' ? '<span class="text-gray-200">•</span><span class="text-xs text-green-600 font-medium"><i class="fas fa-check-circle mr-0.5"></i>Verified</span>' : ''}
+                <div class="p-3 sm:p-4">
+                    <div class="flex flex-wrap items-center gap-1 sm:gap-2 mb-1.5 sm:mb-2 text-[10px] sm:text-xs font-medium text-gray-400">
+                        <span>${product.category}</span>
+                        ${product.campus ? `<span class="text-gray-200 hidden sm:inline">•</span><span class="truncate max-w-[80px] sm:max-w-none">${product.campus}</span>` : ''}
+                        ${product.seller_verified === 'verified' ? '<span class="text-gray-200 hidden sm:inline">•</span><span class="text-green-600 font-medium whitespace-nowrap"><i class="fas fa-check-circle mr-0.5"></i><span class="hidden sm:inline">Verified</span></span>' : ''}
                     </div>
-                    <h3 class="font-semibold text-sm mb-2 text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors">
+                    <h3 class="font-semibold text-sm sm:text-sm mb-1.5 sm:mb-2 text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors leading-snug">
                         ${escapeHtml(product.title)}
                     </h3>
-                    <div class="flex items-center justify-between">
-                        <p class="text-lg font-bold text-green-700">${formatPrice(product.price)}</p>
-                        <span class="text-xs text-gray-400">${formatDate(product.created_at)}</span>
+                    <div class="flex items-center justify-between mt-2 sm:mt-3">
+                        <p class="text-base sm:text-lg font-bold text-green-700">${formatPrice(product.price)}</p>
+                        <span class="text-[10px] sm:text-xs font-medium text-gray-400 flex items-center gap-1"><i class="far fa-clock"></i>${formatDate(product.created_at)}</span>
                     </div>
                 </div>
             </a>

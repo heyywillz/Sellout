@@ -86,19 +86,19 @@
             <div class="flex items-center justify-between h-16">
                 <a href="index.html" class="flex items-center gap-2">
                     <img src="assets/logo.png" alt="Sellout Logo"
-                        class="h-10 w-10 rounded-xl object-contain bg-green-600 p-1.5">
-                    <span class="text-xl font-bold text-gray-900">Sellout</span>
-                    <span class="px-2 py-0.5 rounded-md bg-red-100 text-red-600 text-xs font-semibold ml-1">ADMIN</span>
+                        class="h-10 w-10 rounded-xl object-contain bg-green-600 p-1.5 focus:outline-none">
+                    <span class="hidden sm:inline text-xl font-bold text-gray-900">Sellout</span>
+                    <span class="px-2 py-0.5 rounded-md bg-red-100 text-red-600 text-[10px] sm:text-xs font-semibold sm:ml-1">ADMIN</span>
                 </a>
                 <div class="flex items-center gap-4">
                     <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
                         <i class="fas fa-moon"></i>
                     </button>
-                    <a href="index.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
-                        <i class="fas fa-home mr-2"></i>Browse
+                    <a href="index.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors flex items-center">
+                        <i class="fas fa-home sm:mr-2 text-lg sm:text-base"></i><span class="hidden sm:inline">Browse</span>
                     </a>
-                    <a href="profile.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
-                        <i class="fas fa-user mr-2"></i>Profile
+                    <a href="profile.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors flex items-center">
+                        <i class="fas fa-user sm:mr-2 text-lg sm:text-base"></i><span class="hidden sm:inline">Profile</span>
                     </a>
                 </div>
             </div>
@@ -133,7 +133,7 @@
             </div>
 
             <!-- Tab Navigation -->
-            <div class="flex flex-wrap items-center gap-2 mb-8">
+            <div class="flex items-center gap-2 mb-8 overflow-x-auto whitespace-nowrap no-scrollbar pb-2">
                 <button class="tab-btn active px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
                     data-tab="overview">
                     <i class="fas fa-chart-pie mr-2"></i>Overview
@@ -492,7 +492,7 @@
                 </div>
 
                 <!-- Verification Filter Tabs -->
-                <div class="flex items-center gap-2 mb-6">
+                <div class="flex items-center gap-2 mb-6 overflow-x-auto whitespace-nowrap no-scrollbar pb-1">
                     <button
                         class="verify-filter-btn active px-4 py-2 rounded-lg bg-green-50 text-green-700 text-sm font-medium transition-all"
                         data-filter="">All</button>

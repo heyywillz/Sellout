@@ -27,7 +27,7 @@ Sellout follows a classic **Model-View-Controller (MVC)** architectural pattern,
     - **Cloudinary**: External service for storing uploaded product images.
 
 3.  **Database (MySQL 8.0)**:
-    - Relational database with 6 tables.
+    - Relational database with 7 tables.
     - Connected via `mysql2/promise` driver with connection pooling.
     - All schema definitions consolidated in a single `database/schema.sql` file.
 
@@ -35,7 +35,7 @@ Sellout follows a classic **Model-View-Controller (MVC)** architectural pattern,
 
 ## 🗄️ Database Schema
 
-The database consists of six tables managed through a single `schema.sql` file.
+The database consists of seven tables managed through a single `schema.sql` file.
 
 ### 1. `users` Table
 Stores registered user credentials and profile information.
@@ -131,6 +131,21 @@ Stores student ID verification submissions for admin review.
 | `rejection_reason` | `TEXT` | Reason if rejected |
 | `submitted_at` | `TIMESTAMP` | Submission time |
 | `reviewed_at` | `TIMESTAMP` | Admin review time |
+
+### 7. `product_reports` Table
+Stores flagging/reporting data for inappropriate or scam products.
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `INT` | Unique ID |
+| `reporter_id` | `INT` | User reporting the product (`FK`) |
+| `product_id` | `INT` | Product being reported (`FK`) |
+| `reason` | `ENUM` | scam, inappropriate, duplicate, wrong_category, misleading, other |
+| `details` | `TEXT` | Additional text details provided by user |
+| `status` | `ENUM` | pending, reviewed, dismissed |
+| `admin_note` | `TEXT` | Note left by admin on resolution |
+| `created_at` | `TIMESTAMP` | Report time |
+| `resolved_at` | `TIMESTAMP` | Admin resolution time |
 
 ---
 
@@ -230,6 +245,30 @@ Submit a student verification request.
 #### `GET /verification/status` (Protected)
 Check the current user's verification status.
 
+### Report Endpoints
+
+#### `POST /reports/:id` (Protected)
+Report a product listing.
+- **Body**: `{ reason, details }`
+
+#### `GET /reports/check/:id` (Protected)
+Check if the current user has already reported this product.
+
+#### `GET /reports` (Admin Only)
+Get paginated list of product reports.
+- **Query Params**: `page`, `limit`, `status` (pending/reviewed/dismissed), `reason`, `search`
+
+#### `GET /reports/stats` (Admin Only)
+Get statistics about reports (total, pending, counts by reason).
+
+#### `PUT /reports/:id/resolve` (Admin Only)
+Resolve a single report.
+- **Body**: `{ status: 'reviewed' | 'dismissed', admin_note }`
+
+#### `PUT /reports/product/:productId/resolve-all` (Admin Only)
+Bulk resolve all reports associated with a specific product.
+- **Body**: `{ action: 'delete_product' | 'dismiss_all', admin_note }`
+
 ### Admin Endpoints
 
 #### `GET /admin/verifications` (Admin Only)
@@ -281,7 +320,7 @@ The frontend is built with **Vanilla JavaScript** using a modular approach.
 | `edit-product.html` | Edit existing product listing |
 | `favorites.html` | User's saved/wishlisted items |
 | `seller.html` | Public seller profile with listings and reviews |
-| `admin.html` | Admin dashboard with 5 tabs: Overview (stats + health metrics + charts), Users (search/filter/detail drawer), Products (search/filter/delete/pagination), Verifications (approve/reject with pending badge), Campus Analytics |
+| `admin.html` | Admin dashboard with 6 tabs: Overview, Users, Products, Verifications, Reports, and Campus Analytics |
 
 ### Key Modules
 

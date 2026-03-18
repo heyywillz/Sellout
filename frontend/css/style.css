@@ -824,7 +824,12 @@ input:-webkit-autofill:focus {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    min-height: 480px;
+}
+
+@media (min-width: 1024px) {
+    .hero-layout {
+        min-height: 480px;
+    }
 }
 
 .hero-floating-images {
@@ -1119,7 +1124,7 @@ input:-webkit-autofill:focus {
 .hero-trusted-section {
     animation: trustedFadeIn 1s ease-out 0.5s both;
     background: rgba(220, 252, 231, 0.45);
-    padding: 2.5rem 2rem;
+    padding: 2.5rem calc((100vw - min(100vw, 80rem)) / 2 + 1rem); /* 1rem (px-4) */
     border-radius: 0;
     width: 100vw;
     position: relative;
@@ -1127,8 +1132,20 @@ input:-webkit-autofill:focus {
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    padding-left: calc((100vw - 80rem) / 2 + 1rem);
-    padding-right: calc((100vw - 80rem) / 2 + 1rem);
+}
+
+@media (min-width: 640px) {
+    .hero-trusted-section {
+        padding-left: calc((100vw - min(100vw, 80rem)) / 2 + 1.5rem); /* 1.5rem (px-6) */
+        padding-right: calc((100vw - min(100vw, 80rem)) / 2 + 1.5rem);
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-trusted-section {
+        padding-left: calc((100vw - min(100vw, 80rem)) / 2 + 2rem); /* 2rem (px-8) */
+        padding-right: calc((100vw - min(100vw, 80rem)) / 2 + 2rem);
+    }
 }
 
 @keyframes trustedFadeIn {

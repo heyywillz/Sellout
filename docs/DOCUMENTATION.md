@@ -1,14 +1,14 @@
-# 📘 Sellout Project Documentation
+#  Sellout Project Documentation
 
 This document provides a deep dive into the architecture, database design, API specifications, and frontend logic of the **Sellout** application.
 
 ---
 
-## 🏗️ System Architecture
+##  System Architecture
 
 Sellout follows a classic **Model-View-Controller (MVC)** architectural pattern, adapted for a decoupled frontend-backend setup.
 
-### 🔄 Data Flow
+###  Data Flow
 
 1.  **Client (Frontend)**:
     - Static HTML/CSS/JS files served via `http-server` (port 3000).
@@ -33,7 +33,7 @@ Sellout follows a classic **Model-View-Controller (MVC)** architectural pattern,
 
 ---
 
-## 🗄️ Database Schema
+##  Database Schema
 
 The database consists of seven tables managed through a single `schema.sql` file.
 
@@ -149,7 +149,7 @@ Stores flagging/reporting data for inappropriate or scam products.
 
 ---
 
-## 📡 API Reference
+##  API Reference
 
 ### Base URL
 `http://localhost:5000/api`
@@ -304,7 +304,7 @@ Get per-campus statistics (user count, product count, available/sold breakdown, 
 
 ---
 
-## 💻 Frontend Architecture
+##  Frontend Architecture
 
 The frontend is built with **Vanilla JavaScript** using a modular approach.
 
@@ -338,7 +338,7 @@ The frontend is built with **Vanilla JavaScript** using a modular approach.
 
 ---
 
-## 🔒 Security Implementation
+##  Security Implementation
 
 1.  **Password Hashing**:
     - Passwords are **never** stored in plain text.
@@ -368,7 +368,7 @@ The frontend is built with **Vanilla JavaScript** using a modular approach.
 
 ---
 
-## 🚀 Deployment Guide
+##  Deployment Guide
 
 ### Database (MySQL)
 - Use a managed database provider like **PlanetScale**, **Railway**, or **AWS RDS**.
@@ -393,7 +393,7 @@ The frontend is built with **Vanilla JavaScript** using a modular approach.
 
 ---
 
-## 🛠️ Troubleshooting
+##  Troubleshooting
 
 - **Image Upload Fails**:
     - Check Cloudinary credentials in `.env`.

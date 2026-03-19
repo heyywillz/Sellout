@@ -2,7 +2,7 @@
 
 A full-stack web application for university students to buy and sell used items within their campus community. Built with Node.js, Express, MySQL, and vanilla JavaScript.
 
-## 🌟 Features
+## Features
 
 - **User Authentication**: Secure registration and login with local JWT or **Google Sign-In**
 - **Product Management**: Create, read, update, and delete product listings
@@ -25,7 +25,7 @@ A full-stack web application for university students to buy and sell used items 
 - **Responsive Design**: Mobile-first, works on all screen sizes
 - **Modern UI**: Clean white-dominant design with green accents, smooth animations, and animated stat counters
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - HTML5
@@ -45,72 +45,72 @@ A full-stack web application for university students to buy and sell used items 
 - express-validator (input validation)
 - express-rate-limit (API rate limiting)
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Sellout/
-├── backend/
-│   ├── config/
-│   │   ├── database.js          # MySQL connection pool
-│   │   └── cloudinary.js        # Cloudinary config
-│   ├── controllers/
-│   │   ├── authController.js    # Auth logic
-│   │   ├── userController.js    # Profile management
-│   │   ├── productController.js # Product CRUD
-│   │   ├── favoriteController.js # Wishlist
-│   │   ├── reviewController.js  # Seller reviews
-│   │   ├── verificationController.js # Student verification
-│   │   ├── reportController.js  # Product reports
-│   │   └── adminController.js   # Admin dashboard
-│   ├── middleware/
-│   │   ├── auth.js              # JWT middleware
-│   │   ├── admin.js             # Admin check
-│   │   └── upload.js            # File upload
-│   ├── routes/
-│   │   ├── auth.js
-│   │   ├── users.js
-│   │   ├── products.js
-│   │   ├── favorites.js
-│   │   ├── reviews.js
-│   │   ├── verification.js
-│   │   ├── reports.js
-│   │   └── admin.js
-│   ├── .env                     # Environment variables
-│   ├── server.js                # App entry point
-│   ├── seed.js                  # Demo data seeder
-│   └── package.json
-├── frontend/
-│   ├── assets/                  # Logo & images
-│   ├── css/
-│   │   ├── style.css            # Custom styles
-│   │   └── dark-mode.css        # Dark mode theme overrides
-│   ├── js/
-│   │   ├── api.js               # HTTP client
-│   │   ├── app.js               # Main init
-│   │   ├── auth.js              # Auth management
-│   │   ├── config.js            # API configuration
-│   │   ├── products.js          # Product logic
-│   │   ├── theme.js             # Dark mode toggle
-│   │   └── utils.js             # Helpers
-│   ├── index.html               # Homepage
-│   ├── login.html               # Login
-│   ├── register.html            # Registration
-│   ├── profile.html             # User profile
-│   ├── product-details.html     # Product details
-│   ├── upload-product.html      # List new item
-│   ├── edit-product.html        # Edit listing
-│   ├── favorites.html           # Wishlist
-│   ├── seller.html              # Seller profile
-│   └── admin.html               # Admin dashboard
-├── database/
-│   └── schema.sql               # Complete DB schema
-├── PROPOSAL.md
-├── IMPLEMENTATION_PLAN.md
-├── DOCUMENTATION.md
-└── README.md
+ backend/
+    config/
+       database.js          # MySQL connection pool
+       cloudinary.js        # Cloudinary config
+    controllers/
+       authController.js    # Auth logic
+       userController.js    # Profile management
+       productController.js # Product CRUD
+       favoriteController.js # Wishlist
+       reviewController.js  # Seller reviews
+       verificationController.js # Student verification
+       reportController.js  # Product reports
+       adminController.js   # Admin dashboard
+    middleware/
+       auth.js              # JWT middleware
+       admin.js             # Admin check
+       upload.js            # File upload
+    routes/
+       auth.js
+       users.js
+       products.js
+       favorites.js
+       reviews.js
+       verification.js
+       reports.js
+       admin.js
+    .env                     # Environment variables
+    server.js                # App entry point
+    seed.js                  # Demo data seeder
+    package.json
+ frontend/
+    assets/                  # Logo & images
+    css/
+       style.css            # Custom styles
+       dark-mode.css        # Dark mode theme overrides
+    js/
+       api.js               # HTTP client
+       app.js               # Main init
+       auth.js              # Auth management
+       config.js            # API configuration
+       products.js          # Product logic
+       theme.js             # Dark mode toggle
+       utils.js             # Helpers
+    index.html               # Homepage
+    login.html               # Login
+    register.html            # Registration
+    profile.html             # User profile
+    product-details.html     # Product details
+    upload-product.html      # List new item
+    edit-product.html        # Edit listing
+    favorites.html           # Wishlist
+    seller.html              # Seller profile
+    admin.html               # Admin dashboard
+ database/
+    schema.sql               # Complete DB schema
+ PROPOSAL.md
+ IMPLEMENTATION_PLAN.md
+ DOCUMENTATION.md
+ README.md
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -215,7 +215,7 @@ const CONFIG = {
 };
 ```
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Authentication
 | Method | Endpoint | Description |
@@ -279,7 +279,7 @@ const CONFIG = {
 | DELETE | `/api/admin/products/:id` | Delete product (admin moderation) |
 | GET | `/api/admin/campus-analytics` | Campus-level statistics |
 
-## 🔐 Security Features
+## Security Features
 
 - Password hashing with bcryptjs
 - JWT token authentication
@@ -291,7 +291,7 @@ const CONFIG = {
 - Image upload validation
 - CORS policy enforcement
 
-## 📱 WhatsApp Integration
+## WhatsApp Integration
 
 When a buyer clicks "Contact Seller", they're redirected to WhatsApp with a pre-filled message:
 
@@ -299,7 +299,7 @@ When a buyer clicks "Contact Seller", they're redirected to WhatsApp with a pre-
 Hello, I'm interested in your item "iPhone 13 Pro" listed on Sellout for ₵8,500. Is it still available?
 ```
 
-## 🎨 UI Features
+## UI Features
 
 - Clean white-dominant theme with green accents
 - **Dark mode** with full theme toggle and localStorage persistence
@@ -315,7 +315,7 @@ Hello, I'm interested in your item "iPhone 13 Pro" listed on Sellout for ₵8,50
 - Star rating input with RTL direction trick
 - User detail slide-out drawer with full profile, listings, and reviews
 
-## 🌐 Deployment
+## Deployment
 
 ### Backend (Render/Railway)
 1. Push code to GitHub
@@ -334,13 +334,13 @@ Hello, I'm interested in your item "iPhone 13 Pro" listed on Sellout for ₵8,50
 2. Run `database/schema.sql`
 3. Update backend `.env` with connection credentials
 
-## 📝 License
+## License
 
 © 2026 SellOut. Built for students.
 
 ---
 
-## 🧪 Demo Data
+## Demo Data
 
 The `database/schema.sql` file includes seed data with a demo user and 12 sample products across all categories. Simply run the schema file to populate the database:
 

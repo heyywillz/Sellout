@@ -13,85 +13,85 @@ A full-stack web application for university students to buy and sell used items 
 ## Project Structure
 ```
 Sellout/
-├── backend/
-│   ├── config/
-│   │   ├── database.js          # MySQL connection pool
-│   │   └── cloudinary.js        # Cloudinary configuration
-│   ├── controllers/
-│   │   ├── authController.js    # Login, register, Google auth
-│   │   ├── userController.js    # Profile management
-│   │   ├── productController.js # Product CRUD operations
-│   │   ├── favoriteController.js # Wishlist management
-│   │   ├── reviewController.js  # Seller reviews & ratings
-│   │   ├── verificationController.js # Student ID verification
-│   │   ├── reportController.js  # Product flagging and reporting
-│   │   └── adminController.js   # Admin dashboard & management
-│   ├── middleware/
-│   │   ├── auth.js              # JWT verification middleware
-│   │   ├── admin.js             # Admin role check middleware
-│   │   └── upload.js            # Multer file upload config
-│   ├── routes/
-│   │   ├── auth.js              # Authentication routes
-│   │   ├── users.js             # User profile routes
-│   │   ├── products.js          # Product routes
-│   │   ├── favorites.js         # Favorites routes
-│   │   ├── reviews.js           # Review routes
-│   │   ├── verification.js      # Verification routes
-│   │   ├── reports.js           # Reporting routes
-│   │   └── admin.js             # Admin routes
-│   ├── .env                     # Environment variables
-│   ├── server.js                # Express app entry point
-│   ├── seed.js                  # Demo data seeder
-│   ├── migrate.js               # Database migrations
-│   ├── migrate_auth.js          # Google auth migration
-│   ├── migrate_verification.js  # Verification migration
-│   └── package.json
-├── frontend/
-│   ├── assets/                  # Logo and student images
-│   ├── css/
-│   │   ├── style.css            # Custom styles & animations
-│   │   └── dark-mode.css        # Dark mode theme overrides
-│   ├── js/
-│   │   ├── api.js               # Centralized HTTP client
-│   │   ├── app.js               # Main app initialization
-│   │   ├── auth.js              # Auth session management
-│   │   ├── config.js            # API URL & settings
-│   │   ├── products.js          # Product listing & filtering
-│   │   ├── theme.js             # Dark mode toggle & persistence
-│   │   └── utils.js             # Helpers (toast, currency, dates)
-│   ├── index.html               # Homepage with hero & listings
-│   ├── login.html               # Login page
-│   ├── register.html            # Registration page
-│   ├── profile.html             # User profile page
-│   ├── product-details.html     # Product detail view
-│   ├── upload-product.html      # New product listing form
-│   ├── edit-product.html        # Edit product form
-│   ├── favorites.html           # Wishlist page
-│   ├── seller.html              # Public seller profile
-│   └── admin.html               # Admin dashboard
-├── database/
-│   └── schema.sql               # Complete DB schema (single file)
-├── PROPOSAL.md
-├── IMPLEMENTATION_PLAN.md
-├── DOCUMENTATION.md
-└── README.md
+ backend/
+    config/
+       database.js          # MySQL connection pool
+       cloudinary.js        # Cloudinary configuration
+    controllers/
+       authController.js    # Login, register, Google auth
+       userController.js    # Profile management
+       productController.js # Product CRUD operations
+       favoriteController.js # Wishlist management
+       reviewController.js  # Seller reviews & ratings
+       verificationController.js # Student ID verification
+       reportController.js  # Product flagging and reporting
+       adminController.js   # Admin dashboard & management
+    middleware/
+       auth.js              # JWT verification middleware
+       admin.js             # Admin role check middleware
+       upload.js            # Multer file upload config
+    routes/
+       auth.js              # Authentication routes
+       users.js             # User profile routes
+       products.js          # Product routes
+       favorites.js         # Favorites routes
+       reviews.js           # Review routes
+       verification.js      # Verification routes
+       reports.js           # Reporting routes
+       admin.js             # Admin routes
+    .env                     # Environment variables
+    server.js                # Express app entry point
+    seed.js                  # Demo data seeder
+    migrate.js               # Database migrations
+    migrate_auth.js          # Google auth migration
+    migrate_verification.js  # Verification migration
+    package.json
+ frontend/
+    assets/                  # Logo and student images
+    css/
+       style.css            # Custom styles & animations
+       dark-mode.css        # Dark mode theme overrides
+    js/
+       api.js               # Centralized HTTP client
+       app.js               # Main app initialization
+       auth.js              # Auth session management
+       config.js            # API URL & settings
+       products.js          # Product listing & filtering
+       theme.js             # Dark mode toggle & persistence
+       utils.js             # Helpers (toast, currency, dates)
+    index.html               # Homepage with hero & listings
+    login.html               # Login page
+    register.html            # Registration page
+    profile.html             # User profile page
+    product-details.html     # Product detail view
+    upload-product.html      # New product listing form
+    edit-product.html        # Edit product form
+    favorites.html           # Wishlist page
+    seller.html              # Public seller profile
+    admin.html               # Admin dashboard
+ database/
+    schema.sql               # Complete DB schema (single file)
+ PROPOSAL.md
+ IMPLEMENTATION_PLAN.md
+ DOCUMENTATION.md
+ README.md
 ```
 
 ## Implementation Phases
 
-### Phase 1: Database Setup ✅
+### Phase 1: Database Setup 
 - Created consolidated MySQL schema (`schema.sql`)
 - Defined 7 tables: users, products, favorites, reviews, product_images, student_verifications, product_reports
 - Added indexes for performance (full-text search, foreign keys)
 - Seed data with demo user and 12 sample products
 
-### Phase 2: Backend Foundation ✅
+### Phase 2: Backend Foundation 
 - Initialized Node.js project with Express
 - Configured MySQL connection pool via `mysql2/promise`
 - Configured Cloudinary for image hosting
 - Set up environment variables via `dotenv`
 
-### Phase 3: Authentication System ✅
+### Phase 3: Authentication System 
 - User registration with input validation (`express-validator`)
 - Password hashing with `bcryptjs`
 - JWT token generation and verification
@@ -102,7 +102,7 @@ Sellout/
 - Protected routes middleware (`auth.js`)
 - Optional auth middleware for public routes that benefit from user context
 
-### Phase 4: Product Management API ✅
+### Phase 4: Product Management API 
 - Full CRUD operations for products
 - Multi-image upload to Cloudinary (up to 5 images)
 - Campus-based filtering
@@ -112,7 +112,7 @@ Sellout/
 - Pagination support
 - Mark as sold functionality
 
-### Phase 5: Frontend Development ✅
+### Phase 5: Frontend Development 
 - Responsive layout with Tailwind CSS
 - Premium white-dominant design with green accent colors
 - Authentication pages (login, register with Google Sign-In)
@@ -124,7 +124,7 @@ Sellout/
 - Public seller profile page
 - WhatsApp integration for buyer-seller communication
 
-### Phase 6: Polish & UX ✅
+### Phase 6: Polish & UX 
 - Toast notifications (success, error, warning)
 - Skeleton loading states
 - Empty states for no results
@@ -133,7 +133,7 @@ Sellout/
 - Smooth CSS animations and micro-interactions
 - Hero section with floating cards and decorative dots
 
-### Phase 7: Enhanced Features ✅
+### Phase 7: Enhanced Features 
 - **Wishlist/Favorites**:
     - Toggle favorite status with heart animation
     - Dedicated favorites page
@@ -158,7 +158,7 @@ Sellout/
     - Campus analytics with charts
     - Product Reports management tab
 
-### Phase 8: Admin Dashboard Enhancement ✅
+### Phase 8: Admin Dashboard Enhancement 
 - **Product Management Tab**:
     - Searchable/filterable product table with pagination
     - Admin product deletion with Cloudinary cleanup
@@ -180,7 +180,7 @@ Sellout/
     - Chart.js charts adapt grid, labels, and borders to active theme
     - Overview and Campus Analytics charts fully dark-mode compatible
 
-### Phase 9: Dark Mode ✅
+### Phase 9: Dark Mode 
 - Full dark mode toggle with `theme.js` module
 - CSS custom properties for dark palette (`dark-mode.css`)
 - Theme persistence via localStorage

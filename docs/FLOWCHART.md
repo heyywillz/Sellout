@@ -4,24 +4,24 @@
 
 ```mermaid
 graph TB
-    subgraph Client["🖥️ Frontend (Port 3000)"]
+    subgraph Client[" Frontend (Port 3000)"]
         HTML["HTML Pages"]
         CSS["Tailwind CSS + Custom CSS"]
         JS["Vanilla JavaScript Modules"]
     end
 
-    subgraph Server["⚙️ Backend (Port 5000)"]
+    subgraph Server[" Backend (Port 5000)"]
         Express["Express.js Server"]
         MW["Middleware Layer"]
         Controllers["Controllers"]
         Routes["API Routes"]
     end
 
-    subgraph DB["🗄️ Database"]
+    subgraph DB[" Database"]
         MySQL["MySQL 8.0"]
     end
 
-    subgraph Cloud["☁️ Cloud Services"]
+    subgraph Cloud[" Cloud Services"]
         Cloudinary["Cloudinary CDN"]
         Google["Google OAuth 2.0"]
     end
@@ -77,7 +77,7 @@ flowchart TD
     GoogleLogin --> VerifyGoogle
 
     GenToken --> StoreToken["Store JWT in localStorage"]
-    StoreToken --> Dashboard([Redirect to Homepage ✅])
+    StoreToken --> Dashboard([Redirect to Homepage ])
 ```
 
 ## 3. Product Listing Flow
@@ -95,7 +95,7 @@ flowchart TD
     RenderGrid --> UserAction{User action?}
 
     UserAction -->|Click product| ViewProduct["Navigate to\nproduct-details.html"]
-    UserAction -->|Click ❤️| ToggleFav["POST /api/favorites/:id\nToggle favorite"]
+    UserAction -->|Click | ToggleFav["POST /api/favorites/:id\nToggle favorite"]
     UserAction -->|Click category| FilterCat["Filter by category"]
     UserAction -->|Type in search| SearchProducts["Full-text search\nGET /api/products?search=..."]
     UserAction -->|Next page| Paginate["Load next page\nGET /api/products?page=2"]
@@ -137,7 +137,7 @@ flowchart TD
     UploadCloud --> SaveDB["Save product to MySQL\n(title, description, price,\ncategory, campus, image_url)"]
     SaveDB --> SaveExtra["Save additional images\nto product_images table"]
     SaveExtra --> Success["Show success toast\nRedirect to product page"]
-    Success --> ProductPage([View new listing ✅])
+    Success --> ProductPage([View new listing ])
 ```
 
 ## 5. Seller Review Flow
@@ -159,7 +159,7 @@ flowchart TD
 
     SubmitReview --> SaveReview["Save to reviews table\nwith reviewer_id & seller_id"]
     SaveReview --> UpdateDisplay["Update seller rating\nsummary display"]
-    UpdateDisplay --> Done([Review posted ✅])
+    UpdateDisplay --> Done([Review posted ])
 
     ShowExisting --> DeleteReview["Click delete"]
     DeleteReview --> ConfirmDelete{Confirm?}
@@ -181,7 +181,7 @@ flowchart TD
 
     SubmitVerify --> UploadID["Upload ID image\nto Cloudinary"]
     UploadID --> SaveVerification["Save to\nstudent_verifications table\nstatus = 'pending'"]
-    SaveVerification --> Pending["Show status:\n⏳ Pending Review"]
+    SaveVerification --> Pending["Show status:\n Pending Review"]
 
     Pending --> AdminReview["Admin reviews in\nadmin.html dashboard"]
 
@@ -190,7 +190,7 @@ flowchart TD
     Decision -->|Reject| Reject["PUT /api/admin/verifications/:id\nstatus = 'rejected'\n+ rejection_reason"]
 
     Approve --> UpdateUser["Set user.is_verified\n= 'verified'"]
-    UpdateUser --> Badge["✅ Verified badge\nshown on profile"]
+    UpdateUser --> Badge[" Verified badge\nshown on profile"]
 
     Reject --> NotifyUser["User sees rejection\nreason on profile"]
     NotifyUser --> CanResubmit["User can resubmit\nwith new documents"]

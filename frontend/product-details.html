@@ -158,35 +158,39 @@
                         </div>
 
                         <!-- Seller Info -->
-                        <div class="p-5 rounded-2xl bg-gray-50 border border-gray-100 mb-6">
+                        <div class="seller-card p-6 rounded-2xl mb-6">
                             <div class="flex items-center justify-between mb-4">
-                                <h3 class="font-semibold text-gray-900">Seller</h3>
+                                <h3 class="font-semibold text-gray-900 flex items-center gap-2">
+                                    <i class="fas fa-store text-green-600 text-sm"></i>
+                                    Seller
+                                </h3>
                                 <!-- Seller Rating -->
-                                <div id="sellerRatingBadge" class="hidden flex items-center gap-1.5">
+                                <div id="sellerRatingBadge" class="hidden flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-100">
                                     <i class="fas fa-star text-amber-400 text-xs"></i>
-                                    <span id="sellerRatingValue" class="text-sm font-semibold text-amber-500"></span>
-                                    <span id="sellerReviewCount" class="text-xs text-gray-400"></span>
+                                    <span id="sellerRatingValue" class="text-sm font-semibold text-amber-600"></span>
+                                    <span id="sellerReviewCount" class="text-xs text-amber-400"></span>
                                 </div>
                             </div>
+                            <div class="w-full h-px bg-gradient-to-r from-transparent via-green-200 to-transparent mb-4"></div>
                             <a id="sellerProfileLink" href="#" class="flex items-center gap-4 group">
                                 <div id="sellerAvatar"
-                                    class="w-14 h-14 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center overflow-hidden ring-2 ring-transparent group-hover:ring-green-500/30 transition-all">
+                                    class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center overflow-hidden ring-3 ring-green-100 group-hover:ring-green-200 transition-all shadow-md shadow-green-100">
                                     <i class="fas fa-user text-white text-xl"></i>
                                 </div>
-                                <div>
-                                    <div class="flex items-center gap-2">
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-0.5">
                                         <p id="sellerName"
-                                            class="font-medium mb-1 text-gray-800 group-hover:text-green-700 transition-colors">
+                                            class="font-semibold text-gray-800 group-hover:text-green-700 transition-colors truncate">
                                         </p>
                                         <span id="sellerVerifiedBadge"
-                                            class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-green-50 text-green-600 text-xs font-medium">
+                                            class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-green-50 text-green-600 text-xs font-medium whitespace-nowrap">
                                             <i class="fas fa-check-circle"></i> Verified
                                         </span>
                                     </div>
-                                    <p id="sellerCampus" class="text-sm text-gray-400"></p>
+                                    <p id="sellerCampus" class="text-sm text-gray-400 mb-0.5"></p>
                                     <p
-                                        class="text-xs text-gray-400 group-hover:text-green-600 transition-colors mt-0.5">
-                                        <i class="fas fa-external-link-alt mr-1"></i>View all listings
+                                        class="text-xs text-green-600/70 group-hover:text-green-600 transition-colors font-medium">
+                                        View all listings <i class="fas fa-arrow-right text-[10px] ml-1 group-hover:translate-x-0.5 transition-transform inline-block"></i>
                                     </p>
                                 </div>
                             </a>

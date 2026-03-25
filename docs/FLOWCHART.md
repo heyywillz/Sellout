@@ -126,7 +126,7 @@ graph TB
     Google -->|"ID Token"| Controllers
 ```
 
-## 2. User Authentication Flow
+## 3. User Authentication Flow
 
 ```mermaid
 flowchart TD
@@ -170,7 +170,7 @@ flowchart TD
     StoreToken --> Dashboard([Redirect to Homepage ])
 ```
 
-## 3. Product Listing Flow
+## 4. Product Listing Flow
 
 ```mermaid
 flowchart TD
@@ -204,7 +204,7 @@ flowchart TD
     BuyerAction -->|View Seller| SellerPage["Navigate to\nseller.html"]
 ```
 
-## 4. Product Upload Flow
+## 5. Product Upload Flow
 
 ```mermaid
 flowchart TD
@@ -230,7 +230,7 @@ flowchart TD
     Success --> ProductPage([View new listing ])
 ```
 
-## 5. Seller Review Flow
+## 6. Seller Review Flow
 
 ```mermaid
 flowchart TD
@@ -258,7 +258,7 @@ flowchart TD
     ConfirmDelete -->|No| ShowExisting
 ```
 
-## 6. Student Verification Flow
+## 7. Student Verification Flow
 
 ```mermaid
 flowchart TD
@@ -287,7 +287,7 @@ flowchart TD
     CanResubmit --> VerifyForm
 ```
 
-## 7. Admin Dashboard Flow
+## 8. Admin Dashboard Flow
 
 ```mermaid
 flowchart TD
@@ -324,7 +324,7 @@ flowchart TD
     RejectUser --> RefreshList
 ```
 
-## 8. Database Entity Relationship
+## 9. Database Entity Relationship
 
 ```mermaid
 erDiagram

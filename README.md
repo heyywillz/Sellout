@@ -354,3 +354,5 @@ The `database/schema.sql` file includes seed data with a demo user and 12 sample
 ```bash
 mysql -u root -p < database/schema.sql
 ```
+   
+ 

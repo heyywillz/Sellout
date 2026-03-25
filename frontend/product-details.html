@@ -161,10 +161,10 @@
                         <div class="seller-card mb-6">
                             <!-- Accent bar -->
                             <div class="seller-card-accent"></div>
-                            <div class="p-5">
-                                <div class="flex items-center justify-between mb-4">
-                                    <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                                        <i class="fas fa-store text-green-500 text-sm"></i>Seller
+                            <div class="p-3 sm:p-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h3 class="text-sm font-semibold text-gray-900 flex items-center gap-1.5">
+                                        <i class="fas fa-store text-green-500"></i>Seller
                                     </h3>
                                     <!-- Seller Rating -->
                                     <div id="sellerRatingBadge" class="hidden seller-rating-badge">
@@ -179,42 +179,45 @@
                                         <span id="sellerReviewCount" class="text-xs text-gray-400"></span>
                                     </div>
                                 </div>
-                                <a id="sellerProfileLink" href="#" class="seller-profile-link group">
-                                    <div class="seller-avatar-wrapper">
-                                        <div id="sellerAvatar"
-                                            class="seller-avatar">
-                                            <i class="fas fa-user text-white text-xl"></i>
+                                <a id="sellerProfileLink" href="#" class="seller-profile-link group !px-2">
+                                    <div class="flex items-center gap-3 w-full">
+                                        <div class="seller-avatar-wrapper flex-shrink-0">
+                                            <div id="sellerAvatar"
+                                                class="seller-avatar">
+                                                <i class="fas fa-user text-white text-xl"></i>
+                                            </div>
+                                            <span class="seller-online-dot"></span>
                                         </div>
-                                        <span class="seller-online-dot"></span>
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <div class="flex items-center gap-2 flex-wrap">
-                                            <p id="sellerName"
-                                                class="font-semibold text-gray-800 group-hover:text-green-700 transition-colors truncate">
-                                            </p>
-                                            <span id="sellerVerifiedBadge"
-                                                class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-green-50 text-green-600 text-xs font-medium border border-green-100">
-                                                <i class="fas fa-check-circle"></i> Verified
-                                            </span>
+                                        
+                                        <div class="flex flex-row items-center justify-between flex-1 min-w-0 gap-2">
+                                            <!-- Container 1: Name and Campus -->
+                                            <div class="flex flex-col gap-0.5 flex-1 min-w-0">
+                                                <div class="flex items-center gap-1.5 flex-wrap">
+                                                    <p id="sellerName"
+                                                        class="font-semibold text-gray-800 text-[15px] leading-tight group-hover:text-green-700 transition-colors truncate">
+                                                    </p>
+                                                    <span id="sellerVerifiedBadge"
+                                                        class="hidden items-center gap-1 px-1.5 py-0.5 rounded bg-green-50 text-green-600 text-[10px] font-bold border border-green-100 uppercase tracking-wider">
+                                                        <i class="fas fa-check-circle"></i> Verified
+                                                    </span>
+                                                </div>
+                                                <p id="sellerCampus" class="text-xs text-gray-500 flex items-center gap-1">
+                                                    <i class="fas fa-map-marker-alt text-green-400"></i>
+                                                    <span class="truncate"></span>
+                                                </p>
+                                            </div>
+
+                                            <!-- Container 2: Member Since and View Listings -->
+                                            <div class="flex flex-col items-end gap-1.5 flex-shrink-0">
+                                                <div id="sellerJoined" class="flex items-center gap-1 bg-gray-50 border border-gray-100 px-2 py-0.5 rounded text-[11px] font-medium text-gray-500/80">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                    <span>Member</span>
+                                                </div>
+                                                <p class="text-xs text-green-600 font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                                                    View all listings <i class="fas fa-arrow-right text-[10px]"></i>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <p id="sellerCampus" class="text-sm text-gray-500 flex items-center gap-1.5 mt-0.5">
-                                            <i class="fas fa-map-marker-alt text-green-400 text-xs"></i>
-                                            <span></span>
-                                        </p>
-                                        <div class="seller-meta">
-                                            <span id="sellerJoined" class="seller-meta-item">
-                                                <i class="far fa-calendar-alt"></i>
-                                                <span>Member</span>
-                                            </span>
-                                            <span class="seller-meta-divider"></span>
-                                            <span class="seller-meta-item text-green-600 font-medium group-hover:underline">
-                                                <i class="fas fa-th-large"></i>
-                                                <span>View all listings</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="seller-arrow">
-                                        <i class="fas fa-chevron-right text-gray-300 group-hover:text-green-500 transition-colors"></i>
                                     </div>
                                 </a>
                             </div>

@@ -1,6 +1,11 @@
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
+// Build SSL configuration for cloud databases (e.g., Aiven)
+const sslConfig = process.env.DB_SSL === 'true'
+    ? { ssl: { rejectUnauthorized: true, ca: process.env.DB_CA || undefined } }
+    : {};
+
 // Create connection pool
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
@@ -10,7 +15,8 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME || 'sellout_db',
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
+    ...sslConfig
 });
 
 // Test database connection

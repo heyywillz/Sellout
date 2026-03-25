@@ -1,5 +1,7 @@
 # Sellout - Campus Resale Marketplace
 
+**Live Demo:** [https://sellout-campus.vercel.app](https://sellout-campus.vercel.app)
+
 A full-stack web application for university students to buy and sell used items within their campus community. Built with Node.js, Express, MySQL, and vanilla JavaScript.
 
 ## Features
@@ -317,22 +319,27 @@ Hello, I'm interested in your item "iPhone 13 Pro" listed on Sellout for ₵8,50
 
 ## Deployment
 
-### Backend (Render/Railway)
+The application is currently deployed and live:
+
+- **Frontend:** [Vercel](https://sellout-campus.vercel.app)
+- **Backend:** [Render](https://sellout-backend.onrender.com)
+- **Database:** Aiven (Cloud MySQL)
+
+### Backend (Render)
 1. Push code to GitHub
-2. Connect repository to Render/Railway
-3. Set environment variables
-4. Deploy
+2. Connect the `backend` directory to Render as a Web Service.
+3. Set environment variables including `DB_SSL=true`.
+4. Deploy using `npm install` and `npm start`.
 
-### Frontend (Vercel/Netlify)
-1. Push frontend code to GitHub
-2. Connect to Vercel/Netlify
-3. Deploy (no build step needed)
-4. Update `js/config.js` with production API URL
+### Frontend (Vercel)
+1. Deploy the `frontend` directory to Vercel.
+2. The `vercel.json` ensures clean URLs.
+3. Update `js/config.js` with the production API URL.
 
-### Database (PlanetScale/Railway)
-1. Create MySQL database
-2. Run `database/schema.sql`
-3. Update backend `.env` with connection credentials
+### Database (Aiven)
+1. Create a free MySQL database on Aiven.
+2. Run `database/schema.sql` via a connection script.
+3. Update backend `.env` with connection credentials.
 
 ## License
 

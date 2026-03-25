@@ -370,26 +370,27 @@ The frontend is built with **Vanilla JavaScript** using a modular approach.
 
 ##  Deployment Guide
 
-### Database (MySQL)
-- Use a managed database provider like **PlanetScale**, **Railway**, or **AWS RDS**.
-- Execute the single `database/schema.sql` file to initialize all tables and seed data:
-  ```bash
-  mysql -u root -p < database/schema.sql
-  ```
+**Live Status:**
+- **Frontend URL:** `https://sellout-campus.vercel.app`
+- **Backend URL:** `https://sellout-backend.onrender.com`
 
-### Backend (Node.js)
-- Host on **Render**, **Railway**, or **Heroku**.
-- Set the following Environment Variables in the hosting dashboard:
-    - `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`
-    - `JWT_SECRET`, `JWT_EXPIRES_IN`
-    - `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`
-    - `GOOGLE_CLIENT_ID`
-    - `FRONTEND_URL`
+### Database (Aiven MySQL)
+- Hosted on **Aiven** (Free plan provides 1 dedicated VM).
+- Run the schema script using a standard MySQL client or Node script because Aiven uses the database name `defaultdb`. Ensure `DB_SSL=true` is used in the app to support Aiven's encrypted connection mechanism without needing a specific CA cert natively if correctly set to `rejectUnauthorized: false` or managed carefully in code.
 
-### Frontend (Static)
-- Host on **Vercel** or **Netlify**.
-- Simply upload the `frontend` folder or connect your Git repository.
-- **Important**: Update `js/config.js` to point to your *production* Backend URL.
+### Backend (Node.js on Render)
+- Hosted as a free Web Service on **Render**.
+- Configured to run `npm install` for building and `npm start` for running.
+- Necessary Environment Variables:
+    - Database settings: `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `DB_SSL=true`.
+    - Authorization: `JWT_SECRET`, `JWT_EXPIRES_IN`, `GOOGLE_CLIENT_ID`.
+    - Storage: `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`.
+    - Networking: `FRONTEND_URL=http://localhost:3000,https://sellout-campus.vercel.app`.
+
+### Frontend (Static on Vercel)
+- Hosted on **Vercel** configured perfectly for static deployments.
+- Includes a dedicated `vercel.json` file providing clean routes directly pointing to the respective HTML files instead of containing the `.html` extensions explicitly.
+- The `js/config.js` is automatically configured to detect non-localhost environments and routes to the `https://sellout-backend.onrender.com/api` URL.
 
 ---
 

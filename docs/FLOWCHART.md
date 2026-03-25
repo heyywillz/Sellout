@@ -1,8 +1,8 @@
 # Sellout — System Flowchart
 
-## 1. High-Level Business Flow (For Investors & Supervisors)
+## 1. High-Level App Flow
 
-This flowchart illustrates the core business logic and user journey of the Sellout platform, designed to give stakeholders a clear understanding of exactly how value is exchanged and how the platform is moderated.
+This flowchart illustrates the core logic and user journey of the Sellout platform, showing how students browse, buy, and sell, and how the platform is moderated.
 
 ```mermaid
 flowchart TD
@@ -17,7 +17,7 @@ flowchart TD
     %% Entry Points
     Guest["Guest Visitor"]:::startNode
     AuthUser["Authenticated Student"]:::startNode
-    Supervisor["Platform Admin / Supervisor"]:::adminNode
+    Admin["Platform Admin"]:::adminNode
 
     %% Initial Interaction
     Guest -->|"Visits Site"| Browse["Homepage: Browse & Filter Products"]:::actionNode
@@ -74,19 +74,19 @@ flowchart TD
     end
     
     %% Connect User actions to Admin oversight
-    Supervisor --> Dashboard
+    Admin --> Dashboard
     Verify -.->|"Pending Approval"| VerifyIDs
     Review -.->|"Builds Platform Trust"| Analytics
     Search -.->|"User Flags Inappropriate Item"| ModProducts
 ```
 
-### Key Takeaways for Investors & Supervisors:
+### Key Platform Features:
 
-1. **Frictionless Onboarding**: Guests can immediately begin browsing products, creating a "hook" before they are asked to create an account.
+1. **Frictionless Onboarding**: Guests can immediately begin browsing products before they are asked to create an account.
 2. **Dual-Sided Marketplace**: Every authenticated student acts as both a potential buyer and a potential seller within their specific campus.
-3. **Decentralized Transactions**: By pushing communication directly to WhatsApp, the platform avoids the heavy infrastructure costs of real-time chat while using a tool students already heavily rely on.
-4. **Trust & Safety Mechanics**: A built-in 5-star rating system holds sellers accountable, and the Student ID Verification pipeline explicitly builds trust in the seller's legitimacy.
-5. **Supervisor Control**: The integrated Admin panel provides full oversight over the health of the platform, the validity of its users, and the appropriateness of the marketplace listings.
+3. **Decentralized Transactions**: Communication flows directly to WhatsApp, a tool students already heavily rely on for campus networking.
+4. **Trust & Safety Mechanics**: A built-in 5-star rating system holds sellers accountable, and the Student ID Verification builds trust.
+5. **Admin Moderation**: The integrated Admin panel provides full oversight over the users and marketplace listings.
 
 ---
 

@@ -3,7 +3,7 @@ require('dotenv').config();
 
 // Build SSL configuration for cloud databases (e.g., Aiven)
 const sslConfig = process.env.DB_SSL === 'true'
-    ? { ssl: { rejectUnauthorized: true, ca: process.env.DB_CA || undefined } }
+    ? { ssl: { rejectUnauthorized: !!process.env.DB_CA, ca: process.env.DB_CA || undefined } }
     : {};
 
 // Create connection pool

@@ -922,33 +922,8 @@ html.dark .favorite-btn {
 
 /* ---------- GLASS EFFECT ---------- */
 html.dark .glass {
-    background: rgba(26, 29, 39, 0.72);
-    backdrop-filter: blur(20px) saturate(1.2);
-    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    background: rgba(26, 29, 39, 0.75);
     border-color: rgba(255, 255, 255, 0.06);
-}
-
-/* ---------- SELLER CARD ---------- */
-html.dark .seller-card {
-    background: linear-gradient(135deg, var(--dark-card) 0%, rgba(34, 197, 94, 0.04) 100%) !important;
-    border-color: var(--dark-border) !important;
-}
-
-html.dark .seller-card:hover {
-    border-color: rgba(34, 197, 94, 0.2) !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-}
-
-html.dark .seller-card .bg-gradient-to-r {
-    opacity: 0.3;
-}
-
-html.dark .seller-card .ring-green-100 {
-    --tw-ring-color: rgba(34, 197, 94, 0.15) !important;
-}
-
-html.dark .seller-card .shadow-green-100 {
-    --tw-shadow-color: rgba(34, 197, 94, 0.08) !important;
 }
 
 /* Backdrop blur elements need no override — they work natively with dark bg */
@@ -1132,6 +1107,42 @@ html.dark .report-card .bg-orange-50 {
 
 html.dark .report-card .bg-red-50.border-red-100 {
     border-color: rgba(239, 68, 68, 0.2) !important;
+}
+
+/* ---------- SELLER CARD ---------- */
+html.dark .seller-card {
+    background: linear-gradient(135deg, var(--dark-card) 0%, rgba(34, 197, 94, 0.04) 50%, var(--dark-card) 100%);
+    border-color: var(--dark-border);
+}
+
+html.dark .seller-card:hover {
+    border-color: rgba(34, 197, 94, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .seller-profile-link:hover {
+    background: rgba(34, 197, 94, 0.06);
+}
+
+html.dark .seller-online-dot {
+    border-color: var(--dark-card);
+}
+
+html.dark .seller-rating-badge {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.2);
+}
+
+html.dark .seller-meta-divider {
+    background: var(--dark-text-faint);
+}
+
+html.dark .seller-arrow {
+    color: var(--dark-text-faint);
+}
+
+html.dark .seller-card:hover .seller-arrow {
+    background: rgba(34, 197, 94, 0.1);
 }
 
 /* ---------- PRINT: ALWAYS LIGHT ---------- */

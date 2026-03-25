@@ -75,14 +75,13 @@ html {
 
 /* ---------- PRODUCT CARD ---------- */
 .product-card {
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     background: #fff;
-    will-change: transform;
 }
 
 .product-card:hover {
-    transform: translateY(-8px) scale(1.015);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
 }
 
 /* ---------- CATEGORY BUTTON ---------- */
@@ -163,12 +162,6 @@ textarea:focus {
 .whatsapp-btn {
     position: relative;
     overflow: hidden;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.whatsapp-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.25);
 }
 
 .whatsapp-btn::before {
@@ -296,43 +289,10 @@ textarea:focus {
 
 /* ---------- GLASS ---------- */
 .glass {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(20px) saturate(1.4);
-    -webkit-backdrop-filter: blur(20px) saturate(1.4);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
 }
-
-/* ---------- SELLER CARD ---------- */
-.seller-card {
-    background: linear-gradient(135deg, #f8faf9 0%, #f0fdf4 100%);
-    border: 1px solid rgba(22, 163, 74, 0.08);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.seller-card:hover {
-    border-color: rgba(22, 163, 74, 0.18);
-    box-shadow: 0 4px 16px rgba(22, 163, 74, 0.06);
-}
-
-/* ---------- FADE-IN ON LOAD ---------- */
-@keyframes contentFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.fade-in-up {
-    animation: contentFadeIn 0.5s ease-out both;
-}
-
-.fade-in-up-delay-1 { animation-delay: 0.08s; }
-.fade-in-up-delay-2 { animation-delay: 0.16s; }
-.fade-in-up-delay-3 { animation-delay: 0.24s; }
 
 /* ---------- NOTIFICATION DOT ---------- */
 .notification-dot {
@@ -850,33 +810,12 @@ input:-webkit-autofill:focus {
 
 /* ===== MICRO-INTERACTIONS ===== */
 .hover-lift {
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .hover-lift:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-}
-
-/* Smooth link underline animation */
-.link-underline {
-    position: relative;
-}
-
-.link-underline::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #16a34a;
-    border-radius: 1px;
-    transition: width 0.3s ease;
-}
-
-.link-underline:hover::after {
-    width: 100%;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 /* ===== HERO SECTION — FLOATING STUDENT CARDS ===== */
@@ -1252,4 +1191,154 @@ input:-webkit-autofill:focus {
     .hero-heading {
         font-size: 2rem;
     }
+}
+
+/* ===== SELLER CARD (Product Details) ===== */
+.seller-card {
+    position: relative;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #f8faf9 0%, #f0fdf4 50%, #f8faf9 100%);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.seller-card:hover {
+    border-color: #86efac;
+    box-shadow: 0 8px 30px rgba(22, 163, 74, 0.08);
+}
+
+.seller-card-accent {
+    height: 3px;
+    background: linear-gradient(90deg, #22c55e, #16a34a, #15803d);
+}
+
+.seller-profile-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    transition: background 0.2s ease;
+}
+
+.seller-profile-link:hover {
+    background: rgba(22, 163, 74, 0.04);
+}
+
+.seller-avatar-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.seller-avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.seller-card:hover .seller-avatar {
+    box-shadow: 0 6px 20px rgba(22, 163, 74, 0.35);
+    transform: scale(1.05);
+}
+
+.seller-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.seller-online-dot {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #22c55e;
+    border: 2.5px solid #f0fdf4;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+    animation: onlinePulse 2.5s infinite;
+}
+
+@keyframes onlinePulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+}
+
+.seller-rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+}
+
+.seller-rating-stars {
+    display: flex;
+    gap: 1px;
+}
+
+.seller-rating-stars .fa-star {
+    font-size: 0.625rem;
+    color: #f59e0b;
+}
+
+.seller-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.seller-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.seller-meta-item i {
+    font-size: 0.625rem;
+}
+
+.seller-meta-divider {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #d1d5db;
+}
+
+.seller-arrow {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.seller-card:hover .seller-arrow {
+    background: rgba(22, 163, 74, 0.08);
+    transform: translateX(2px);
 }

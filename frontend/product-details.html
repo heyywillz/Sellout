@@ -158,42 +158,66 @@
                         </div>
 
                         <!-- Seller Info -->
-                        <div class="seller-card p-6 rounded-2xl mb-6">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                                    <i class="fas fa-store text-green-600 text-sm"></i>
-                                    Seller
-                                </h3>
-                                <!-- Seller Rating -->
-                                <div id="sellerRatingBadge" class="hidden flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-100">
-                                    <i class="fas fa-star text-amber-400 text-xs"></i>
-                                    <span id="sellerRatingValue" class="text-sm font-semibold text-amber-600"></span>
-                                    <span id="sellerReviewCount" class="text-xs text-amber-400"></span>
-                                </div>
-                            </div>
-                            <div class="w-full h-px bg-gradient-to-r from-transparent via-green-200 to-transparent mb-4"></div>
-                            <a id="sellerProfileLink" href="#" class="flex items-center gap-4 group">
-                                <div id="sellerAvatar"
-                                    class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center overflow-hidden ring-3 ring-green-100 group-hover:ring-green-200 transition-all shadow-md shadow-green-100">
-                                    <i class="fas fa-user text-white text-xl"></i>
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="flex items-center gap-2 mb-0.5">
-                                        <p id="sellerName"
-                                            class="font-semibold text-gray-800 group-hover:text-green-700 transition-colors truncate">
-                                        </p>
-                                        <span id="sellerVerifiedBadge"
-                                            class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-green-50 text-green-600 text-xs font-medium whitespace-nowrap">
-                                            <i class="fas fa-check-circle"></i> Verified
-                                        </span>
+                        <div class="seller-card mb-6">
+                            <!-- Accent bar -->
+                            <div class="seller-card-accent"></div>
+                            <div class="p-5">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="font-semibold text-gray-900 flex items-center gap-2">
+                                        <i class="fas fa-store text-green-500 text-sm"></i>Seller
+                                    </h3>
+                                    <!-- Seller Rating -->
+                                    <div id="sellerRatingBadge" class="hidden seller-rating-badge">
+                                        <div class="seller-rating-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span id="sellerRatingValue" class="text-sm font-bold text-amber-500"></span>
+                                        <span id="sellerReviewCount" class="text-xs text-gray-400"></span>
                                     </div>
-                                    <p id="sellerCampus" class="text-sm text-gray-400 mb-0.5"></p>
-                                    <p
-                                        class="text-xs text-green-600/70 group-hover:text-green-600 transition-colors font-medium">
-                                        View all listings <i class="fas fa-arrow-right text-[10px] ml-1 group-hover:translate-x-0.5 transition-transform inline-block"></i>
-                                    </p>
                                 </div>
-                            </a>
+                                <a id="sellerProfileLink" href="#" class="seller-profile-link group">
+                                    <div class="seller-avatar-wrapper">
+                                        <div id="sellerAvatar"
+                                            class="seller-avatar">
+                                            <i class="fas fa-user text-white text-xl"></i>
+                                        </div>
+                                        <span class="seller-online-dot"></span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 flex-wrap">
+                                            <p id="sellerName"
+                                                class="font-semibold text-gray-800 group-hover:text-green-700 transition-colors truncate">
+                                            </p>
+                                            <span id="sellerVerifiedBadge"
+                                                class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-green-50 text-green-600 text-xs font-medium border border-green-100">
+                                                <i class="fas fa-check-circle"></i> Verified
+                                            </span>
+                                        </div>
+                                        <p id="sellerCampus" class="text-sm text-gray-500 flex items-center gap-1.5 mt-0.5">
+                                            <i class="fas fa-map-marker-alt text-green-400 text-xs"></i>
+                                            <span></span>
+                                        </p>
+                                        <div class="seller-meta">
+                                            <span id="sellerJoined" class="seller-meta-item">
+                                                <i class="far fa-calendar-alt"></i>
+                                                <span>Member</span>
+                                            </span>
+                                            <span class="seller-meta-divider"></span>
+                                            <span class="seller-meta-item text-green-600 font-medium group-hover:underline">
+                                                <i class="fas fa-th-large"></i>
+                                                <span>View all listings</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="seller-arrow">
+                                        <i class="fas fa-chevron-right text-gray-300 group-hover:text-green-500 transition-colors"></i>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
 
                         <!-- Contact Button -->
@@ -514,7 +538,22 @@
 
                 // Seller info
                 document.getElementById('sellerName').textContent = product.seller_name;
-                document.getElementById('sellerCampus').textContent = product.seller_campus || product.campus;
+                const campusEl = document.getElementById('sellerCampus');
+                const campusSpan = campusEl.querySelector('span');
+                if (campusSpan) {
+                    campusSpan.textContent = product.seller_campus || product.campus;
+                } else {
+                    campusEl.textContent = product.seller_campus || product.campus;
+                }
+
+                // Member since
+                const joinedEl = document.getElementById('sellerJoined');
+                if (joinedEl && product.seller_joined) {
+                    const joinedSpan = joinedEl.querySelector('span');
+                    const joinDate = new Date(product.seller_joined);
+                    const monthYear = joinDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                    if (joinedSpan) joinedSpan.textContent = `Since ${monthYear}`;
+                }
 
                 if (product.seller_image) {
                     document.getElementById('sellerAvatar').innerHTML = `<img src="${product.seller_image}" alt="${product.seller_name}" class="w-full h-full object-cover">`;

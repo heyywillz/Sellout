@@ -7,8 +7,7 @@
     <meta name="description" content="Admin Dashboard - Sellout Campus Marketplace">
     <title>Admin Dashboard | Sellout</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="css/style.css?v=7">
@@ -19,7 +18,7 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Satoshi', 'sans-serif'],
                     },
                 }
             }
@@ -845,7 +844,7 @@
                     renderChart('categoryChartCanvas', 'doughnut', {
                         labels: d.categories.map(c => c.category),
                         datasets: [{ data: d.categories.map(c => c.count), backgroundColor: d.categories.map(c => catColors[c.category] || '#9ca3af'), borderWidth: 2, borderColor: cc.border, hoverOffset: 8 }]
-                    }, { cutout: '55%', plugins: { legend: { position: 'bottom', labels: { color: cc.text, padding: 16, usePointStyle: true, pointStyleWidth: 10, font: { family: 'Inter', size: 12 } } } } });
+                    }, { cutout: '55%', plugins: { legend: { position: 'bottom', labels: { color: cc.text, padding: 16, usePointStyle: true, pointStyleWidth: 10, font: { family: 'Satoshi', size: 12 } } } } });
                 }
 
                 // Auth methods pie chart
@@ -854,7 +853,7 @@
                 renderChart('authChartCanvas', 'pie', {
                     labels: ['Email/Password', 'Google OAuth'],
                     datasets: [{ data: [localUsers, googleUsers], backgroundColor: ['#6366f1', '#ef4444'], borderWidth: 2, borderColor: cc.border, hoverOffset: 8 }]
-                }, { plugins: { legend: { position: 'bottom', labels: { color: cc.text, padding: 16, usePointStyle: true, pointStyleWidth: 10, font: { family: 'Inter', size: 12 } } } } });
+                }, { plugins: { legend: { position: 'bottom', labels: { color: cc.text, padding: 16, usePointStyle: true, pointStyleWidth: 10, font: { family: 'Satoshi', size: 12 } } } } });
 
                 // Product status bar chart
                 const available = Number(d.products.available || 0);
@@ -862,7 +861,7 @@
                 renderChart('productStatusChartCanvas', 'bar', {
                     labels: ['Available', 'Sold'],
                     datasets: [{ label: 'Products', data: [available, sold], backgroundColor: ['#22c55e', '#a855f7'], borderRadius: 8, barThickness: 60 }]
-                }, { indexAxis: 'x', plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: cc.text, font: { family: 'Inter' } }, grid: { color: cc.grid } }, x: { grid: { display: false }, ticks: { color: cc.text, font: { family: 'Inter', weight: 600 } } } } });
+                }, { indexAxis: 'x', plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: cc.text, font: { family: 'Satoshi' } }, grid: { color: cc.grid } }, x: { grid: { display: false }, ticks: { color: cc.text, font: { family: 'Satoshi', weight: 600 } } } } });
             } catch (error) {
                 console.error('Error loading overview:', error);
             }
@@ -1099,7 +1098,7 @@
                     renderChart('campusUsersCanvas', 'bar', {
                         labels: d.users_by_campus.map(c => c.campus),
                         datasets: [{ label: 'Users', data: d.users_by_campus.map(c => c.user_count), backgroundColor: palette.slice(0, d.users_by_campus.length), borderRadius: 6, barThickness: 28 }]
-                    }, { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, ticks: { stepSize: 1, color: cc.text, font: { family: 'Inter' } }, grid: { color: cc.grid } }, y: { grid: { display: false }, ticks: { color: cc.text, font: { family: 'Inter', size: 12 } } } } });
+                    }, { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, ticks: { stepSize: 1, color: cc.text, font: { family: 'Satoshi' } }, grid: { color: cc.grid } }, y: { grid: { display: false }, ticks: { color: cc.text, font: { family: 'Satoshi', size: 12 } } } } });
                 }
 
                 // Products by campus horizontal bar chart
@@ -1110,7 +1109,7 @@
                             { label: 'Available', data: d.products_by_campus.map(c => c.available || 0), backgroundColor: '#22c55e', borderRadius: 6, barThickness: 20 },
                             { label: 'Sold', data: d.products_by_campus.map(c => c.sold || 0), backgroundColor: '#a855f7', borderRadius: 6, barThickness: 20 }
                         ]
-                    }, { indexAxis: 'y', plugins: { legend: { position: 'top', labels: { color: cc.text, usePointStyle: true, pointStyleWidth: 10, font: { family: 'Inter', size: 12 } } } }, scales: { x: { stacked: true, beginAtZero: true, ticks: { stepSize: 1, color: cc.text, font: { family: 'Inter' } }, grid: { color: cc.grid } }, y: { stacked: true, grid: { display: false }, ticks: { color: cc.text, font: { family: 'Inter', size: 12 } } } } });
+                    }, { indexAxis: 'y', plugins: { legend: { position: 'top', labels: { color: cc.text, usePointStyle: true, pointStyleWidth: 10, font: { family: 'Satoshi', size: 12 } } } }, scales: { x: { stacked: true, beginAtZero: true, ticks: { stepSize: 1, color: cc.text, font: { family: 'Satoshi' } }, grid: { color: cc.grid } }, y: { stacked: true, grid: { display: false }, ticks: { color: cc.text, font: { family: 'Satoshi', size: 12 } } } } });
                 }
 
                 // Campus details table

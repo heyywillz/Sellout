@@ -4,3 +4,8 @@ uploads/
 *.log
 .DS_Store
 Thumbs.db
+
+# Deployment and Temporary Logs
+logs/
+.vercel/
+*.txt

@@ -79,6 +79,18 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+// Temporary Seed Endpoint
+app.get('/api/trigger-seed', (req, res) => {
+    const { exec } = require('child_process');
+    exec('node seeds/seed.js', (err, stdout, stderr) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ success: false, error: err.message, stderr });
+        }
+        res.json({ success: true, message: 'Database successfully seeded!', stdout });
+    });
+});
+
 // 404 handler
 app.use((req, res) => {
     res.status(404).json({

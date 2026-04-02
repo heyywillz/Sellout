@@ -6,184 +6,204 @@ dotenv.config();
 
 const products = [
     {
-        "title": "Apple AirPods Max Silver",
-        "description": "The Apple AirPods Max in Silver are premium over-ear headphones with high-fidelity audio, adaptive EQ, and active noise cancellation. Experience immersive sound in style.",
+        "title": "iPhone 13 Pro - 128GB Sierra Blue",
+        "description": "Neatly used iPhone 13 Pro. Battery health 88%. Comes with original cable and a case. No scratches on screen.",
         "category": "Electronics",
         "product_condition": "Used",
-        "price": "6599.88",
-        "campus": "KNUST",
-        "image_url": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods-max-silver/thumbnail.webp"
-    },
-    {
-        "title": "Apple iPhone Charger",
-        "description": "The Apple iPhone Charger is a high-quality charger designed for fast and efficient charging of your iPhone. Ensure your device stays powered up and ready to go.",
-        "category": "Electronics",
-        "product_condition": "New",
-        "price": "239.88",
-        "campus": "KNUST",
-        "image_url": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-iphone-charger/thumbnail.webp"
-    },
-    {
-        "title": "Apple MagSafe Battery Pack",
-        "description": "The Apple MagSafe Battery Pack is a portable and convenient way to add extra battery life to your MagSafe-compatible iPhone. Attach it magnetically for a secure connection.",
-        "category": "Electronics",
-        "product_condition": "Fairly Used",
-        "price": "1199.88",
-        "campus": "UENR",
-        "image_url": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-magsafe-battery-pack/thumbnail.webp"
-    },
-    {
-        "title": "Beats Flex Wireless Earphones",
-        "description": "The Beats Flex Wireless Earphones offer a comfortable and versatile audio experience. With magnetic earbuds and up to 12 hours of battery life, they are ideal for everyday use.",
-        "category": "Electronics",
-        "product_condition": "Used",
-        "price": "599.88",
-        "campus": "UENR",
-        "image_url": "https://cdn.dummyjson.com/product-images/mobile-accessories/beats-flex-wireless-earphones/thumbnail.webp"
-    },
-    {
-        "title": "Apple MacBook Pro 14 Inch Space Grey",
-        "description": "The MacBook Pro 14 Inch in Space Grey is a powerful and sleek laptop, featuring Apple's M1 Pro chip for exceptional performance and a stunning Retina display.",
-        "category": "Electronics",
-        "product_condition": "Fairly Used",
-        "price": "23999.88",
-        "campus": "Ashesi",
-        "image_url": "https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/thumbnail.webp"
-    },
-    {
-        "title": "Asus Zenbook Pro Dual Screen Laptop",
-        "description": "The Asus Zenbook Pro Dual Screen Laptop is a high-performance device with dual screens, providing productivity and versatility for creative professionals.",
-        "category": "Electronics",
-        "product_condition": "New",
-        "price": "21599.88",
-        "campus": "KNUST",
-        "image_url": "https://cdn.dummyjson.com/product-images/laptops/asus-zenbook-pro-dual-screen-laptop/thumbnail.webp"
-    },
-    {
-        "title": "Huawei Matebook X Pro",
-        "description": "The Huawei Matebook X Pro is a slim and stylish laptop with a high-resolution touchscreen display, offering a premium experience for users on the go.",
-        "category": "Electronics",
-        "product_condition": "Fairly Used",
-        "price": "16799.88",
-        "campus": "Korle-Bu",
-        "image_url": "https://cdn.dummyjson.com/product-images/laptops/huawei-matebook-x-pro/thumbnail.webp"
-    },
-    {
-        "title": "Lenovo Yoga 920",
-        "description": "The Lenovo Yoga 920 is a 2-in-1 convertible laptop with a flexible hinge, allowing you to use it as a laptop or tablet, offering versatility and portability.",
-        "category": "Electronics",
-        "product_condition": "Fairly Used",
-        "price": "13199.88",
-        "campus": "UENR",
-        "image_url": "https://cdn.dummyjson.com/product-images/laptops/lenovo-yoga-920/thumbnail.webp"
-    },
-    {
-        "title": "Calvin Klein Heel Shoes",
-        "description": "Calvin Klein Heel Shoes are elegant and sophisticated, designed for formal occasions. With a classic design and high-quality materials, they complement your stylish ensemble.",
-        "category": "Fashion",
-        "product_condition": "New",
-        "price": "959.88",
+        "price": 5500,
         "campus": "Legon Campus",
-        "image_url": "https://cdn.dummyjson.com/product-images/womens-shoes/calvin-klein-heel-shoes/thumbnail.webp"
+        "image_url": "https://source.unsplash.com/800x800/?iphone-13-pro,sierra-blue",
+        "status": "available"
     },
     {
-        "title": "Golden Shoes Woman",
-        "description": "The Golden Shoes for Women are a glamorous choice for special occasions. Featuring a golden hue and stylish design, they add a touch of luxury to your outfit.",
-        "category": "Fashion",
-        "product_condition": "Used",
-        "price": "599.88",
-        "campus": "Legon Campus",
-        "image_url": "https://cdn.dummyjson.com/product-images/womens-shoes/golden-shoes-woman/thumbnail.webp"
-    },
-    {
-        "title": "Pampi Shoes",
-        "description": "Pampi Shoes offer a blend of comfort and style for everyday use. With a versatile design, they are suitable for various casual occasions, providing a trendy and relaxed look.",
-        "category": "Fashion",
-        "product_condition": "Used",
-        "price": "359.88",
-        "campus": "KNUST",
-        "image_url": "https://cdn.dummyjson.com/product-images/womens-shoes/pampi-shoes/thumbnail.webp"
-    },
-    {
-        "title": "Red Shoes",
-        "description": "The Red Shoes make a bold statement with their vibrant red color. Whether for a party or a casual outing, these shoes add a pop of color and style to your wardrobe.",
-        "category": "Fashion",
-        "product_condition": "New",
-        "price": "419.88",
-        "campus": "UENR",
-        "image_url": "https://cdn.dummyjson.com/product-images/womens-shoes/red-shoes/thumbnail.webp"
-    },
-    {
-        "title": "Blue & Black Check Shirt",
-        "description": "The Blue & Black Check Shirt is a stylish and comfortable men's shirt featuring a classic check pattern. Made from high-quality fabric, it's suitable for both casual and semi-formal occasions.",
-        "category": "Fashion",
-        "product_condition": "Used",
-        "price": "359.88",
-        "campus": "UENR",
-        "image_url": "https://cdn.dummyjson.com/product-images/mens-shirts/blue-&-black-check-shirt/thumbnail.webp"
-    },
-    {
-        "title": "Gigabyte Aorus Men Tshirt",
-        "description": "The Gigabyte Aorus Men Tshirt is a cool and casual shirt for gaming enthusiasts. With the Aorus logo and sleek design, it's perfect for expressing your gaming style.",
-        "category": "Fashion",
+        "title": "Engineering Mathematics by K.A. Stroud",
+        "description": "7th Edition. Essential for all engineering students. Slight highlighting on first few pages but generally in good condition.",
+        "category": "Books",
         "product_condition": "Fairly Used",
-        "price": "299.88",
-        "campus": "Ashesi",
-        "image_url": "https://cdn.dummyjson.com/product-images/mens-shirts/gigabyte-aorus-men-tshirt/thumbnail.webp"
+        "price": 150,
+        "campus": "KNUST",
+        "image_url": "https://source.unsplash.com/800x800/?engineering-mathematics-book",
+        "status": "available"
     },
     {
-        "title": "Man Plaid Shirt",
-        "description": "The Man Plaid Shirt is a timeless and versatile men's shirt with a classic plaid pattern. Its comfortable fit and casual style make it a wardrobe essential for various occasions.",
+        "title": "Nike Air Force 1 - White (Size 42)",
+        "description": "Brand new in box. Never worn. Received as a gift but size was wrong. Original authentic Nikes.",
         "category": "Fashion",
         "product_condition": "New",
-        "price": "419.88",
+        "price": 300,
         "campus": "UCC",
-        "image_url": "https://cdn.dummyjson.com/product-images/mens-shirts/man-plaid-shirt/thumbnail.webp"
+        "image_url": "https://source.unsplash.com/800x800/?nike-air-force-1-white",
+        "status": "available"
     },
     {
-        "title": "Man Short Sleeve Shirt",
-        "description": "The Man Short Sleeve Shirt is a breezy and stylish option for warm days. With a comfortable fit and short sleeves, it's perfect for a laid-back yet polished look.",
+        "title": "Wooden Study Desk and Chair",
+        "description": "Sturdy wooden desk perfect for studying. Comes with a comfortable padded chair. Moving out so need it gone ASAP.",
+        "category": "Furniture",
+        "product_condition": "Used",
+        "price": 450,
+        "campus": "Legon Campus",
+        "image_url": "https://source.unsplash.com/800x800/?wooden-study-desk,chair",
+        "status": "available"
+    },
+    {
+        "title": "Casio FX-991EX Classwiz Calculator",
+        "description": "Brand new scientific calculator. Allowed in all exams. Solar powered.",
+        "category": "Others",
+        "product_condition": "New",
+        "price": 130,
+        "campus": "KNUST",
+        "image_url": "https://source.unsplash.com/800x800/?scientific-calculator",
+        "status": "available"
+    },
+    {
+        "title": "Dell XPS 13 Laptop",
+        "description": "Core i7, 16GB RAM, 512GB SSD. Perfect for coding and assignments. Battery lasts about 6 hours. Few scratches on the lid.",
+        "category": "Electronics",
+        "product_condition": "Fairly Used",
+        "price": 5500,
+        "campus": "Ashesi",
+        "image_url": "https://source.unsplash.com/800x800/?dell-xps-13,laptop",
+        "status": "available"
+    },
+    {
+        "title": "Vintage Blue Denim Jacket",
+        "description": "Classic oversized denim jacket. Size M/L. Great condition.",
         "category": "Fashion",
         "product_condition": "Used",
-        "price": "239.88",
+        "price": 120,
         "campus": "Legon Campus",
-        "image_url": "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/thumbnail.webp"
+        "image_url": "https://source.unsplash.com/800x800/?denim-jacket,blue",
+        "status": "available"
     },
     {
-        "title": "Annibale Colombo Bed",
-        "description": "The Annibale Colombo Bed is a luxurious and elegant bed frame, crafted with high-quality materials for a comfortable and stylish bedroom.",
+        "title": "Introduction to Algorithms (CLRS)",
+        "description": "The bible of computer science algorithms. Hardcover 3rd Edition. Completely new.",
+        "category": "Books",
+        "product_condition": "New",
+        "price": 120,
+        "campus": "Ashesi",
+        "image_url": "https://source.unsplash.com/800x800/?algorithms-book",
+        "status": "sold"
+    },
+    {
+        "title": "Mini Fridge - Sharp 90L",
+        "description": "Works perfectly. Froster is very cold. Ideal for hostel room. Cleaning it out before selling.",
         "category": "Furniture",
         "product_condition": "Used",
-        "price": "2200.00",
-        "campus": "Korle-Bu",
-        "image_url": "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/thumbnail.webp"
+        "price": 900,
+        "campus": "UCC",
+        "image_url": "https://source.unsplash.com/800x800/?mini-fridge",
+        "status": "available"
     },
     {
-        "title": "Annibale Colombo Sofa",
-        "description": "The Annibale Colombo Sofa is a sophisticated and comfortable seating option.",
-        "category": "Furniture",
-        "product_condition": "Fairly Used",
-        "price": "3000.00",
-        "campus": "KNUST",
-        "image_url": "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/thumbnail.webp"
-    },
-    {
-        "title": "Bedside Table African Cherry",
-        "description": "Stylish and functional addition to your bedroom.",
-        "category": "Furniture",
-        "product_condition": "Fairly Used",
-        "price": "350.00",
-        "campus": "Korle-Bu",
-        "image_url": "https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/thumbnail.webp"
-    },
-    {
-        "title": "Knoll Saarinen Chair",
-        "description": "Modern and ergonomic chair, perfect for your office.",
-        "category": "Furniture",
+        "title": "Electric Kettle 2.0L",
+        "description": "Fast boiling electric kettle. Stainless steel body. Brand new in box.",
+        "category": "Others",
         "product_condition": "New",
-        "price": "600.00",
+        "price": 150,
+        "campus": "KNUST",
+        "image_url": "https://source.unsplash.com/800x800/?electric-kettle",
+        "status": "available"
+    },
+    {
+        "title": "Sony WH-1000XM4 Noise Cancelling Headphones",
+        "description": "Best in class noise cancellation. Used for 6 months. Pads are still soft. Comes with carrying case.",
+        "category": "Electronics",
+        "product_condition": "Used",
+        "price": 450,
         "campus": "Legon Campus",
-        "image_url": "https://cdn.dummyjson.com/product-images/furniture/knoll-saarinen-executive-conference-chair/thumbnail.webp"
+        "image_url": "https://source.unsplash.com/800x800/?sony-headphones",
+        "status": "available"
+    },
+    {
+        "title": "Anatomy Flashcards",
+        "description": "Great for medical students. Complete set, none missing.",
+        "category": "Books",
+        "product_condition": "Fairly Used",
+        "price": 80,
+        "campus": "Korle-Bu",
+        "image_url": "https://source.unsplash.com/800x800/?anatomy-flashcards",
+        "status": "available"
+    },
+    {
+        "title": "HP LaserJet Pro Printer",
+        "description": "Black and white laser printer. Prints fast and clean. Toner still about 60%. Perfect for assignments and project work.",
+        "category": "Electronics",
+        "product_condition": "Used",
+        "price": 1200,
+        "campus": "KNUST",
+        "image_url": "https://source.unsplash.com/800x800/?laser-printer",
+        "status": "available"
+    },
+    {
+        "title": "MacBook Air M1 (2020)",
+        "description": "8GB RAM, 256GB SSD. Extremely fast and battery lasts all day. Very clean with no dents.",
+        "category": "Electronics",
+        "product_condition": "Used",
+        "price": 7200,
+        "campus": "UCC",
+        "image_url": "https://source.unsplash.com/800x800/?macbook-air-m1",
+        "status": "available"
+    },
+    {
+        "title": "Data Structures and Algorithms in Java",
+        "description": "Comprehensive guide for CS students. Paperback. Few highlights inside.",
+        "category": "Books",
+        "product_condition": "Fairly Used",
+        "price": 200,
+        "campus": "UENR",
+        "image_url": "https://source.unsplash.com/800x800/?java-programming-book",
+        "status": "available"
+    },
+    {
+        "title": "Standing Fan - Binatone",
+        "description": "16-inch standing fan. Very powerful with 3 speed levels. Works perfectly.",
+        "category": "Others",
+        "product_condition": "Used",
+        "price": 250,
+        "campus": "KNUST",
+        "image_url": "https://source.unsplash.com/800x800/?standing-fan",
+        "status": "available"
+    },
+    {
+        "title": "Bed Frame (4x6)",
+        "description": "Strong metal bed frame. No mattress included. Slight rust at the bottom but still sturdy.",
+        "category": "Furniture",
+        "product_condition": "Fairly Used",
+        "price": 500,
+        "campus": "UCC",
+        "image_url": "https://source.unsplash.com/800x800/?bed-frame",
+        "status": "available"
+    },
+    {
+        "title": "Office Swivel Chair",
+        "description": "Comfortable adjustable office chair with back support. Rolls smoothly. Great for long study hours.",
+        "category": "Furniture",
+        "product_condition": "Used",
+        "price": 350,
+        "campus": "Ashesi",
+        "image_url": "https://source.unsplash.com/800x800/?office-chair",
+        "status": "available"
+    },
+    {
+        "title": "Logitech Wireless Mouse",
+        "description": "Ergonomic wireless mouse with USB receiver. Battery included.",
+        "category": "Electronics",
+        "product_condition": "New",
+        "price": 70,
+        "campus": "Ashesi",
+        "image_url": "https://source.unsplash.com/800x800/?wireless-mouse",
+        "status": "available"
+    },
+    {
+        "title": "Adidas Ultraboost 22",
+        "description": "Brand new in box, received as a gift but already have similar ones. Size 43, perfect for jogging and casual wear.",
+        "category": "Fashion",
+        "product_condition": "New",
+        "price": 350,
+        "campus": "KNUST",
+        "image_url": "https://source.unsplash.com/800x800/?adidas-ultraboost",
+        "status": "available"
     }
 ];
 

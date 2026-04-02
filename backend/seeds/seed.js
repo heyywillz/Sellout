@@ -12,7 +12,7 @@ const products = [
         "product_condition": "Used",
         "price": 5500,
         "campus": "Legon Campus",
-        "image_url": "https://source.unsplash.com/800x800/?iphone-13-pro,sierra-blue",
+        "image_url": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80",
         "status": "available"
     },
     {
@@ -22,7 +22,7 @@ const products = [
         "product_condition": "Fairly Used",
         "price": 150,
         "campus": "KNUST",
-        "image_url": "https://source.unsplash.com/800x800/?engineering-mathematics-book",
+        "image_url": "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80",
         "status": "available"
     },
     {
@@ -32,7 +32,7 @@ const products = [
         "product_condition": "New",
         "price": 300,
         "campus": "UCC",
-        "image_url": "https://source.unsplash.com/800x800/?nike-air-force-1-white",
+        "image_url": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80",
         "status": "available"
     },
     {
@@ -42,7 +42,7 @@ const products = [
         "product_condition": "Used",
         "price": 450,
         "campus": "Legon Campus",
-        "image_url": "https://source.unsplash.com/800x800/?wooden-study-desk,chair",
+        "image_url": "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800&q=80",
         "status": "available"
     },
     {
@@ -52,7 +52,7 @@ const products = [
         "product_condition": "New",
         "price": 130,
         "campus": "KNUST",
-        "image_url": "https://source.unsplash.com/800x800/?scientific-calculator",
+        "image_url": "https://images.unsplash.com/photo-1616053303358-154f85e49221?w=800&q=80",
         "status": "available"
     },
     {
@@ -62,7 +62,7 @@ const products = [
         "product_condition": "Fairly Used",
         "price": 5500,
         "campus": "Ashesi",
-        "image_url": "https://source.unsplash.com/800x800/?dell-xps-13,laptop",
+        "image_url": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&q=80",
         "status": "available"
     },
     {
@@ -72,7 +72,7 @@ const products = [
         "product_condition": "Used",
         "price": 120,
         "campus": "Legon Campus",
-        "image_url": "https://source.unsplash.com/800x800/?denim-jacket,blue",
+        "image_url": "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=800&q=80",
         "status": "available"
     },
     {
@@ -82,7 +82,7 @@ const products = [
         "product_condition": "New",
         "price": 120,
         "campus": "Ashesi",
-        "image_url": "https://source.unsplash.com/800x800/?algorithms-book",
+        "image_url": "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&q=80",
         "status": "sold"
     },
     {
@@ -92,7 +92,7 @@ const products = [
         "product_condition": "Used",
         "price": 900,
         "campus": "UCC",
-        "image_url": "https://source.unsplash.com/800x800/?mini-fridge",
+        "image_url": "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=800&q=80",
         "status": "available"
     },
     {
@@ -102,7 +102,7 @@ const products = [
         "product_condition": "New",
         "price": 150,
         "campus": "KNUST",
-        "image_url": "https://source.unsplash.com/800x800/?electric-kettle",
+        "image_url": "https://images.unsplash.com/photo-1585834863345-4de68be54848?w=800&q=80",
         "status": "available"
     },
     {
@@ -112,7 +112,7 @@ const products = [
         "product_condition": "Used",
         "price": 450,
         "campus": "Legon Campus",
-        "image_url": "https://source.unsplash.com/800x800/?sony-headphones",
+        "image_url": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800&q=80",
         "status": "available"
     },
     {
@@ -122,7 +122,7 @@ const products = [
         "product_condition": "Fairly Used",
         "price": 80,
         "campus": "Korle-Bu",
-        "image_url": "https://source.unsplash.com/800x800/?anatomy-flashcards",
+        "image_url": "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=800&q=80",
         "status": "available"
     },
     {
@@ -132,7 +132,7 @@ const products = [
         "product_condition": "Used",
         "price": 1200,
         "campus": "KNUST",
-        "image_url": "https://source.unsplash.com/800x800/?laser-printer",
+        "image_url": "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=800&q=80",
         "status": "available"
     },
     {
@@ -142,7 +142,7 @@ const products = [
         "product_condition": "Used",
         "price": 7200,
         "campus": "UCC",
-        "image_url": "https://source.unsplash.com/800x800/?macbook-air-m1",
+        "image_url": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&q=80",
         "status": "available"
     },
     {
@@ -152,7 +152,7 @@ const products = [
         "product_condition": "Fairly Used",
         "price": 200,
         "campus": "UENR",
-        "image_url": "https://source.unsplash.com/800x800/?java-programming-book",
+        "image_url": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
         "status": "available"
     },
     {
@@ -162,7 +162,7 @@ const products = [
         "product_condition": "Used",
         "price": 250,
         "campus": "KNUST",
-        "image_url": "https://source.unsplash.com/800x800/?standing-fan",
+        "image_url": "https://images.unsplash.com/photo-1618220179428-22790b46a0eb?w=800&q=80",
         "status": "available"
     },
     {
@@ -172,7 +172,7 @@ const products = [
         "product_condition": "Fairly Used",
         "price": 500,
         "campus": "UCC",
-        "image_url": "https://source.unsplash.com/800x800/?bed-frame",
+        "image_url": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80",
         "status": "available"
     },
     {
@@ -182,7 +182,7 @@ const products = [
         "product_condition": "Used",
         "price": 350,
         "campus": "Ashesi",
-        "image_url": "https://source.unsplash.com/800x800/?office-chair",
+        "image_url": "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?w=800&q=80",
         "status": "available"
     },
     {
@@ -192,7 +192,7 @@ const products = [
         "product_condition": "New",
         "price": 70,
         "campus": "Ashesi",
-        "image_url": "https://source.unsplash.com/800x800/?wireless-mouse",
+        "image_url": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800&q=80",
         "status": "available"
     },
     {
@@ -202,7 +202,7 @@ const products = [
         "product_condition": "New",
         "price": 350,
         "campus": "KNUST",
-        "image_url": "https://source.unsplash.com/800x800/?adidas-ultraboost",
+        "image_url": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&q=80",
         "status": "available"
     }
 ];

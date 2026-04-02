@@ -46,16 +46,6 @@ const products = [
         "status": "available"
     },
     {
-        "title": "Casio FX-991EX Classwiz Calculator",
-        "description": "Brand new scientific calculator. Allowed in all exams. Solar powered.",
-        "category": "Others",
-        "product_condition": "New",
-        "price": 130,
-        "campus": "KNUST",
-        "image_url": "https://images.unsplash.com/photo-1616053303358-154f85e49221?w=800&q=80",
-        "status": "available"
-    },
-    {
         "title": "Dell XPS 13 Laptop",
         "description": "Core i7, 16GB RAM, 512GB SSD. Perfect for coding and assignments. Battery lasts about 6 hours. Few scratches on the lid.",
         "category": "Electronics",
@@ -93,16 +83,6 @@ const products = [
         "price": 900,
         "campus": "UCC",
         "image_url": "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=800&q=80",
-        "status": "available"
-    },
-    {
-        "title": "Electric Kettle 2.0L",
-        "description": "Fast boiling electric kettle. Stainless steel body. Brand new in box.",
-        "category": "Others",
-        "product_condition": "New",
-        "price": 150,
-        "campus": "KNUST",
-        "image_url": "https://images.unsplash.com/photo-1585834863345-4de68be54848?w=800&q=80",
         "status": "available"
     },
     {
@@ -153,16 +133,6 @@ const products = [
         "price": 200,
         "campus": "UENR",
         "image_url": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
-        "status": "available"
-    },
-    {
-        "title": "Standing Fan - Binatone",
-        "description": "16-inch standing fan. Very powerful with 3 speed levels. Works perfectly.",
-        "category": "Others",
-        "product_condition": "Used",
-        "price": 250,
-        "campus": "KNUST",
-        "image_url": "https://images.unsplash.com/photo-1618220179428-22790b46a0eb?w=800&q=80",
         "status": "available"
     },
     {

@@ -234,7 +234,7 @@ const seed = async () => {
                     product.price,
                     product.campus,
                     product.image_url,
-                    product.status || 'available'
+                    product.status
                 ]
             );
         }

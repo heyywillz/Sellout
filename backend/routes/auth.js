@@ -1,9 +1,17 @@
 const express = require('express');
 const { body } = require('express-validator');
+const rateLimit = require('express-rate-limit');
 const { register, login, getMe, googleAuth } = require('../controllers/authController');
 const { auth } = require('../middleware/auth');
 
 const router = express.Router();
+
+// Strict rate limit for auth routes to prevent credential brute-forcing
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 mins
+    max: 15, // Limit 15 login/register attempts
+    message: { success: false, message: 'Too many authentication attempts, please try again in 15 minutes.' }
+});
 
 // Validation rules
 const registerValidation = [
@@ -39,9 +47,9 @@ const loginValidation = [
 ];
 
 // Routes
-router.post('/register', registerValidation, register);
-router.post('/login', loginValidation, login);
-router.post('/google', googleAuth);
+router.post('/register', authLimiter, registerValidation, register);
+router.post('/login', authLimiter, loginValidation, login);
+router.post('/google', authLimiter, googleAuth);
 router.get('/me', auth, getMe);
 
 module.exports = router;

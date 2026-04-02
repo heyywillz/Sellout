@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const hpp = require('hpp');
 const path = require('path');
 require('dotenv').config();
 
@@ -30,14 +33,23 @@ const limiter = rateLimit({
 });
 
 // Middleware
+// Set security HTTP headers (Cross-Origin-Resource-Policy adjusted for static file viewing across ports)
+app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
+
+// Data sanitization against XSS malicious scripts
+app.use(xss());
+
+// Prevent HTTP parameter pollution
+app.use(hpp());
+
 const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000').split(',').map(s => s.trim());
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(null, true); // Allow all in development
+        if (!origin) return callback(null, true);
+        if (process.env.NODE_ENV === 'production' && !allowedOrigins.includes(origin)) {
+            return callback(new Error('Blocked by strict CORS policy'));
         }
+        callback(null, true);
     },
     credentials: true
 }));

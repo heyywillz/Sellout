@@ -363,10 +363,16 @@ const products = {
         // Mobile filter toggle
         const filterToggle = document.getElementById('filterToggle');
         const filterPanel = document.getElementById('filterPanel');
+        const closeFilters = document.getElementById('closeFilters');
 
         filterToggle?.addEventListener('click', () => {
             filterPanel?.classList.toggle('hidden');
             filterPanel?.classList.toggle('filter-panel-open');
+        });
+
+        closeFilters?.addEventListener('click', () => {
+            filterPanel?.classList.add('hidden');
+            filterPanel?.classList.remove('filter-panel-open');
         });
 
         // Load stats for hero section

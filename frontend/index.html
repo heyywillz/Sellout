@@ -4,11 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Sellout - Campus Resale Marketplace. Buy and sell used items within your university community.">
+    <meta name="description" content="Sellout - Campus Resale Marketplace. Buy and sell used items within your university community.">
     <meta name="keywords" content="campus, resale, marketplace, buy, sell, university, students">
+    <meta name="author" content="Sellout">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Sellout | Campus Resale Marketplace">
+    <meta property="og:description" content="The fastest way to resell your textbooks, gadgets, and furniture to fellow students safely.">
+    <meta property="og:image" content="https://sellout-campus.vercel.app/assets/og-image.jpg">
+    <meta property="og:url" content="https://sellout-campus.vercel.app">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://sellout-campus.vercel.app">
     <title>Sellout | Campus Resale Marketplace</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="assets/logo.png">
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -374,9 +383,14 @@
                     <div class="sticky top-24 p-5 rounded-2xl bg-white border border-gray-200 shadow-sm">
                         <div class="flex items-center justify-between mb-6">
                             <h3 class="font-semibold text-gray-900">Filters</h3>
-                            <button id="clearFilters"
-                                class="text-xs text-green-600 hover:text-green-700 transition-colors">Clear
-                                All</button>
+                            <div class="flex items-center gap-4">
+                                <button id="clearFilters"
+                                    class="text-xs text-green-600 hover:text-green-700 transition-colors">Clear
+                                    All</button>
+                                <button id="closeFilters" class="lg:hidden flex items-center justify-center w-8 h-8 rounded-full bg-gray-50 text-gray-500 hover:bg-gray-200 hover:text-gray-800 transition-all">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Campus Filter -->
@@ -572,12 +586,12 @@
     <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
 
     <!-- Scripts -->
-    <script src="js/config.js?v=6"></script>
-    <script src="js/utils.js?v=6"></script>
-    <script src="js/api.js?v=6"></script>
-    <script src="js/auth.js?v=6"></script>
-    <script src="js/products.js?v=6"></script>
-    <script src="js/app.js?v=6"></script>
+    <script src="js/config.js?v=7"></script>
+    <script src="js/utils.js?v=7"></script>
+    <script src="js/api.js?v=7"></script>
+    <script src="js/auth.js?v=7"></script>
+    <script src="js/products.js?v=7"></script>
+    <script src="js/app.js?v=7"></script>
 </body>
 
 </html>

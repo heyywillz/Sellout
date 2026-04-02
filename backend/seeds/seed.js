@@ -46,6 +46,36 @@ const products = [
         status: 'available'
     },
     {
+        title: 'Casio FX-991EX Classwiz Calculator',
+        description: 'Brand new scientific calculator. Allowed in all exams. Solar powered.',
+        category: 'Others',
+        product_condition: 'New',
+        price: 220.00,
+        campus: 'KNUST',
+        image_url: 'https://images.unsplash.com/photo-1564466809058-bf4114d55352?w=800',
+        status: 'available'
+    },
+    {
+        title: 'Dell XPS 13 Laptop',
+        description: 'Core i7, 16GB RAM, 512GB SSD. Perfect for coding and assignments. Battery lasts about 6 hours. Few scratches on the lid.',
+        category: 'Electronics',
+        product_condition: 'Fairly Used',
+        price: 5500.00,
+        campus: 'Ashesi',
+        image_url: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800',
+        status: 'available'
+    },
+    {
+        title: 'Vintage Blue Denim Jacket',
+        description: 'Classic oversized denim jacket. Size M/L. Great condition.',
+        category: 'Fashion',
+        product_condition: 'Used',
+        price: 120.00,
+        campus: 'Legon Campus',
+        image_url: 'https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=800',
+        status: 'available'
+    },
+    {
         title: 'Introduction to Algorithms (CLRS)',
         description: 'The bible of computer science algorithms. Hardcover 3rd Edition. Completely new.',
         category: 'Books',
@@ -66,12 +96,32 @@ const products = [
         status: 'available'
     },
     {
+        title: 'Electric Kettle 2.0L',
+        description: 'Fast boiling electric kettle. Stainless steel body. Brand new in box.',
+        category: 'Others',
+        product_condition: 'New',
+        price: 150.00,
+        campus: 'KNUST',
+        image_url: 'https://images.unsplash.com/photo-1585515320310-259814833e62?w=800',
+        status: 'available'
+    },
+    {
+        title: 'Sony WH-1000XM4 Noise Cancelling Headphones',
+        description: 'Best in class noise cancellation. Used for 6 months. Pads are still soft. Comes with carrying case.',
+        category: 'Electronics',
+        product_condition: 'Used',
+        price: 2800.00,
+        campus: 'Legon Campus',
+        image_url: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800',
+        status: 'available'
+    },
+    {
         title: 'Anatomy Flashcards',
         description: 'Great for medical students. Complete set, none missing.',
         category: 'Books',
         product_condition: 'Fairly Used',
         price: 80.00,
-        campus: 'UENR',
+        campus: 'Korle-Bu',
         image_url: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800',
         status: 'available'
     },
@@ -83,26 +133,6 @@ const products = [
         price: 1200.00,
         campus: 'KNUST',
         image_url: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=800',
-        status: 'available'
-    },
-    {
-        title: 'Samsung Galaxy Tab S6 Lite',
-        description: '10.4-inch display with S Pen included. Ideal for note-taking and watching lectures. Neatly used.',
-        category: 'Electronics',
-        product_condition: 'Fairly Used',
-        price: 3200.00,
-        campus: 'Legon Campus',
-        image_url: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800',
-        status: 'available'
-    },
-    {
-        title: 'Office Swivel Chair',
-        description: 'Comfortable adjustable office chair with back support. Rolls smoothly. Great for long study hours.',
-        category: 'Furniture',
-        product_condition: 'Used',
-        price: 350.00,
-        campus: 'Ashesi',
-        image_url: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800',
         status: 'available'
     },
     {
@@ -126,16 +156,6 @@ const products = [
         status: 'available'
     },
     {
-        title: 'Adidas Backpack',
-        description: 'Spacious and durable backpack. Multiple compartments for laptop and books.',
-        category: 'Fashion',
-        product_condition: 'Used',
-        price: 180.00,
-        campus: 'Legon Campus',
-        image_url: 'https://images.unsplash.com/photo-1581605405669-fcdf81165afa?w=800',
-        status: 'available'
-    },
-    {
         title: 'Standing Fan - Binatone',
         description: '16-inch standing fan. Very powerful with 3 speed levels. Works perfectly.',
         category: 'Others',
@@ -156,6 +176,16 @@ const products = [
         status: 'available'
     },
     {
+        title: 'Office Swivel Chair',
+        description: 'Comfortable adjustable office chair with back support. Rolls smoothly. Great for long study hours.',
+        category: 'Furniture',
+        product_condition: 'Used',
+        price: 350.00,
+        campus: 'Ashesi',
+        image_url: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800',
+        status: 'available'
+    },
+    {
         title: 'Logitech Wireless Mouse',
         description: 'Ergonomic wireless mouse with USB receiver. Battery included.',
         category: 'Electronics',
@@ -166,13 +196,13 @@ const products = [
         status: 'available'
     },
     {
-        title: 'Calculus Early Transcendentals by James Stewart',
-        description: '8th Edition. Essential for engineering and science students. Good condition.',
-        category: 'Books',
-        product_condition: 'Used',
-        price: 300.00,
-        campus: 'UENR',
-        image_url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800',
+        title: 'Adidas Ultraboost 22',
+        description: 'Brand new in box, received as a gift but already have similar ones. Size 43, perfect for jogging and casual wear.',
+        category: 'Fashion',
+        product_condition: 'New',
+        price: 850.00,
+        campus: 'KNUST',
+        image_url: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800',
         status: 'available'
     }
 ];
@@ -189,7 +219,7 @@ const seed = async () => {
             database: process.env.DB_NAME,
             ssl: {
                 minVersion: 'TLSv1.2',
-                rejectUnauthorized: true
+                rejectUnauthorized: false
             }
         });
 

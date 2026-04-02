@@ -357,14 +357,32 @@ The frontend is built with **Vanilla JavaScript** using a modular approach.
     - Backend uses `express-validator` to sanitize and validate all incoming data.
     - Prevents SQL Injection and XSS attacks by rejecting malformed input.
 
-5.  **CORS Policy**:
-    - The backend explicitly allows requests only from approved frontend domains.
+5.  **CORS Policy & HTTP Headers**:
+    - The backend explicitly allows requests only from approved frontend domains in production.
+    - `helmet` middleware injects secure HTTP headers to prevent clickjacking and sniffing.
 
-6.  **Rate Limiting**:
-    - API requests are rate-limited using `express-rate-limit` to prevent abuse.
+6.  **Rate Limiting & Anti-Brute Force**:
+    - API requests are rate-limited globally using `express-rate-limit` (100 req/15min) to prevent abuse.
+    - Strict `authLimiter` applied to `/login` and `/register` endpoints (15 req/15min) to stop credential stuffing.
 
-7.  **Image Upload Validation**:
+7.  **Payload Sanitization**:
+    - `xss-clean` deeply scrubs incoming requests to remove malicious Cross-Site Scripting payloads.
+    - `hpp` (HTTP Parameter Pollution) strips conflicting or duplicate parameter injections.
+
+8.  **Image Upload Validation**:
     - File type and size restrictions enforced via `multer` middleware.
+
+---
+
+##  SEO & Discoverability
+
+1.  **Open Graph & Social Cards**:
+    - Public pages (`index.html`, `product-details.html`, `seller.html`) automatically feature comprehensive `og:` metadata.
+    - Twitter card summaries and canonical URLs ensure high-fidelity link sharing across social platforms.
+
+2.  **Crawl Budgeting & Privacy**:
+    - Private pages (`admin.html`, `profile.html`, `favorites.html`, `upload-product.html`) are secured behind `<meta name="robots" content="noindex, nofollow">`.
+    - Prevents search engines from mistakenly scraping protected routes or penalizing the site for duplicate/gated content.
 
 ---
 
